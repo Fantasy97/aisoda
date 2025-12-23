@@ -1,0 +1,48 @@
+# 依赖目录
+node_modules/
+__pycache__/
+venv/
+env/
+.venv/
+
+# IDE配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 构建输出
+dist/
+build/
+*.pyc
+*.pyo
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 密钥和敏感信息
+*.pem
+*.key
+secrets/
+
