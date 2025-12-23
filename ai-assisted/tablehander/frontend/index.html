@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>综合信息查询</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzMzNzNkYyIvPgo8cGF0aCBkPSJNOCAxMmg0djRIOHYtNHptNiAwaDR2NGgtNHYtNHptNiAwaDR2NGgtNHYtNHoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo="
+                        alt="Logo">
+                    <span class="title">综合信息查询</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-success">信息搜索</button>
+                    <button class="btn btn-success" onclick="window.location.href='history.html'">历史数据</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 搜索区域 -->
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="请输入关键字" id="searchInput">
+                    <button class="search-btn" id="searchBtn">查询</button>
+                    <button class="update-btn" id="updateBtn">更新数据</button>
+                </div>
+                <div class="search-info" style="display: none;">
+                    <span class="search-result-count"></span>
+                    <span class="search-time"></span>
+                </div>
+            </div>
+
+            <!-- 搜索结果区域 -->
+            <div class="results-section" style="display: none;">
+                <!-- 来源：专精特新小巨人,建设信息 -->
+                <div class="result-group" id="specializedResults">
+                    <h3 class="result-title">来源：专精特新小巨人,建设信息</h3>
+                </div>
+            </div>
+
+            <!-- 推荐查询区域 -->
+            <div class="continue-search">
+                <h3 class="continue-title">推荐查询</h3>
+                <div class="quick-search-buttons">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

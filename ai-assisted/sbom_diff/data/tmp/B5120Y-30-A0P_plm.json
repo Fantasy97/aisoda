@@ -1,0 +1,151 @@
+{
+  "SOURCE": "PPPE",
+  "MARK": "B5120Y-30-A0P",
+  "OPERATOR": "sf",
+  "ARRAY": [
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "275-100017-00",
+      "BNUM": "1.0",
+      "BOMPST": "1",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "312-900316-00",
+      "BNUM": "1",
+      "BOMPST": "2",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "334-010202-00",
+      "BNUM": "1.0",
+      "BOMPST": "3",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "490-00004-00",
+      "BNUM": "2.0",
+      "BOMPST": "4",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "510-000025-00",
+      "BNUM": "1.0",
+      "BOMPST": "5",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "510-000028-00",
+      "BNUM": "1.0",
+      "BOMPST": "6",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "530-200010-01",
+      "BNUM": "1.0",
+      "BOMPST": "7",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "530-200011-00",
+      "BNUM": "1.0",
+      "BOMPST": "8",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "530-200016-00",
+      "BNUM": "1.0",
+      "BOMPST": "9",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "532-000074-00",
+      "BNUM": "1.0",
+      "BOMPST": "10",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "532-01021-00",
+      "BNUM": "1.0",
+      "BOMPST": "11",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "532-100036-00",
+      "BNUM": "3.0",
+      "BOMPST": "12",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "536-000033-00",
+      "BNUM": "1.0",
+      "BOMPST": "13",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "536-300001-00",
+      "BNUM": "1.0",
+      "BOMPST": "14",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "540-600512-00",
+      "BNUM": "1",
+      "BOMPST": "15",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    },
+    {
+      "PNO": "B5120Y-30-A0P",
+      "CNO": "610-52015-01",
+      "BNUM": "1.0",
+      "BOMPST": "16",
+      "OWNER": "adm",
+      "CREATOR": "adm",
+      "ASMEMO": "外部接口导入20251023"
+    }
+  ]
+}

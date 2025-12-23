@@ -1,0 +1,3502 @@
+{
+  "document_structure": [
+    {
+      "type": "paragraph",
+      "position": 0,
+      "content": "附件1",
+      "paragraph_index": 0
+    },
+    {
+      "type": "paragraph",
+      "position": 4,
+      "content": "第六批专精特新“小巨人”企业",
+      "paragraph_index": 1
+    },
+    {
+      "type": "paragraph",
+      "position": 5,
+      "content": "申  请  书",
+      "paragraph_index": 2
+    },
+    {
+      "type": "paragraph",
+      "position": 9,
+      "content": "企业名称（盖章）",
+      "paragraph_index": 3
+    },
+    {
+      "type": "paragraph",
+      "position": 10,
+      "content": "推荐时间",
+      "paragraph_index": 4
+    },
+    {
+      "type": "paragraph",
+      "position": 11,
+      "content": "推荐单位",
+      "paragraph_index": 5
+    },
+    {
+      "type": "paragraph",
+      "position": 13,
+      "content": "工业和信息化部制",
+      "paragraph_index": 6
+    },
+    {
+      "type": "paragraph",
+      "position": 14,
+      "content": "填报说明",
+      "paragraph_index": 7
+    },
+    {
+      "type": "paragraph",
+      "position": 16,
+      "content": "一、本申请书第一至第九部分由申请专精特新“小巨人”的企业（以下简称“申请企业”）线上填写后打印加盖公章。第十部分由推荐单位填写。",
+      "paragraph_index": 8
+    },
+    {
+      "type": "paragraph",
+      "position": 17,
+      "content": "二、“推荐单位”为申请企业注册所在地的省、自治区、直辖市及计划单列市、新疆生产建设兵团中小企业主管部门（简称省级中小企业主管部门）。",
+      "paragraph_index": 9
+    },
+    {
+      "type": "paragraph",
+      "position": 18,
+      "content": "三、申请企业须根据本通知列明的申请条件，上传相关说明或佐证材料，并保证所填内容和提交资料准确、真实、合法、有效、无涉密信息。如弄虚作假，取消本次申请资格，且至少三年内不得申请。",
+      "paragraph_index": 10
+    },
+    {
+      "type": "paragraph",
+      "position": 19,
+      "content": "四、省级中小企业主管部门组织报送纸质材料，作为我部审核的工作依据。纸质材料应与在线填报材料一致。",
+      "paragraph_index": 11
+    },
+    {
+      "type": "paragraph",
+      "position": 20,
+      "content": "五、省级中小企业主管部门须严格按照“第十部分”所列初核指标，认真对企业填写内容进行初审核实，提出推荐意见，并加盖公章。",
+      "paragraph_index": 12
+    },
+    {
+      "type": "table",
+      "position": 22,
+      "table_index": 0,
+      "structure": {
+        "rows": 111,
+        "columns": 19,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "一、企业基本情况",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "企业名称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 4,
+              "content": "爱士惟科技股份有限公司",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "企业注册地",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 4,
+              "content": "上海市   省  市辖区   市（区）  黄浦区    县",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "通讯地址",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 4,
+              "content": "上海市黄埔区蒙自路757号905B室",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 14,
+              "content": "邮编",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 17,
+              "content": "200001",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "法定代表人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 4,
+              "content": "张勇",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 7,
+              "content": "电话",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 11,
+              "content": "021-80401351",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 14,
+              "content": "手机",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 17,
+              "content": "13795496635",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "控股股东",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 4,
+              "content": "上海卓由企业管理咨询合伙企业（有限合伙）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 7,
+              "content": "实际控制人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 11,
+              "content": "张勇",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 14,
+              "content": "实际控制人国籍",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 17,
+              "content": "中国",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "联系人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 4,
+              "content": "黄志鹏",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 7,
+              "content": "电话",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 11,
+              "content": "021-80401351",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 14,
+              "content": "手机",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 17,
+              "content": "13917752020",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 7,
+              "col": 0,
+              "content": "传真",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 4,
+              "content": "02180401351",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 7,
+              "content": "E-mail",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 11,
+              "content": "zhipeng.huang@aiswei-tech.com",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 8,
+              "col": 0,
+              "content": "注册时间",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 4,
+              "content": "2009-05-27",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 11,
+              "content": "注册资本（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 14,
+              "content": "11195.6523",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 9,
+              "col": 0,
+              "content": "统一社会信用代码",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 4,
+              "content": "9132050569025789XP",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 10,
+              "col": 0,
+              "content": "根据《中小企业划型标准规定》（工信部联企业〔2011〕300号），企业规模属于",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 11,
+              "content": "□大型    ☑中型  □小型  □微型",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 11,
+              "col": 0,
+              "content": "所属行业",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 4,
+              "content": "2位数代码及名称： 38 电气机械和器材制造业",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 12,
+              "col": 0,
+              "content": "具体细分领域",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 4,
+              "content": "4位数代码及名称： 3825 光伏设备及元器件制造",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 13,
+              "col": 0,
+              "content": "企业类型",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 4,
+              "content": "□国有 □合资 ☑民营 □外资",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 14,
+              "col": 0,
+              "content": "是否与现有“小巨人”企业存在控股关系",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 4,
+              "content": "☑否  □是，存在控股关系企业名称：",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 15,
+              "col": 0,
+              "content": "同集团内是否有其他生产相似主导产品企业获得认定或申报",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 4,
+              "content": "☑否  □是，获认定/申报企业名称：",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 16,
+              "col": 0,
+              "content": "上市情况\n□无上市计划\n☑有上市计划\n□已上市（股票代码：       ）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 11,
+              "content": "上市计划（如有，请填写）\n1.上市进程：□ 未进行上市前股改\n□ 已完成上市前股改\n☑ 已提交上市申请\n2.拟上市地：\n□上交所主板     ☑上交所 科创板\n□深交所主 板    □深交所 创业板\n□北交所         □境外",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 17,
+              "col": 0,
+              "content": "二、经济效益和经营情况",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 18,
+              "col": 0,
+              "content": "重要指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 6,
+              "content": "2021年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 12,
+              "content": "2022年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 15,
+              "content": "2023年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 19,
+              "col": 0,
+              "content": "全职员工数量",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 6,
+              "content": "151人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 12,
+              "content": "320人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 15,
+              "content": "451人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 20,
+              "col": 0,
+              "content": "其中：研发人员数量",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 6,
+              "content": "88人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 12,
+              "content": "173人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 15,
+              "content": "234人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 21,
+              "col": 0,
+              "content": "营业收入",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 6,
+              "content": "764万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 12,
+              "content": "203万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 15,
+              "content": "256万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 22,
+              "col": 0,
+              "content": "其中：主营业务收入",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 6,
+              "content": "488万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 12,
+              "content": "179万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 15,
+              "content": "222万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 23,
+              "col": 0,
+              "content": "主营业务收入增长率",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 6,
+              "content": "109.5 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 12,
+              "content": "267.93 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 15,
+              "content": "23.64%",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 24,
+              "col": 0,
+              "content": "净利润总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 6,
+              "content": "-263万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 12,
+              "content": "134万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 15,
+              "content": "939万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 25,
+              "col": 0,
+              "content": "净利润增长率",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 25,
+              "col": 6,
+              "content": "-168.8 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 25,
+              "col": 12,
+              "content": "610.56 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 25,
+              "col": 15,
+              "content": "-30.15%",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 25,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 26,
+              "col": 0,
+              "content": "销售费用",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 6,
+              "content": "307万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 12,
+              "content": "805万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 15,
+              "content": "109万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 27,
+              "col": 0,
+              "content": "管理费用",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 6,
+              "content": "367万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 12,
+              "content": "582万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 15,
+              "content": "665万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 28,
+              "col": 0,
+              "content": "营业成本",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 6,
+              "content": "694万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 12,
+              "content": "165万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 15,
+              "content": "219万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 29,
+              "col": 0,
+              "content": "其中：主营业务成本",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 6,
+              "content": "461万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 12,
+              "content": "144万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 15,
+              "content": "190万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 30,
+              "col": 0,
+              "content": "资产总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 30,
+              "col": 6,
+              "content": "114万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 30,
+              "col": 12,
+              "content": "288万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 30,
+              "col": 15,
+              "content": "287万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 30,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 31,
+              "col": 0,
+              "content": "负债总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 6,
+              "content": "777万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 12,
+              "content": "181万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 15,
+              "content": "168万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 32,
+              "col": 0,
+              "content": "资产负债率",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 32,
+              "col": 6,
+              "content": "67.96 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 32,
+              "col": 12,
+              "content": "62.87 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 32,
+              "col": 15,
+              "content": "58.70 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 32,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 33,
+              "col": 0,
+              "content": "上缴税金",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 33,
+              "col": 6,
+              "content": "542万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 33,
+              "col": 12,
+              "content": "155万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 33,
+              "col": 15,
+              "content": "484万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 33,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 34,
+              "col": 0,
+              "content": "股权融资总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 34,
+              "col": 6,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 34,
+              "col": 12,
+              "content": "55万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 34,
+              "col": 15,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 34,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 35,
+              "col": 0,
+              "content": "对应估值",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 6,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 12,
+              "content": "51万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 15,
+              "content": "51万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 36,
+              "col": 0,
+              "content": "银行贷款",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 6,
+              "content": "910万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 12,
+              "content": "764万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 15,
+              "content": "287万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 37,
+              "col": 0,
+              "content": "境内债券",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 6,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 12,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 15,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 38,
+              "col": 0,
+              "content": "境外债券",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 6,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 12,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 15,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 39,
+              "col": 0,
+              "content": "审计报告编码",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 39,
+              "col": 6,
+              "content": "京235U3MHS80",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 39,
+              "col": 12,
+              "content": "京235U3MHS80",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 39,
+              "col": 15,
+              "content": "沪24L7R542P3",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 39,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 40,
+              "col": 0,
+              "content": "近3年是否申请银行贷款",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 6,
+              "content": "□否 ☑是 ，如是，请填写：\n信贷满足率100%（企业获批贷款额度/贷款申请额度）；\n所获得贷款主要用于下面哪些事项：\n☑日常生产经营 ☑扩大生产\n☑研发及技术改造 □海外分支机构运营及投资并购（可多选）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 41,
+              "col": 0,
+              "content": "下一步融资计划",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 6,
+              "content": "资金需求额：150000  万元；\n计划融资方式：\n□银行贷款 □股权融资  □债券融资  ☑上市融资  □其他",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 42,
+              "col": 0,
+              "content": "三、专业化",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 42,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 43,
+              "col": 0,
+              "content": "企业从事特定细分市场时间",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 43,
+              "col": 8,
+              "content": "15   年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 43,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 44,
+              "col": 0,
+              "content": "主营业务收入占营业收入比重",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 44,
+              "col": 8,
+              "content": "86.53  %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 44,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 45,
+              "col": 0,
+              "content": "近2年主营业务收入平均增长率",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 45,
+              "col": 8,
+              "content": "145.78    %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 45,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 46,
+              "col": 0,
+              "content": "排名前三的主要产品名称及收入总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 46,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 47,
+              "col": 0,
+              "content": "主要产品1",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 47,
+              "col": 2,
+              "content": "名称： 单芯片双核高精度控制10-25kW户用光伏并网逆变器\n收入： 75786.48  万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 47,
+              "col": 8,
+              "content": "该产品运用的主要I类知识产权名称（不超过3项）：__一种单相储能逆变系统的市电丢失检测方法__、__一种数字控制系统的规则采样PWM优化方法__、__一种光伏逆变器的控制方法和系统___\n（请上传知识产权证书截图）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 47,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 48,
+              "col": 0,
+              "content": "主要产品2",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 48,
+              "col": 2,
+              "content": "名称： 单芯片双核高精度控制33-40kW户用光伏并网逆变器\n收入： 41917.82  万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 48,
+              "col": 8,
+              "content": "该产品运用的主要I类知识产权名称（不超过3项）：__一种数字控制系统的规则采样PWM优化方法__、__一种光伏逆变器GFCI电路的控制方法及系统__、___一种光伏逆变器的控制方法和系统___\n（请上传该知识产权证书截图）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 48,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 49,
+              "col": 0,
+              "content": "主要产品3",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 49,
+              "col": 2,
+              "content": "名称： 单芯片双核高精度控制30kW户用光伏并网逆变器\n收入： 21716.54  万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 49,
+              "col": 8,
+              "content": "该产品运用的主要I类知识产权名称（不超过3项）：__一种光伏储能系统的能量调度系统及方法__、__一种光伏逆变器GFCI电路的控制方法及系统__、__一种数字控制系统的规则采样PWM优化方法___\n（请上传该知识产权证书截图）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 49,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 50,
+              "col": 0,
+              "content": "四、精细化",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 50,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 51,
+              "col": 0,
+              "content": "企业获得的管理体系认证情况（可多选）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 51,
+              "col": 6,
+              "content": "☑ISO9000质量管理体系认证☑ISO14000环境管理体系认证\n☑OHSAS18000职业安全健康管理体系认证☑其他 IECQ QC 080000:2017，两化融合体系贯标 （请说明）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 51,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 52,
+              "col": 0,
+              "content": "核心业务采用信息系统支撑情况（可多选）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 52,
+              "col": 6,
+              "content": "□研发设计CAX ☑生产制造CAM  ☑经营管理ERP/OA\n☑运维服务CRM  ☑供应链管理SRM  ☑其他  ESB-Salesforce，NOC（请说明）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 52,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 53,
+              "col": 0,
+              "content": "产品获得发达国家或地区权威机构认证情况(多选)",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 53,
+              "col": 6,
+              "content": "□UL ☑CSA □ETL □GS\n☑其他  TUV、BV、CQC（请说明）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 53,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 54,
+              "col": 0,
+              "content": "数字化赋能",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 54,
+              "col": 6,
+              "content": "业务系统是否向云端迁移",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 54,
+              "col": 13,
+              "content": "☑是□否",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 54,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 55,
+              "col": 6,
+              "content": "是否拥有制造业与互联网融合试点示范项目",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 55,
+              "col": 13,
+              "content": "□是☑否",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 55,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 56,
+              "col": 0,
+              "content": "企业资产负债率",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 56,
+              "col": 6,
+              "content": "58.70   %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 56,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 57,
+              "col": 0,
+              "content": "五、特色化",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 57,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 58,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 58,
+              "col": 6,
+              "content": "2022年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 58,
+              "col": 13,
+              "content": "2023年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 58,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 59,
+              "col": 0,
+              "content": "主导产品国际细分市场占有率",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 59,
+              "col": 6,
+              "content": "国际市场占有率:3%",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 59,
+              "col": 13,
+              "content": "国际市场占有率:4%",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 59,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 60,
+              "col": 0,
+              "content": "主导产品全国细分市场占有率（提供1000字以内的企业说明，不再接收第三方出具的证明材料）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 60,
+              "col": 6,
+              "content": "国内市场占有率:24.6%",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 60,
+              "col": 13,
+              "content": "国内市场占有率:30.8%",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 60,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 61,
+              "col": 6,
+              "content": "细分市场范围\n光伏逆变器分为集中型逆变器、组串式逆变器、集散式逆变器、微型逆变器。在集中式光伏逆变器领域，华为、阳光电源、特变、禾望电气等竞争优势较强；在集散式逆变器领域，上能等厂商具有竞争优势；在微型逆变器领域，禾迈、昱能、德业等厂商具有竞争优势；而在组串式光伏逆变器领域，本公司及华为、阳光电源、古瑞瓦特、固德威等厂商具有竞争优势。本公司主导产品属于组串式光伏逆变器中的户用光伏逆变器这一细分领域，本公司在此细分领域市场出货量全国第一。\n二、市场规模\n根据全球知名能源研究机构Wood Mackenzie公布的数据：2022、2023年全球光伏逆变器出货量分别为333GW、469GW。根据前瞻产业研究院报告和前瞻网数据显示：2022年、2023年中国光伏逆变器市场出货量分别为117GW、170GW，其中，中国户用光伏逆变器出货量分别为29GW、50GW。\n三、本公司细分市场占有率情况\n本公司户用光伏逆变器2022年、2023年在中国市场的出货量分别为7GW、15GW。根据计算公式“市场占有率=企业国内户用光伏逆变器出货量/全国户用光伏逆变器出货量”，计算得出：2022年本公司户用光伏逆变器市场占有率=7/29*100%≈24.6%；2023年本公司户用光伏逆变器市场占有率=15/50*100%≈30.8%。综上所述，2022年、2023年公司户用光伏逆变器中国出货量市场占有率分别为24.6%、30.8%，公司在中国户用光伏逆变器的市场份额均位列全国第一。",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 61,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 62,
+              "col": 0,
+              "content": "主导产品出口额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 62,
+              "col": 6,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 62,
+              "col": 13,
+              "content": "0万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 62,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 63,
+              "col": 0,
+              "content": "企业自有品牌个数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 63,
+              "col": 6,
+              "content": "11个",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 63,
+              "col": 13,
+              "content": "12个",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 63,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 64,
+              "col": 0,
+              "content": "企业自有品牌销售收入",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 64,
+              "col": 6,
+              "content": "179848.30万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 64,
+              "col": 13,
+              "content": "222357.22万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 64,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 65,
+              "col": 0,
+              "content": "六、创新能力",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 65,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 66,
+              "col": 0,
+              "content": "研发机构建设情况\n(企业自建或与高等院校、科研机构联合建立)",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 66,
+              "col": 6,
+              "content": "技术研究院",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 66,
+              "col": 9,
+              "content": "□国家级 0个□省级 0个□自建 0个",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 66,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 67,
+              "col": 6,
+              "content": "企业技术中心",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 67,
+              "col": 9,
+              "content": "□国家级 0个□省级 2个□自建 2个",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 67,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 68,
+              "col": 6,
+              "content": "企业工程中心",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 68,
+              "col": 9,
+              "content": "□国家级 0个□省级 1个□自建 0个",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 68,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 69,
+              "col": 6,
+              "content": "工业设计中心",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 69,
+              "col": 9,
+              "content": "□国家级 0个□省级 0 个□自建 0个",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 69,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 70,
+              "col": 6,
+              "content": "重点实验室",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 70,
+              "col": 9,
+              "content": "□国家级 0个□省级 1 个□自建 0个",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 70,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 71,
+              "col": 6,
+              "content": "院士专家工作站",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 71,
+              "col": 9,
+              "content": "□有☑无",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 71,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 72,
+              "col": 6,
+              "content": "博士后工作站",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 72,
+              "col": 9,
+              "content": "□有☑无",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 72,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 73,
+              "col": 6,
+              "content": "合作院校机构名称（3个以内）\n1.  南京航空航天大学                   2.  河海大学\n3.  东南大学\n研究领域已获得成果及应用情况（300字）：\n基于单芯片双核高精度控制户用光伏并网逆变器关键技术的研究，并与南航、河海、东南大学等进行产学研合作。成果荣获中国电工技术会科学技术进步奖一等奖、江苏省科学技术奖一等奖,并成功立项上海高新技术成果转化项目、江苏省碳达峰碳中和成果转化项目。公司与天合光能、创维光伏、中来股份等光伏行业头部企业建立深度合作关系,为用户提供高质量的逆变器产品。截至去年年底共实现新增销售额20多亿元，产品支撑了 “一带一路”中巴经济走廊、北京大兴机场等项目。公司已荣获相关自主知识产权110项，其中发明专利35项。近三年公司在户用光伏逆变器中国出货量市场占有率分别为20.7%、24.6%、30.8%，市场份额连续三年位列第一。",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 73,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 74,
+              "col": 0,
+              "content": "相关指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 74,
+              "col": 3,
+              "content": "2021年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 74,
+              "col": 10,
+              "content": "2022年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 74,
+              "col": 16,
+              "content": "2023年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 74,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 75,
+              "col": 0,
+              "content": "研发费用总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 75,
+              "col": 3,
+              "content": "2358.32万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 75,
+              "col": 10,
+              "content": "6990.03万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 75,
+              "col": 16,
+              "content": "9567.70万元",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 75,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 76,
+              "col": 0,
+              "content": "研发费用总额占营业收入总额比重",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 76,
+              "col": 3,
+              "content": "3.09   %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 76,
+              "col": 10,
+              "content": "3.43 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 76,
+              "col": 16,
+              "content": "3.72   %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 76,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 77,
+              "col": 0,
+              "content": "研发人员占全部职工比重",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 77,
+              "col": 3,
+              "content": "58.28 %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 77,
+              "col": 10,
+              "content": "54.06   %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 77,
+              "col": 16,
+              "content": "51.88  %",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 77,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 78,
+              "col": 0,
+              "content": "拥有与主导产品有关的I类知识产权情况\n（授权有效期内，不含转让未满一年的I类知识产权）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 78,
+              "col": 3,
+              "content": "I类知识产权总数35项。\n其中发明专利 35     项；\n植物新品种0项；\n国家级农作物品种0项；\n国家新药 0    项；\n集成电路布图设计专有权 0      项。",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 78,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 79,
+              "col": 0,
+              "content": "近3年是否获得国家级科技奖励",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 79,
+              "col": 3,
+              "content": "☑否   □是 如是，请填写：\n年份       年，名称         ，排名",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 79,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 80,
+              "col": 0,
+              "content": "近3年进入“创客中国”中小企业创新创业大赛全国50强企业组名单",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 80,
+              "col": 3,
+              "content": "☑否   □是 如是，请填写：\n年份       年，排名",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 80,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 81,
+              "col": 0,
+              "content": "七、产业链配套",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 81,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 82,
+              "col": 0,
+              "content": "所属产业链",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 82,
+              "col": 3,
+              "content": "太阳能->太阳能发电及运营维护->太阳能发电系统->逆变器",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 82,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 83,
+              "col": 0,
+              "content": "是否在产业链关键领域实现“补短板”“填空白”（不得含有企业名称或简称）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 83,
+              "col": 3,
+              "content": "□否    ☑是 如是，请填写\n“补短板”的产品名称：  单芯片双核高精度控制10-40kW户用光伏并网逆变器\n或填补国内（国际）空白的领域：\n或替代进口的国外企业（或产品）名称： Siemens Kaco、SMA、OSW、Arcelik、Sou Energy、IBC Solar等公司\n说明（是否在细分领域实现关键技术首创等情况，300字以内）： 单芯片双核高精度控制10-40kW户用光伏并网逆变器，采用协同优化和超高速采样技术，实现对微小电流信号的精确采样。软件控制采用自主研发的最新型双核DSP+Watchdog的控制平台，结构简化，计算能力强，可实现16倍采样。弱辐照、弱电网情况下的产品性能表现卓越。可实现基于单DSP的并网冗余保护问题，降低成本，提高控制稳定性。成功开发了国内首款10-40kW SiC基分布式三相光伏并网逆变器，并发明了基于有源钳位的国产SiC MOSFET驱动电路技术，在光伏并网逆变器领域实现了关键技术的应用创新。成功替代了海外全球头部企业Siemens Kaco、SMA、OSW、Arcelik、Sou Energy、IBC Solar等公司产品，补足了所在领域的短板。",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 83,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 84,
+              "col": 0,
+              "content": "主导产品是否为国内外知名大企业直接配套",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 84,
+              "col": 3,
+              "content": "□否    ☑是 如是，请填写\n1. 苏州中来民生能源有限公司            2.  天合家用光伏科技（淮安）有限公司             3.  深圳创维光伏科技有限公司",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 84,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 85,
+              "col": 0,
+              "content": "行业领军企业\n（3个以内）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 85,
+              "col": 3,
+              "content": "1.  爱士惟科技股份有限公司                    2.  深圳古瑞瓦特能源股份有限公司\n3.  固德威技术股份有限公司",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 85,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 86,
+              "col": 0,
+              "content": "八、主导产品所属领域",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 86,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 87,
+              "col": 0,
+              "content": "主导产品名称（中文）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 87,
+              "col": 3,
+              "content": "单芯片双核高精度控制户用光伏并网逆变器",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 87,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 88,
+              "col": 0,
+              "content": "主导产品类别",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 88,
+              "col": 3,
+              "content": "3904 变压器、整流器和电感器",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 88,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 89,
+              "col": 0,
+              "content": "是否属于工业“六基”领域",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 89,
+              "col": 3,
+              "content": "□否    ☑是 如是，请打勾\n□核心基础零部件 ☑核心基础元器件 □关键软件\n□先进基础工艺 □关键基础材料 □产业技术基础",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 89,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 90,
+              "col": 0,
+              "content": "九、其他",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 90,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 91,
+              "col": 0,
+              "content": "作为主要起草单位制修订的已批准发布标准数量和名称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 91,
+              "col": 3,
+              "content": "国际、国家、行业标准总数9项。\n国际标准0项；国家标准 1项；行业标准8项。",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 91,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 92,
+              "col": 3,
+              "content": "名称：   GBT 32512-2016 光伏发电站防雷技术要求、NBT 10088-2018 户外型光伏逆变成套装置技术规范、NBT 42143-2018 光伏组件功率优化器技术规范、NBT 42142-2018 光伏并网微型逆变 器技术规范、NBT 32004-2013 光伏发电并网逆变器技术规范 （请填写代表性标准，不超过5项）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 92,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 93,
+              "col": 0,
+              "content": "获得相关部门认定的称号（有效期内）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 93,
+              "col": 3,
+              "content": "1.高新技术企业 ☑\n2.技术创新示范企业（国家级 □ 省级 □ ）\n3.工业企业知识产权运用试点企业（国家级 □ 省级 □ ）\n4.智能制造试点示范企业（国家级 □ 省级□ ）\n5.绿色工厂 □ 6.质量标杆 □\n7.《产业基础领域先进技术产品转化应用目录》入编企业 □\n8.是否享受过国家首台（套）重大技术装备保险补偿试点政策 □\n9.其他☑  奖励：江苏省科学技术奖一等奖、中国电工技术学会科学技术进步奖一等奖、江苏省科学技术奖三等奖；资质荣誉：上海市独角兽潜力企业、上海专精特新企业品牌价值榜“百佳企业”、上海市企业技术中心、上海市民营企业总部、上海市“专精特新”中小企业、江苏省专精特新小巨人企业、江苏省企业技术中心、江苏省工程技术研究中心、江苏省四星级上云企业、江苏省民营科技企业；行业荣誉：2022全球新能源企业500强、太瓦级钻石奖等 （请说明）。",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 93,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 94,
+              "col": 0,
+              "content": "境外经营情况",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 94,
+              "col": 3,
+              "content": "境外并购情况：        ☑无\n□有 总金额  ，具体情况：",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 94,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 95,
+              "col": 3,
+              "content": "境外设立分公司情况：  ☑无\n□有 出资总额   ，具体情况：",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 95,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 96,
+              "col": 3,
+              "content": "境外设立研发机构情况：☑无\n□有 出资总额   ，具体情况：",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 96,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 97,
+              "col": 3,
+              "content": "向境外支付专利使用费：☑无\n□有 总金额   ，具体情况：",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 97,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 98,
+              "col": 0,
+              "content": "近2年是否承担过国家重大科技项目",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 98,
+              "col": 3,
+              "content": "☑否   □是 如是，请填写名称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 98,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 99,
+              "col": 0,
+              "content": "近2年是否获得过国家级技术创新类项目",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 99,
+              "col": 3,
+              "content": "☑否   □是 如是，请填写名称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 99,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 100,
+              "col": 0,
+              "content": "企业总体情况简要介绍\n（2000字以内，不得含有企业名称或简称，\n请勿另附页）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 100,
+              "col": 3,
+              "content": "企业经营管理概况\n（1）从事细分领域及从业时间：公司是中国最早研发和生产制造新能源光伏逆变器企业之一，深耕该领域已有15年。主要从事光伏并网逆变器、储能逆变器、智能充电桩及智慧能源管理系统等产品的研发、制造。目前总部位于中国上海，并在苏州、上海和西安设有研发中心，在扬中设有生产制造中心，业务分支机构遍布亚洲、欧洲、美洲、非洲和大洋洲，产品行销全球多个国家和地区。目前公司已完成股份制改造，更名为股份有限公司，并启动A股IPO流程。截至23年12月31日，公司共有7家全资控股子公司和2家分公司，股权融资共5.5亿元。\n（2）企业在细分领域的地位：公司在户用逆变器领域处于全球领先地位。近三年营收收入分别为7.6亿、20.3亿、25.7亿，平均增长率达到96.9%；近三年研发费用从4.06亿增长为9.54亿，研发团队从88人增长至234人。公司位列全球新能源500强，是光伏行业十大能源品牌之一。在细分应用场景方面，在大型地面电站和大型工商业电站领域，华为、阳光电源、上能电气等竞争优势较强；在小型分布式光伏电站领域，锦浪科技、固德威、SMA、SolarEdge等厂商占据一定市场份额，具有一定竞争优势；在户用场景中，我司在全球市场竞争优势较强。根据全球知名能源研究机构Wood Mackenzie的最新统计数据，2022年我司逆变器出货量排名为中国市场第6名、亚太市场第7名、全球市场第9名。根据前瞻产业研究院最新统计报告，公司户用光伏逆变器中国出货量市场(出货量)2021年、2022、2023年连续三年全国排名第一。\n（3）企业经营战略：在国家“双碳”战略的推动下，我们的战略聚焦于数字化、绿色化和智能化，推动电能转换、储能技术和智慧能源管理平台的创新研发。我们正通过不断扩展产品线、创新商业模式，积极开拓国内外市场。公司的战略举措包括：①加强研发投入，不断进行技术迭代升级，巩固国内户用光伏逆变器的市场龙头地位；②完善光伏并网逆变器产品线，强化光储充一体化解决方案的研发；③公司正在稳步推进IPO进程，加速全球市场布局和技术研发投入。\n（4）核心资质荣誉：江苏省科学技术奖一等奖、 中国电工技术学会科学技术进步奖一等奖、江苏省科学技术奖三等奖、上海市独角兽潜力企业、上海专精特新企业品牌价值榜“百佳企业”、上海市企业技术中心、上海市民营企业总部、江苏省专精特新小巨人企业、江苏省企业技术中心、江苏省工程技术研究中心、江苏省四星级上云企业、江苏省民营科技企业、2022全球新能源企业500强、太瓦级钻石奖。\n二、企业主导产品及技术情况\n（1）关键领域补短板：公司主导产品为单芯片双核高精度控制并网户用逆变器，产品采用协同优化和超高速采样技术，实现对微小电流信号的精确采样。软件控制采用自主研发的最新型双核DSP+Watchdog的控制平台，结构简化，计算能力强，可实现16倍采样。弱辐照、弱电网情况下的产品性能表现卓越。可实现基于单DSP的并网冗余保护问题，降低成本，提高控制稳定性。同时成功开发了国内首款1-60kW SiC基分布式三相光伏并网逆变器，并发明了基于有源钳位的国产SiC MOSFET驱动电路技术，在光伏并网逆变器领域实现了关键技术的应用创新。\n（2）参与关键核心技术攻关等情况：凭借自身的技术领先性，公司参与过1项国家标准和8项行业标准，是中国质量认证中心牵头的《户用屋顶光伏系统认证规范》主要起草单位之一。公司逆变器产品均通过CSA、TUV、BV、CQC等国内外认证。公司目前已南京航空航天大学建立重点实验室，与南京航空航天大学、河海大学、东南大学等有产学研项目合作，人才储备具备强有力的保障。其中 2022年与清华大学、河海大学等高校联合申报的产学研项目“基于直流母线电压信息的规模化光伏储能变换器控制关键技术及工程应用”项目获江苏省科学技术一等奖。\n（3）所属产业链供应链情况：公司在光伏产业链中发挥着关键配套作用，通过与上下游的紧密合作，为光伏能源系统的建设和运营提供全面支持。在上游环节，与TI、IFX、ON等顶级芯片供应商及国内龙头厂商建立战略伙伴关系，确保我们逆变器产品的高性能和高可靠性。在下游产业链中，公司与天合光能、创维光伏等光伏行业头部企业深度合作，提供高质量逆变器产品，共同推动光伏产业的技术进步和产业升级，构建互利共赢的产业生态。我们的逆变器产品应用于光伏电站建设和运营，与三峡水电等国家重点企业合作，参与北京大兴机场、“一带一路”中巴经济走廊光伏项目等，展现出在大型能源项目中的配套能力。\n（4）知识产权积累和运用情况：目前公司获得授权自主知识产权达110项，其中发明专利有35项，实用新型54项，软著4项，外观专利17项，发明转化率 100%，另有24项发明专利进入公布阶段。",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 100,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 101,
+              "col": 0,
+              "content": "真实性声明",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 101,
+              "col": 3,
+              "content": "以上所填内容和提交资料均准确、真实、合法、有效、无涉密信息，本企业愿为此承担有关责任。\n法定代表人（签名）： 张勇      （企业公章）：",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 101,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 102,
+              "col": 0,
+              "content": "十、初核推荐\n（省级中小企业主管部门填写，加盖公章）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 102,
+              "col": 18,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 103,
+              "col": 0,
+              "content": "初核指标\n(如符合，请在对应□ 后面\n打“√”；如不符合，打“×”；如未勾选，视为不符合)",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 103,
+              "col": 1,
+              "content": "专业化\n指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 103,
+              "col": 5,
+              "content": "截至上年末，企业从事特定细分市场时间达到3年以上□ ；\n2.主营业务收入占营业收入比重不低于70%□；\n3.近2年主营业务收入平均增长率不低于5%□；",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 104,
+              "col": 1,
+              "content": "精细化\n指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 104,
+              "col": 5,
+              "content": "至少1项核心业务采用信息系统支撑□；\n5.取得相关管理体系认证，或产品通过发达国家和地区产品认证□；\n6.截至上年末，资产负债率不高于70%□；",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 105,
+              "col": 1,
+              "content": "特色化\n指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 105,
+              "col": 5,
+              "content": "主导产品在全国细分市场占有率达10%以上，且享有较高知名度和影响力□ ；\n8.拥有直接面向市场并具有竞争优势的自主品牌□ ；",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 106,
+              "col": 1,
+              "content": "创新能力指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 106,
+              "col": 5,
+              "content": "同时满足9、10、11项，或满足12、13中的一项视为满足创新能力指标要求。\n9. 满足以下条件之一：\n（1）上年度营业收入总额在1亿元以上的企业 ，近2年研发费用总额占营业收入总额比重均不低于3% □ ；\n（2）上年度营业收入总额在5000万元—1亿元的企业，近2年研发费用总额占营业收入总额比重均不低于6% □ ；\n（3）上年度营业收入总额在5000万元以下的企业，同时满足：近2年内新增股权融资总额8000万元以上，研发费用总额3000万元以上，研发人员占企业职工总数50%以上                                 □ ；\n10.自建或与高等院校、科研机构联合建立研发机构，设立技术研究院、企业技术中心、企业工程中心、院士专家工作站、博士后工作站等□ ；\n11.拥有2项以上与主导产品有关的Ⅰ类知识产权，且实际应用并已产生经济效益 □ ；\n12.近三年获得国家级科技奖励，并在获奖单位中排名前三 □ ；\n13.近三年进入“创客中国”中小企业创新创业大赛全国50强企业组名单 □ ；",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 107,
+              "col": 1,
+              "content": "产业链配套指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 107,
+              "col": 5,
+              "content": "14.位于产业链关键环节，发挥“补短板”“锻长板”“填空白”等重要作用 □ ；",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 108,
+              "col": 1,
+              "content": "主导产品所属领域指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 108,
+              "col": 5,
+              "content": "15. 主导产品属于重点领域 □ ；",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 109,
+              "col": 1,
+              "content": "其他指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 109,
+              "col": 5,
+              "content": "近三年未发生重大安全（含网络安全、数据安全）、质量、环境污染等事故以及偷漏税等违法违规行为□ ；\n已获得省级专精特新中小企业认定（有效期内） □ ；\n审计报告已按要求上传报备 □ ；",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 110,
+              "col": 0,
+              "content": "省级中小企业\n主管部门推荐意见\n(必填，须盖章)",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 110,
+              "col": 5,
+              "content": "经初审核实：\n该企业    符合□    不符合□    初核指标中的专业化、精细化、特色化、创新能力、产业链配套、主导产品和其他指标；\n推荐意见：\n同意推荐□    不同意推荐□    。\n推荐单位（公章）：\n     日 期：      年    月    日",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "main_header",
+            "content": "一、企业基本情况",
+            "row": 0
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "relationship": "merged_header",
+            "content": "企业名称",
+            "row": 1
+          },
+          {
+            "columns": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "description_group",
+            "content": "爱士惟科技股份有限公司",
+            "row": 1
+          },
+          {
+            "columns": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13
+            ],
+            "relationship": "description_group",
+            "content": "上海市黄埔区蒙自路757号905B室",
+            "row": 3
+          },
+          {
+            "columns": [
+              14,
+              15,
+              16
+            ],
+            "relationship": "merged_header",
+            "content": "邮编",
+            "row": 3
+          },
+          {
+            "columns": [
+              4,
+              5,
+              6
+            ],
+            "relationship": "merged_header",
+            "content": "张勇",
+            "row": 4
+          },
+          {
+            "columns": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "relationship": "merged_header",
+            "content": "电话",
+            "row": 4
+          },
+          {
+            "columns": [
+              11,
+              12,
+              13
+            ],
+            "relationship": "description_group",
+            "content": "021-80401351",
+            "row": 4
+          },
+          {
+            "columns": [
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "description_group",
+            "content": "zhipeng.huang@aiswei-tech.com",
+            "row": 7
+          },
+          {
+            "columns": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "relationship": "merged_header",
+            "content": "2009-05-27",
+            "row": 8
+          },
+          {
+            "columns": [
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "merged_header",
+            "content": "11195.6523",
+            "row": 8
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "relationship": "description_group",
+            "content": "根据《中小企业划型标准规定》（工信部联企业〔2011〕300号），企业规模属于",
+            "row": 10
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "relationship": "merged_header",
+            "content": "重要指标",
+            "row": 18
+          },
+          {
+            "columns": [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "relationship": "time_group",
+            "content": "2021年",
+            "row": 18
+          },
+          {
+            "columns": [
+              12,
+              13,
+              14
+            ],
+            "relationship": "time_group",
+            "content": "2022年",
+            "row": 18
+          },
+          {
+            "columns": [
+              15,
+              16,
+              17
+            ],
+            "relationship": "time_group",
+            "content": "2023年",
+            "row": 18
+          },
+          {
+            "columns": [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "description_group",
+            "content": "□否 ☑是 ，如是，请填写：\n信贷满足率100%（企业获批贷款额度/贷款申请额度）；\n所获得贷款主要用于下面哪些事项：\n☑日常生产经营 ☑扩大生产\n☑研发及技术改造 □海外分支机构运营及投资并购（可多选）",
+            "row": 40
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "time_group",
+            "content": "企业从事特定细分市场时间",
+            "row": 43
+          },
+          {
+            "columns": [
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "time_group",
+            "content": "15   年",
+            "row": 43
+          },
+          {
+            "columns": [
+              0,
+              1
+            ],
+            "relationship": "merged_header",
+            "content": "主要产品1",
+            "row": 47
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "description_group",
+            "content": "名称： 单芯片双核高精度控制10-25kW户用光伏并网逆变器\n收入： 75786.48  万元",
+            "row": 47
+          },
+          {
+            "columns": [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "relationship": "description_group",
+            "content": "业务系统是否向云端迁移",
+            "row": 54
+          },
+          {
+            "columns": [
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "merged_header",
+            "content": "☑是□否",
+            "row": 54
+          },
+          {
+            "columns": [
+              6,
+              7,
+              8
+            ],
+            "relationship": "merged_header",
+            "content": "技术研究院",
+            "row": 66
+          },
+          {
+            "columns": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "description_group",
+            "content": "□国家级 0个□省级 0个□自建 0个",
+            "row": 66
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2
+            ],
+            "relationship": "merged_header",
+            "content": "相关指标",
+            "row": 74
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "relationship": "time_group",
+            "content": "2021年",
+            "row": 74
+          },
+          {
+            "columns": [
+              10,
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "relationship": "time_group",
+            "content": "2022年",
+            "row": 74
+          },
+          {
+            "columns": [
+              16,
+              17
+            ],
+            "relationship": "time_group",
+            "content": "2023年",
+            "row": 74
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "relationship": "description_group",
+            "content": "I类知识产权总数35项。\n其中发明专利 35     项；\n植物新品种0项；\n国家级农作物品种0项；\n国家新药 0    项；\n集成电路布图设计专有权 0      项。",
+            "row": 78
+          },
+          {
+            "columns": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "relationship": "merged_header",
+            "content": "专业化\n指标",
+            "row": 103
+          },
+          {
+            "columns": [
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18
+            ],
+            "relationship": "time_group",
+            "content": "截至上年末，企业从事特定细分市场时间达到3年以上□ ；\n2.主营业务收入占营业收入比重不低于70%□；\n3.近2年主营业务收入平均增长率不低于5%□；",
+            "row": 103
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "relationship": "description_group",
+            "content": "省级中小企业\n主管部门推荐意见\n(必填，须盖章)",
+            "row": 110
+          }
+        ]
+      }
+    }
+  ]
+}

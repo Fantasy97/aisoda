@@ -1,0 +1,2388 @@
+{
+  "document_structure": [
+    {
+      "type": "paragraph",
+      "position": 4,
+      "content": "2025年度黄浦区促进文化创意产业发展",
+      "paragraph_index": 0
+    },
+    {
+      "type": "paragraph",
+      "position": 5,
+      "content": "引导资金申报表",
+      "paragraph_index": 1
+    },
+    {
+      "type": "paragraph",
+      "position": 8,
+      "content": "（设计创新企业项目）",
+      "paragraph_index": 2
+    },
+    {
+      "type": "paragraph",
+      "position": 10,
+      "content": "区级称号    市级称号    国家级称号",
+      "paragraph_index": 3
+    },
+    {
+      "type": "paragraph",
+      "position": 11,
+      "content": "（请勾选对应的申报等级）",
+      "paragraph_index": 4
+    },
+    {
+      "type": "paragraph",
+      "position": 13,
+      "content": "申请单位        爱士惟科技股份有限公司  （盖章）",
+      "paragraph_index": 5
+    },
+    {
+      "type": "paragraph",
+      "position": 14,
+      "content": "法定代表人          张勇",
+      "paragraph_index": 6
+    },
+    {
+      "type": "paragraph",
+      "position": 15,
+      "content": "项目联系人         张茜楠",
+      "paragraph_index": 7
+    },
+    {
+      "type": "paragraph",
+      "position": 16,
+      "content": "手    机         13310155956",
+      "paragraph_index": 8
+    },
+    {
+      "type": "paragraph",
+      "position": 17,
+      "content": "传    真        021-66566230",
+      "paragraph_index": 9
+    },
+    {
+      "type": "paragraph",
+      "position": 18,
+      "content": "电子邮箱    qiannan.zhang@aiswei-tech.com",
+      "paragraph_index": 10
+    },
+    {
+      "type": "paragraph",
+      "position": 23,
+      "content": "2025年7月28日",
+      "paragraph_index": 11
+    },
+    {
+      "type": "table",
+      "position": 27,
+      "table_index": 0,
+      "structure": {
+        "rows": 1,
+        "columns": 1,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "说  明\n\n区文创资金采取现场递交书面材料申报。\n  1.下载打印《黄浦区促进文化创意产业发展引导资金申请表（设计创新企业项目）》,填写完毕后签字盖章。连同其他相关书面材料报送一份至区商务委。\n  2.地址:广东路357号黄浦区机关大楼1号楼西9楼908室。\n  3.项目材料受理时间：2025年8月13日前。\n  4.书面材料需现场递交，同步递交电子版，过期不予受理。书面材料按时递交为申报有效。\n\n二、《项目申请表》需准备以下附件：\n（一）统一社会信用代码、法定代表人身份证明。\n（二）两年来企业开展设计相关工作建设及运行情况。\n（三）其他有关情况（设计人员聘用合同或社保证明材料、专利证书复印件、获奖情况等材料）。\n（四）申报单位上年度审计报告。\n\n三、获得市级或国家级荣誉需附相关证明\n\n四、申报材料格式统一要求：\n书面材料一份，在封面盖申报单位公章、在申请单位意见栏盖公章并由法定代表人签名、需加盖骑缝章。采用A4纸双面打印，以普通纸质材料作为封面，于左侧胶装成册。（书面材料不退还）。\n\n五、咨询方式：\n  咨询热线：33134800-20925或20931",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": []
+      }
+    },
+    {
+      "type": "paragraph",
+      "position": 28,
+      "content": "一、企业基本情况",
+      "paragraph_index": 12
+    },
+    {
+      "type": "table",
+      "position": 29,
+      "table_index": 1,
+      "structure": {
+        "rows": 20,
+        "columns": 8,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "企业名称",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 1,
+              "content": "爱士惟科技股份有限公司",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "企业地址",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 1,
+              "content": "上海市黄浦区南车站路600弄18号",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 3,
+              "content": "税务登记地址",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 6,
+              "content": "上海市黄浦区中山南一路468号302-1室015单元",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "企业所有制性质",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 1,
+              "content": "私营企业",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 3,
+              "content": "资产总额\n（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 6,
+              "content": "11195.6523",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "联系方式",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 1,
+              "content": "姓名",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 2,
+              "content": "职务",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 3,
+              "content": "联系电话",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 6,
+              "content": "传真",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "企业负责人",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 1,
+              "content": "张勇",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 2,
+              "content": "董事长兼总裁",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 3,
+              "content": "13917752020",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 6,
+              "content": "021-66566230",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "申请联系人",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 1,
+              "content": "张茜楠",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 2,
+              "content": "公共事务部经理",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 3,
+              "content": "13310155956",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 6,
+              "content": "021-66566230",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "企业近两年主要经济指标（万元）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 7,
+              "col": 0,
+              "content": "指标项目",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 2,
+              "content": "2023 年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 5,
+              "content": "2024 年",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 8,
+              "col": 0,
+              "content": "营业收入",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 9,
+              "col": 0,
+              "content": "其中：设计服务年营业收入(主营业务收入)",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 10,
+              "col": 0,
+              "content": "利润总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 11,
+              "col": 0,
+              "content": "纳税总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 12,
+              "col": 0,
+              "content": "出口交货值（万美元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 2,
+              "content": "0",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 5,
+              "content": "0",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 13,
+              "col": 0,
+              "content": "企业专利情况（累计）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 14,
+              "col": 0,
+              "content": "分类",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 2,
+              "content": "企业申请数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 4,
+              "content": "获得批准数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 7,
+              "content": "实现产业化\n数量",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 15,
+              "col": 0,
+              "content": "专利总数（个）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 2,
+              "content": "191",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 4,
+              "content": "127",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 7,
+              "content": "25",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 16,
+              "col": 0,
+              "content": "其中：发明专利（个）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 2,
+              "content": "76",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 4,
+              "content": "44",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 7,
+              "content": "25",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 17,
+              "col": 0,
+              "content": "实用新型专利（个）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 2,
+              "content": "88",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 4,
+              "content": "56",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 7,
+              "content": "25",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 18,
+              "col": 0,
+              "content": "外观设计专利（个）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 2,
+              "content": "18",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 4,
+              "content": "18",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 7,
+              "content": "18",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 19,
+              "col": 0,
+              "content": "版权数（个）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 2,
+              "content": "9",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 4,
+              "content": "9",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 7,
+              "content": "2",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "main_header",
+            "content": "爱士惟科技股份有限公司",
+            "row": 0
+          },
+          {
+            "columns": [
+              1,
+              2
+            ],
+            "relationship": "description_group",
+            "content": "上海市黄浦区南车站路600弄18号",
+            "row": 1
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5
+            ],
+            "relationship": "merged_header",
+            "content": "税务登记地址",
+            "row": 1
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "relationship": "description_group",
+            "content": "上海市黄浦区中山南一路468号302-1室015单元",
+            "row": 1
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "time_group",
+            "content": "企业近两年主要经济指标（万元）",
+            "row": 6
+          },
+          {
+            "columns": [
+              0,
+              1
+            ],
+            "relationship": "merged_header",
+            "content": "指标项目",
+            "row": 7
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4
+            ],
+            "relationship": "time_group",
+            "content": "2023 年",
+            "row": 7
+          },
+          {
+            "columns": [
+              5,
+              6,
+              7
+            ],
+            "relationship": "time_group",
+            "content": "2024 年",
+            "row": 7
+          },
+          {
+            "columns": [
+              2,
+              3
+            ],
+            "relationship": "merged_header",
+            "content": "企业申请数",
+            "row": 14
+          },
+          {
+            "columns": [
+              4,
+              5,
+              6
+            ],
+            "relationship": "merged_header",
+            "content": "获得批准数",
+            "row": 14
+          }
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "position": 30,
+      "content": "二、设计中心/团队基本情况",
+      "paragraph_index": 13
+    },
+    {
+      "type": "table",
+      "position": 31,
+      "table_index": 2,
+      "structure": {
+        "rows": 12,
+        "columns": 8,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "联系方式",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 1,
+              "content": "姓名",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 3,
+              "content": "职务",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 4,
+              "content": "联系电话",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 6,
+              "content": "传真",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "负责人",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 1,
+              "content": "金海燕",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 3,
+              "content": "研发设计中心负责人",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 4,
+              "content": "13310155956",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 6,
+              "content": "021-66566230",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "职工总数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 3,
+              "content": "340",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "专业设计人员数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 3,
+              "content": "178",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "其中：从事5年以上人数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 3,
+              "content": "33",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "从事3年以上人数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 3,
+              "content": "79",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "设计研发投入情况",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 7,
+              "col": 0,
+              "content": "年度",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 2,
+              "content": "投入总额\n（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 5,
+              "content": "占企业营业收入比重（%）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 7,
+              "content": "备注",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 8,
+              "col": 0,
+              "content": "申报前的两年",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 1,
+              "content": "2023 年",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 7,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 9,
+              "col": 0,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 1,
+              "content": "2024 年",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 7,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 10,
+              "col": 0,
+              "content": "申报当年和\n后一年计划",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 1,
+              "content": "2025 年",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 7,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 11,
+              "col": 0,
+              "content": "财务预估",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 1,
+              "content": "2026 年",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 7,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              1,
+              2
+            ],
+            "relationship": "main_header",
+            "content": "姓名",
+            "row": 0
+          },
+          {
+            "columns": [
+              4,
+              5
+            ],
+            "relationship": "main_header",
+            "content": "联系电话",
+            "row": 0
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "relationship": "main_header",
+            "content": "传真",
+            "row": 0
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2
+            ],
+            "relationship": "merged_header",
+            "content": "职工总数",
+            "row": 2
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "340",
+            "row": 2
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "info_group",
+            "content": "设计研发投入情况",
+            "row": 6
+          },
+          {
+            "columns": [
+              0,
+              1
+            ],
+            "relationship": "time_group",
+            "content": "年度",
+            "row": 7
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4
+            ],
+            "relationship": "merged_header",
+            "content": "投入总额\n（万元）",
+            "row": 7
+          },
+          {
+            "columns": [
+              5,
+              6
+            ],
+            "relationship": "description_group",
+            "content": "占企业营业收入比重（%）",
+            "row": 7
+          }
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "position": 32,
+      "content": "三、设计创新能力情况",
+      "paragraph_index": 14
+    },
+    {
+      "type": "table",
+      "position": 33,
+      "table_index": 3,
+      "structure": {
+        "rows": 7,
+        "columns": 4,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "近两年主要设计项目完成情况及成果",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "项目名称",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 1,
+              "content": "客户企业",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 2,
+              "content": "投产\n时间",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 3,
+              "content": "设计成果产业化情况（产值规模，对客户提升经济效益、品牌影响力等方面所起到的效果）",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "ASW45-60K LT-G3系列三相并网逆变器",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 1,
+              "content": "宁波碳达光伏新能源科技有限公司、苏州中来民生能源有限公司、特变电工新疆新能源股份有限公司、福建协鑫鑫科建设工程有限公司、浙江富家分布式能源有限公司、青岛海尔光伏新能源有限公司、深圳创维光伏科技有限公司等",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 2,
+              "content": "2023年3月",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 3,
+              "content": "2023年出货量15372台、销售额9440万；2024年出货量22046台、销售额12647万",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "ASW5-12K H-T2/T3系列三相储能逆变器",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 1,
+              "content": "重庆金聚能储能科技有限公司、果下科技股份有限公司、江苏天合储能有限公司、瑞河（重庆）新能源科技有限公司、深圳诺今数字能源有限公司、浙江海邻泰新能源有限公司、滁州启明新能源科技有限公司等",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 2,
+              "content": "2023年7月",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 3,
+              "content": "2023年出货量591台、销售额507万；2024年出货量6613台，销售额5204万",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "ASW25K-LT-G2-Pro系列三相并网逆变器",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 1,
+              "content": "特变电工新疆新能源股份有限公司",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 2,
+              "content": "2023年11月",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 3,
+              "content": "2023年出货量210台，销售额80万",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "ASW0.6-1KW A-S系列单相储能一体机",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 1,
+              "content": "智睿科能信息技术（苏州）有限公司、北京星光微网能源科技有限公司、厦门三炜新能源科技有限公司、佛山市锐钜电装技术有限公司、福建泛蓝新能源科技有限公司等",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 2,
+              "content": "2024年8月",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 3,
+              "content": "2024年6台，销售额5万",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "ASW250-360K-HT系列三相并网逆变器",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 1,
+              "content": "河北英利安心能源科技有限公司\n广州向日葵光电科技有限公司\n浙江荣能电力工程有限公司\n苏州微源奇新能源有限公司\n常州市纳途电子有限公司",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 2,
+              "content": "2024年12月",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 3,
+              "content": "2024年出货量65台，销售额156万",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "relationship": "main_header",
+            "content": "近两年主要设计项目完成情况及成果",
+            "row": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "position": 35,
+      "table_index": 4,
+      "structure": {
+        "rows": 25,
+        "columns": 5,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "主要用于设计的硬件情况",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "仪器（设备）名称",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 1,
+              "content": "台（套）数",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 2,
+              "content": "原值\n（万元）",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 3,
+              "content": "设备完好\n率（%）",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 4,
+              "content": "使用情况",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "示波器",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 1,
+              "content": "31",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 2,
+              "content": "911",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 3,
+              "content": "93.7%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "光伏模拟电源",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 1,
+              "content": "134",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 2,
+              "content": "1004",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 3,
+              "content": "99.3%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "电网模拟电源",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 1,
+              "content": "11",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 2,
+              "content": "409",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "负载箱",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 1,
+              "content": "26",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 2,
+              "content": "68",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "恒温恒湿箱",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 1,
+              "content": "6",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 2,
+              "content": "122",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 7,
+              "col": 0,
+              "content": "工控机",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 1,
+              "content": "38",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 2,
+              "content": "210",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 8,
+              "col": 0,
+              "content": "调压器",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 1,
+              "content": "6",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 2,
+              "content": "38",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 9,
+              "col": 0,
+              "content": "数据采集仪",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 1,
+              "content": "5",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 2,
+              "content": "10",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 10,
+              "col": 0,
+              "content": "功率分析仪",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 1,
+              "content": "12",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 2,
+              "content": "225",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 3,
+              "content": "93.6%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 11,
+              "col": 0,
+              "content": "电流探头",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 1,
+              "content": "45",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 2,
+              "content": "53",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 3,
+              "content": "95.1%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 12,
+              "col": 0,
+              "content": "双向直流电源",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 1,
+              "content": "51",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 2,
+              "content": "355",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 13,
+              "col": 0,
+              "content": "信号发生器",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 1,
+              "content": "2",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 2,
+              "content": "2",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 14,
+              "col": 0,
+              "content": "Chroma AC source 61815",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 1,
+              "content": "1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 2,
+              "content": "14",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 15,
+              "col": 0,
+              "content": "Chroam DC source 62180H-1800S",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 1,
+              "content": "1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 2,
+              "content": "6",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 16,
+              "col": 0,
+              "content": "EA直流电源",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 1,
+              "content": "8",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 2,
+              "content": "118",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 3,
+              "content": "100%",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 4,
+              "content": "产品研发测试",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 17,
+              "col": 0,
+              "content": "主要用于设计的软件情况",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 18,
+              "col": 0,
+              "content": "名称",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 1,
+              "content": "数量（套）",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 2,
+              "content": "价值（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 4,
+              "content": "备注",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 19,
+              "col": 0,
+              "content": "Keil-MDK/MDK-Plus",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 1,
+              "content": "15",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 2,
+              "content": "139",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 4,
+              "content": "软件代码编译-开发过程中调试及最后固件的编译生成",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 20,
+              "col": 0,
+              "content": "CREO 4.0",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 1,
+              "content": "32",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 2,
+              "content": "75",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 4,
+              "content": "电力电子设备精密装配与干涉检查、EMC兼容结构设计、ECAD/MCAD一体化、电气接口自动化、模块化产品架构、无图纸化制造（MBD）",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 21,
+              "col": 0,
+              "content": "PLECS",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 1,
+              "content": "1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 2,
+              "content": "14",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 4,
+              "content": "电路仿真验证，助力硬件设计数字化，提升设计效率；IGBT/SiC损耗仿真，高效获取器件损耗，为热设计提供精准输入",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 22,
+              "col": 0,
+              "content": "Adobe Creative Cloud 正版软件一年使用权限费用",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 1,
+              "content": "19",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 2,
+              "content": "12",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 4,
+              "content": "图像处理、视频编辑、网页设计、排版设计、3D建模等创意工作",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 23,
+              "col": 0,
+              "content": "CorelDRAW Graphics Suite Enterprise License",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 1,
+              "content": "13",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 2,
+              "content": "14",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 4,
+              "content": "矢量图形设计软件套装，主要用于平面设计、排版、品牌设计等",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 24,
+              "col": 0,
+              "content": "PADS Plus",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 1,
+              "content": "11",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 2,
+              "content": "152",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 4,
+              "content": "PCB（印刷电路板）设计工具，同时提供物料管理，制造数据等协助生产加工；2D/3D、ODB等数据辅助热仿真、结构设计等",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "relationship": "main_header",
+            "content": "主要用于设计的硬件情况",
+            "row": 0
+          },
+          {
+            "columns": [
+              2,
+              3
+            ],
+            "relationship": "merged_header",
+            "content": "价值（万元）",
+            "row": 18
+          }
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "position": 36,
+      "content": "四、企业其他情况（可另附材料）",
+      "paragraph_index": 15
+    },
+    {
+      "type": "table",
+      "position": 37,
+      "table_index": 5,
+      "structure": {
+        "rows": 6,
+        "columns": 2,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "企业参与制定国际、国家或行业标准情况",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 1,
+              "content": "在标准化建设方面，公司深度参与国家及行业标准制定，迄今已主导或参与发布1项国家标准、9项能源行业标准及3项团体标准，持续推动行业技术规范发展。",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "企业获国际、国内设计奖项情况",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 1,
+              "content": "Red Dot Winner 2021 红点奖——2021年3月",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "企业获国家级、本市科技奖情况",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 1,
+              "content": "中国电工技术学会科学进步一等奖——2022年1月",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "企业被认定国家级、本市技术中心情况",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 1,
+              "content": "上海市企业技术中心——2024年3月",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "企业承担国家、本市重点工程或项目情况",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 1,
+              "content": "上海市服务业发展引导资金项目——2023年",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "其他有关情况",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 1,
+              "content": "公司获评：国家专精特新小巨人企业、上海市制造业单项冠军企业、上海市创新型企业总部、上海市民营企业总部、上海市企事业专利工作试点单位、上海市重点服务独角兽潜力企业、上海专精特新企业品牌价值榜“百佳企业”等荣誉资质。",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": []
+      }
+    },
+    {
+      "type": "table",
+      "position": 39,
+      "table_index": 6,
+      "structure": {
+        "rows": 1,
+        "columns": 1,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "申报单位承诺\n\n    本单位承诺上报表格和材料真实有效，单位无不良信用记录，且该项目未获得其它市级或区级财政资金支持，并对此承担法律责任。\n\n     公          章：\n\n    法定代表人签字：\n\n                              年  月  日",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": []
+      }
+    }
+  ]
+}

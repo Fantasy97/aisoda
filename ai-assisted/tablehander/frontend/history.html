@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>综合信息查询 - 历史数据</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/history.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzMzNzNkYyIvPgo8cGF0aCBkPSJNOCAxMmg0djRIOHYtNHptNiAwaDR2NGgtNHYtNHptNiAwaDR2NGgtNHYtNHoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo="
+                        alt="Logo">
+                    <span class="title">综合信息查询</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-success" onclick="window.location.href='index.html'">信息搜索</button>
+                    <button class="btn btn-success">历史数据</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 历史数据选项卡 -->
+            <div class="history-tabs">
+                <!-- 上传Word文档按钮 -->
+                <div class="add-document-btn" onclick="app.triggerFileUpload()">
+                    <div class="add-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5v14m-7-7h14" stroke="#4285f4" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="add-text">上传Word文档</div>
+                    <input type="file" id="wordFileInput" accept=".docx,.doc" style="display: none;"
+                        onchange="app.handleFileUpload(event)">
+                </div>
+            </div>
+
+
+        </main>
+
+        <!-- 弹窗遮罩 -->
+        <div class="modal-overlay" id="modalOverlay" onclick="app.closeModal()">
+            <div class="modal-container" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle">专精特新小巨人</h2>
+                    <button class="modal-close" onclick="app.closeModal()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6l12 12" stroke="#666" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-content" id="modalContent">
+                    <!-- 动态内容将在这里显示 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/history.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,3883 @@
+{
+  "document_structure": [
+    {
+      "type": "paragraph",
+      "position": 0,
+      "content": "编号",
+      "paragraph_index": 0
+    },
+    {
+      "type": "paragraph",
+      "position": 4,
+      "content": "2025年上海市促进文化创意产业发展",
+      "paragraph_index": 1
+    },
+    {
+      "type": "paragraph",
+      "position": 5,
+      "content": "专项资金申请表",
+      "paragraph_index": 2
+    },
+    {
+      "type": "paragraph",
+      "position": 6,
+      "content": "（在建扶持类项目）",
+      "paragraph_index": 3
+    },
+    {
+      "type": "paragraph",
+      "position": 7,
+      "content": "（样表仅供参考，以网上申报系统为准）",
+      "paragraph_index": 4
+    },
+    {
+      "type": "paragraph",
+      "position": 10,
+      "content": "项目名称",
+      "paragraph_index": 5
+    },
+    {
+      "type": "paragraph",
+      "position": 11,
+      "content": "申请单位 （盖章）",
+      "paragraph_index": 6
+    },
+    {
+      "type": "paragraph",
+      "position": 12,
+      "content": "法定代表人",
+      "paragraph_index": 7
+    },
+    {
+      "type": "paragraph",
+      "position": 13,
+      "content": "项目联系人",
+      "paragraph_index": 8
+    },
+    {
+      "type": "paragraph",
+      "position": 14,
+      "content": "手    机",
+      "paragraph_index": 9
+    },
+    {
+      "type": "paragraph",
+      "position": 15,
+      "content": "传    真",
+      "paragraph_index": 10
+    },
+    {
+      "type": "paragraph",
+      "position": 16,
+      "content": "电子邮箱",
+      "paragraph_index": 11
+    },
+    {
+      "type": "paragraph",
+      "position": 18,
+      "content": "2025年  月  日",
+      "paragraph_index": 12
+    },
+    {
+      "type": "table",
+      "position": 21,
+      "table_index": 0,
+      "structure": {
+        "rows": 1,
+        "columns": 1,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "说  明\n一、本年度文创资金在建扶持类项目采取网上申报，无须提交书面材料。\n1.通过法人一证通或者电子营业执照登录“一网通办”总门户（http://www.shanghai.gov.cn），选择“政务服务”进入“高效办成一件事”特色专栏，选择“服务企业”，点击“惠企服务”下“市级支持资金申请”，点击“市文创办”的“上海市促进文化创意产业发展专项资金”，进行在线填报、提交相关电子材料，并保存下载相应申请表（请确认系统生成的申请表PDF文件有水印并妥善保存）。\n（如尚未注册账号，请先转入“一网通办”注册账号页面完成注册）\n2.申报截止时间：2025年3月31日（3月31日16:30系统关闭）。\n\n二、《在建扶持类项目申请表》需提交以下附件：\n（一）营业执照（或法人证书），法定代表人身份证明。\n（二）2024年度税控财务报表及2024年度（或2023年度）审计报告，新设单位（2024年1月1日后注册）需提供最新的税控财务报表。\n（三）如项目涉及土建、加层、外立面改造等，需提供项目的核准（备案）的批准文件及规划部门、环保部门的批复意见。如项目购置设备及试验加工过程中涉及环境影响（如噪音、辐射、三废排放等）需提供环保部门的批复意见。\n（四）其他建议提供的相关材料：\n    1.项目申请表中财务履约能力测算表的证明附件。\n    2.项目涉及的成果或专利证书等。\n以上（一）至（四）均为复印件加盖公章，其中税控财务报表为打印件加盖公章。\n\n三、咨询方式：\n    申报咨询：32509315*807/32509316*808；\n    “一网通办”技术咨询：54644619；\n咨询时间：自申报开始之日起至2025年3月31日每周一至周五上午9:00-11:30，下午13:30-16:30（法定节假日除外）\n\n四、填表之前请参阅以下文件：\n（一）《2025年度上海市促进文化创意产业发展专项资金项目申报指南》；\n（二）《2025年上海市促进文化创意产业发展专项资金在建扶持类项目申报常见问题解答》；\n（三）《上海市文化创意产业专项资金在建扶持类项目总投资明细用途说明》。",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": []
+      }
+    },
+    {
+      "type": "table",
+      "position": 60,
+      "table_index": 1,
+      "structure": {
+        "rows": 43,
+        "columns": 15,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "一、申报单位基本情况",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "企业组织机构代码或统一社会信用代码",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "注册地址",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "注册地（区）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 9,
+              "content": "税务登记地（区）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 13,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "法定代表人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 9,
+              "content": "身份证号",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 13,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "手    机",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 9,
+              "content": "传   真",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 13,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "联系地址",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 7,
+              "col": 0,
+              "content": "单位网址",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 8,
+              "col": 0,
+              "content": "电子邮箱",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 9,
+              "col": 0,
+              "content": "单位性质",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 10,
+              "col": 0,
+              "content": "单位缴纳\n社保人数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 8,
+              "content": "注册时间",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 11,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 11,
+              "col": 0,
+              "content": "经营范围",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 12,
+              "col": 0,
+              "content": "银行账号",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 2,
+              "content": "账户名称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 13,
+              "col": 2,
+              "content": "账    号",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 14,
+              "col": 2,
+              "content": "行    别",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 15,
+              "col": 2,
+              "content": "开户银行",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 16,
+              "col": 0,
+              "content": "二、项目基本情况",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 17,
+              "col": 0,
+              "content": "项目名称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 18,
+              "col": 0,
+              "content": "项目负责人",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 7,
+              "content": "出生年月",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 19,
+              "col": 0,
+              "content": "联系方式",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 7,
+              "content": "职务职称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 20,
+              "col": 0,
+              "content": "主要项目人员",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 21,
+              "col": 0,
+              "content": "姓 名",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 3,
+              "content": "职务职称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 10,
+              "content": "出生年月",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 22,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 23,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 24,
+              "col": 0,
+              "content": "申报产业\n类别",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 3,
+              "content": "□媒体与艺术 ☑工业设计 □建筑设计\n□时尚创意(含工艺美术) □互联网和相关服务\n□软件与信息技术服务 □广告及会展服务\n休闲娱乐  □文化创意投资运营 咨询和中介服务 □文化装备制造及销售 文化创意辅助用品生产及销售",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 25,
+              "col": 0,
+              "content": "三、项目主要内容（表格可扩展）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 26,
+              "col": 0,
+              "content": "项目主要内容摘要",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 1,
+              "content": "（限300字以内）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 27,
+              "col": 0,
+              "content": "项目的必要性",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 1,
+              "content": "（限1500字以内）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 28,
+              "col": 0,
+              "content": "项目建设目标、内容及\n成果",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 1,
+              "content": "（限1500字以内）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 29,
+              "col": 0,
+              "content": "项目实施方案及分析",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 1,
+              "content": "（限2000字以内，如果篇幅不够，此处写摘要，请将完整方案以附件形式提交)",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 30,
+              "col": 0,
+              "content": "四、计划进度（申报项目必须是在建项目，起始不早于2024年1月1日，在2026年12月31日前完成项目建设内容并提交项目验收申请及相关材料。）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 31,
+              "col": 0,
+              "content": "前期工作准备",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 1,
+              "content": "起止时间：    年  月至    年  月\n工作内容:\n阶段成果：",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 32,
+              "col": 0,
+              "content": "建设期",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 32,
+              "col": 1,
+              "content": "起止时间：    年  月至    年  月\n工作内容:\n阶段成果：",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 33,
+              "col": 0,
+              "content": "五、项目的社会和经济效益\n（包括但不限于对优化产业结构、提升产业能级、提升创新能力和增加税收等作用分析；对区域规划、区域服务、产业发展、行业发展、技术发展等方面贡献度分析，文字表述限1000字以内）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 34,
+              "col": 0,
+              "content": "项目的社会和经济效益目标",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 35,
+              "col": 0,
+              "content": "经济效益指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 6,
+              "content": "第一年\n（项目完成当年）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 12,
+              "content": "第二年",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 14,
+              "content": "第三年",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 36,
+              "col": 4,
+              "content": "经营收入（产值）（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 6,
+              "content": "5000",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 12,
+              "content": "6500",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 14,
+              "content": "8500",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 37,
+              "col": 4,
+              "content": "利润（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 6,
+              "content": "400",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 12,
+              "content": "650",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 14,
+              "content": "850",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 38,
+              "col": 0,
+              "content": "社会效益指标",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 4,
+              "content": "带动就业人数",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 6,
+              "content": "10",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 12,
+              "content": "10",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 14,
+              "content": "10",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 39,
+              "col": 4,
+              "content": "服务企业数（次）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 39,
+              "col": 6,
+              "content": "5",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 39,
+              "col": 12,
+              "content": "5",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 39,
+              "col": 14,
+              "content": "5",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 40,
+              "col": 0,
+              "content": "其他（获得的成果，如专利、奖项、版权、软件著作权、品牌、商标等）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 6,
+              "content": "2",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 12,
+              "content": "1",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 14,
+              "content": "1",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 41,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 14,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 42,
+              "col": 0,
+              "content": "六、合作形式和合作单位意见\n（一）合作形式：\n（二）合作单位意见：\n签章：\n年  月  日",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "relationship": "main_header",
+            "content": "一、申报单位基本情况",
+            "row": 0
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "relationship": "description_group",
+            "content": "企业组织机构代码或统一社会信用代码",
+            "row": 1
+          },
+          {
+            "columns": [
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 1
+          },
+          {
+            "columns": [
+              0,
+              1
+            ],
+            "relationship": "merged_header",
+            "content": "注册地址",
+            "row": 2
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 2
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 3
+          },
+          {
+            "columns": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "relationship": "merged_header",
+            "content": "税务登记地（区）",
+            "row": 3
+          },
+          {
+            "columns": [
+              13,
+              14
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 3
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 10
+          },
+          {
+            "columns": [
+              8,
+              9,
+              10
+            ],
+            "relationship": "time_group",
+            "content": "注册时间",
+            "row": 10
+          },
+          {
+            "columns": [
+              11,
+              12,
+              13,
+              14
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 10
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4
+            ],
+            "relationship": "merged_header",
+            "content": "账户名称",
+            "row": 12
+          },
+          {
+            "columns": [
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 12
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2
+            ],
+            "relationship": "merged_header",
+            "content": "项目名称",
+            "row": 17
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 17
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 18
+          },
+          {
+            "columns": [
+              7,
+              8,
+              9
+            ],
+            "relationship": "time_group",
+            "content": "出生年月",
+            "row": 18
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "relationship": "merged_header",
+            "content": "职务职称",
+            "row": 21
+          },
+          {
+            "columns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "relationship": "merged_header",
+            "content": "（限300字以内）",
+            "row": 26
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "relationship": "merged_header",
+            "content": "经济效益指标",
+            "row": 35
+          },
+          {
+            "columns": [
+              4,
+              5
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 35
+          },
+          {
+            "columns": [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ],
+            "relationship": "time_group",
+            "content": "第一年\n（项目完成当年）",
+            "row": 35
+          },
+          {
+            "columns": [
+              12,
+              13
+            ],
+            "relationship": "time_group",
+            "content": "第二年",
+            "row": 35
+          }
+        ]
+      }
+    },
+    {
+      "type": "paragraph",
+      "position": 61,
+      "content": "注：填表之前应已阅《上海市文化创意产业专项资金项目总投资明细用途说明》",
+      "paragraph_index": 13
+    },
+    {
+      "type": "table",
+      "position": 62,
+      "table_index": 2,
+      "structure": {
+        "rows": 49,
+        "columns": 14,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "七、项目资金情况（单位：万元）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "1、计划投资总额",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 7,
+              "content": "600",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "2、申请政府专项资金金额（含市区两级）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 7,
+              "content": "300",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 11,
+              "content": "占总投资比例（%）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "3、项目总投资组成",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "序号",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 1,
+              "content": "用途",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 8,
+              "content": "金额（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 13,
+              "content": "占总投资比例（%）",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "一",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 1,
+              "content": "服务费用",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "1.1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 1,
+              "content": "应用推广费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 8,
+              "content": "490",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 7,
+              "col": 0,
+              "content": "1.2",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 1,
+              "content": "运行服务费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 8,
+              "col": 0,
+              "content": "1.3",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 1,
+              "content": "设计研发费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 8,
+              "content": "10",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 8,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 9,
+              "col": 0,
+              "content": "1.4",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 1,
+              "content": "人才引进费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 10,
+              "col": 0,
+              "content": "1.5",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 1,
+              "content": "调研费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 11,
+              "col": 0,
+              "content": "1.6",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 1,
+              "content": "其他\n（注明具体内容）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 3,
+              "content": "1．",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 12,
+              "col": 3,
+              "content": "2．",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 13,
+              "col": 0,
+              "content": "二",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 1,
+              "content": "建设投资",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 14,
+              "col": 0,
+              "content": "2.1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 1,
+              "content": "设备购置费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 8,
+              "content": "100",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 15,
+              "col": 0,
+              "content": "2.2",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 1,
+              "content": "软件购置费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 16,
+              "col": 0,
+              "content": "2.3",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 1,
+              "content": "建筑工程费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 13,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 17,
+              "col": 0,
+              "content": "2.4",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 1,
+              "content": "改造装修费",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 18,
+              "col": 0,
+              "content": "2.5",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 1,
+              "content": "其他相关投资费用（注明具体内容）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 5,
+              "content": "1．",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 19,
+              "col": 5,
+              "content": "2．",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 20,
+              "col": 0,
+              "content": "三",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 1,
+              "content": "不可预见费\n(不超过项目总投资的8%）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 21,
+              "col": 0,
+              "content": "四",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 1,
+              "content": "建设期利息",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 22,
+              "col": 0,
+              "content": "五",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 1,
+              "content": "其他费用",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 22,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 23,
+              "col": 0,
+              "content": "5.1",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 1,
+              "content": "其他（注明具体内容）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 4,
+              "content": "1．",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 24,
+              "col": 4,
+              "content": "2．",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 8,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 13,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 25,
+              "col": 0,
+              "content": "4、购买设备与软件清单",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 26,
+              "col": 0,
+              "content": "名称",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 4,
+              "content": "单价",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 10,
+              "content": "数量",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 12,
+              "content": "总金额",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 27,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 28,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 29,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 30,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 30,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 30,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 30,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 31,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 31,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 32,
+              "col": 0,
+              "content": "合计",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 32,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 32,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 33,
+              "col": 0,
+              "content": "5、专项资金用途",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 34,
+              "col": 0,
+              "content": "金额（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 34,
+              "col": 2,
+              "content": "用途",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 34,
+              "col": 10,
+              "content": "用 款 时 间",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 34,
+              "col": 12,
+              "content": "备 注",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 35,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 35,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 36,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 36,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 37,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 37,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 38,
+              "col": 0,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 38,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 39,
+              "col": 0,
+              "content": "八、相关文件",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 40,
+              "col": 0,
+              "content": "文件类别",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 10,
+              "content": "文件号",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 40,
+              "col": 12,
+              "content": "批复部门",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 41,
+              "col": 0,
+              "content": "核准（备案）文件",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 10,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 41,
+              "col": 12,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 42,
+              "col": 0,
+              "content": "九、其他情况",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 43,
+              "col": 0,
+              "content": "申报单位是否获得过上海市促进文化创意产业发展专项资金支持",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 43,
+              "col": 6,
+              "content": "□是",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 43,
+              "col": 9,
+              "content": "获得支持年度",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 43,
+              "col": 13,
+              "content": "□2012  □2013\n□2014  □2015\n□2016  □2017\n□2018  □2019\n□2020  □2021\n□2022  □2023\n□2024",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 44,
+              "col": 9,
+              "content": "获支持项目是否通过验收",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 44,
+              "col": 13,
+              "content": "□是\n□否",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 45,
+              "col": 6,
+              "content": "□否",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 46,
+              "col": 0,
+              "content": "该申报项目是否获得其他市级财政资金支持",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 46,
+              "col": 6,
+              "content": "□是 （请注明资金名称及年度）\n□否",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 47,
+              "col": 0,
+              "content": "该申报项目是否已申报或拟申报其他市级财政资金支持",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 47,
+              "col": 6,
+              "content": "□是 （请注明资金名称及年度）\n□否",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 48,
+              "col": 0,
+              "content": "市文创办从未授权任何机构或个人代理专项资金申报事宜，请项目单位自主申报项目。市文创办将严格按照有关标准和程序受理申请。如有任何机构或个人假借市文创办或市文创办工作人员名义向申报单位收取费用，请知情者向市文创办举报。",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13
+            ],
+            "relationship": "main_header",
+            "content": "七、项目资金情况（单位：万元）",
+            "row": 0
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "relationship": "merged_header",
+            "content": "1、计划投资总额",
+            "row": 1
+          },
+          {
+            "columns": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13
+            ],
+            "relationship": "merged_header",
+            "content": "600",
+            "row": 1
+          },
+          {
+            "columns": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "relationship": "merged_header",
+            "content": "300",
+            "row": 2
+          },
+          {
+            "columns": [
+              11,
+              12
+            ],
+            "relationship": "merged_header",
+            "content": "占总投资比例（%）",
+            "row": 2
+          },
+          {
+            "columns": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "用途",
+            "row": 4
+          },
+          {
+            "columns": [
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "relationship": "merged_header",
+            "content": "金额（万元）",
+            "row": 4
+          },
+          {
+            "columns": [
+              1,
+              2
+            ],
+            "relationship": "description_group",
+            "content": "其他\n（注明具体内容）",
+            "row": 11
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "1．",
+            "row": 11
+          },
+          {
+            "columns": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "relationship": "description_group",
+            "content": "其他相关投资费用（注明具体内容）",
+            "row": 18
+          },
+          {
+            "columns": [
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "1．",
+            "row": 18
+          },
+          {
+            "columns": [
+              1,
+              2,
+              3
+            ],
+            "relationship": "merged_header",
+            "content": "其他（注明具体内容）",
+            "row": 23
+          },
+          {
+            "columns": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "1．",
+            "row": 23
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "relationship": "merged_header",
+            "content": "名称",
+            "row": 26
+          },
+          {
+            "columns": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "relationship": "merged_header",
+            "content": "单价",
+            "row": 26
+          },
+          {
+            "columns": [
+              10,
+              11
+            ],
+            "relationship": "merged_header",
+            "content": "数量",
+            "row": 26
+          },
+          {
+            "columns": [
+              12,
+              13
+            ],
+            "relationship": "merged_header",
+            "content": "总金额",
+            "row": 26
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "relationship": "merged_header",
+            "content": "合计",
+            "row": 32
+          },
+          {
+            "columns": [
+              0,
+              1
+            ],
+            "relationship": "merged_header",
+            "content": "金额（万元）",
+            "row": 34
+          },
+          {
+            "columns": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "relationship": "merged_header",
+            "content": "用途",
+            "row": 34
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "relationship": "description_group",
+            "content": "申报单位是否获得过上海市促进文化创意产业发展专项资金支持",
+            "row": 43
+          },
+          {
+            "columns": [
+              6,
+              7,
+              8
+            ],
+            "relationship": "merged_header",
+            "content": "□是",
+            "row": 43
+          },
+          {
+            "columns": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "relationship": "time_group",
+            "content": "获得支持年度",
+            "row": 43
+          },
+          {
+            "columns": [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13
+            ],
+            "relationship": "merged_header",
+            "content": "□否",
+            "row": 45
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "position": 64,
+      "table_index": 3,
+      "structure": {
+        "rows": 30,
+        "columns": 8,
+        "cell_map": [
+          [
+            {
+              "row": 0,
+              "col": 0,
+              "content": "财务报表",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 0,
+              "col": 7,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 1,
+              "col": 0,
+              "content": "利润表（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 1,
+              "col": 7,
+              "content": "",
+              "is_merged": false,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "col": 0,
+              "content": "序号",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 1,
+              "content": "类别",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 2,
+              "content": "*2023年末",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 4,
+              "content": "*2024年末",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 2,
+              "col": 6,
+              "content": "说明",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 3,
+              "col": 0,
+              "content": "1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 1,
+              "content": "销售收入",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 3,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 4,
+              "col": 0,
+              "content": "2",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 1,
+              "content": "销售成本",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 4,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 5,
+              "col": 0,
+              "content": "3",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 1,
+              "content": "利润总额",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 5,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 6,
+              "col": 0,
+              "content": "4",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 1,
+              "content": "净利润",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 6,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 7,
+              "col": 0,
+              "content": "5",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 1,
+              "content": "纳税总额",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 7,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 8,
+              "col": 0,
+              "content": "资产负债表（万元）",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 9,
+              "col": 0,
+              "content": "序号",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 1,
+              "content": "类别",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 2,
+              "content": "*2023年末",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 4,
+              "content": "*2024年末",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 9,
+              "col": 6,
+              "content": "说明",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 10,
+              "col": 0,
+              "content": "1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 1,
+              "content": "流动资产合计",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 10,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 11,
+              "col": 0,
+              "content": "2",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 1,
+              "content": "存货",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 11,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 12,
+              "col": 0,
+              "content": "3",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 1,
+              "content": "应收账款",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 12,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 13,
+              "col": 0,
+              "content": "4",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 1,
+              "content": "预付账款",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 13,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 14,
+              "col": 0,
+              "content": "5",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 1,
+              "content": "总资产",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 14,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 15,
+              "col": 0,
+              "content": "6",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 1,
+              "content": "应付账款",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 15,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 16,
+              "col": 0,
+              "content": "7",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 1,
+              "content": "预收账款",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 16,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 17,
+              "col": 0,
+              "content": "8",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 1,
+              "content": "流动负债总计",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 17,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 18,
+              "col": 0,
+              "content": "9",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 1,
+              "content": "负债总额",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 18,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 19,
+              "col": 0,
+              "content": "10",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 1,
+              "content": "实收资金（股本）",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 19,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 20,
+              "col": 0,
+              "content": "11",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 1,
+              "content": "未分配利润",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 20,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 21,
+              "col": 0,
+              "content": "12",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 1,
+              "content": "所有者权益合计",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 2,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 4,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 21,
+              "col": 6,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 22,
+              "col": 0,
+              "content": "履约能力改善措施",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 23,
+              "col": 0,
+              "content": "序号",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 1,
+              "content": "资金来源总类",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 3,
+              "content": "金额（万元）",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 23,
+              "col": 5,
+              "content": "说明",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 24,
+              "col": 0,
+              "content": "1",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 1,
+              "content": "有担保资格的股东或上级公司补充资金担保",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 24,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 25,
+              "col": 0,
+              "content": "2",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 25,
+              "col": 1,
+              "content": "有股东增资协议",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 25,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 25,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 26,
+              "col": 0,
+              "content": "3",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 1,
+              "content": "有投资人的增资决议",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 26,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 27,
+              "col": 0,
+              "content": "4",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 1,
+              "content": "金融机构融资授信文件",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 27,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 28,
+              "col": 0,
+              "content": "5",
+              "is_merged": false,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 1,
+              "content": "其他金融来源",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 28,
+              "col": 5,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ],
+          [
+            {
+              "row": 29,
+              "col": 0,
+              "content": "小计",
+              "is_merged": true,
+              "merge_source": null
+            },
+            {
+              "row": 29,
+              "col": 3,
+              "content": "",
+              "is_merged": true,
+              "merge_source": null
+            }
+          ]
+        ],
+        "column_relationships": [
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "relationship": "main_header",
+            "content": "财务报表",
+            "row": 0
+          },
+          {
+            "columns": [
+              2,
+              3
+            ],
+            "relationship": "time_group",
+            "content": "*2023年末",
+            "row": 2
+          },
+          {
+            "columns": [
+              4,
+              5
+            ],
+            "relationship": "time_group",
+            "content": "*2024年末",
+            "row": 2
+          },
+          {
+            "columns": [
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "说明",
+            "row": 2
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "资产负债表（万元）",
+            "row": 8
+          },
+          {
+            "columns": [
+              1,
+              2
+            ],
+            "relationship": "merged_header",
+            "content": "资金来源总类",
+            "row": 23
+          },
+          {
+            "columns": [
+              3,
+              4
+            ],
+            "relationship": "merged_header",
+            "content": "金额（万元）",
+            "row": 23
+          },
+          {
+            "columns": [
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "说明",
+            "row": 23
+          },
+          {
+            "columns": [
+              0,
+              1,
+              2
+            ],
+            "relationship": "merged_header",
+            "content": "小计",
+            "row": 29
+          },
+          {
+            "columns": [
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "relationship": "merged_header",
+            "content": "",
+            "row": 29
+          }
+        ]
+      }
+    }
+  ]
+}

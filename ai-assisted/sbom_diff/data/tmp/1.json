@@ -1,0 +1,15 @@
+{
+    "approval_code": "F8804181-ED37-43B3-90CB-6287BC89DA77",
+    "form_value1": "DE0040-00-20-52-00P共4个BOM设计申请",
+    "form_value2": "本次审批共包含:1个设计BOM申请, 新建BOM生成:4个",
+    "file_count": 1,
+    "uploaded_files": [
+        {
+            "file": "PLM新建BOM——DE0040-3Q-20-52-00P 20250825.xlsx",
+            "path": "data/input/20251105_161903\\PLM新建BOM——DE0040-3Q-20-52-00P 20250825.xlsx",
+            "file_code": "1A99EEB0-FA8C-4928-ABA0-67D583F35D0E",
+            "file_url": "https://lf3-approval-sign.feishucdn.com/lark-approval-attachment/attachment/20251105/7137681873187225601/a37cb662-7ad9-4c64-817e-466765c5da6a.xlsx?lk3s=d810e0ef&x-expires=1762373960&x-signature=PJKnVvRo0VgmElZDuPp99hz7KKE%3D#/obj/obj.xlsx"
+        }
+    ],
+    "create_time": "2025-11-05T16:19:22.124806"
+}

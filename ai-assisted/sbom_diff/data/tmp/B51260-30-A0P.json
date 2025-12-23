@@ -1,0 +1,945 @@
+{
+  "MODEL": "B51260-30-A0P",
+  "DESC": [
+    "逆变器产品",
+    "标准版本"
+  ],
+  "MPART": {
+    "275": [
+      {
+        "MPART.NO": "275-100017-00",
+        "MPART.NAME": "Antenna (WIFI、GPRS、etc Comunication) 50 ohm 2.4~2.5GHz 2.0 Max O.D.1.13 Black 1代IPEX mm Laneo/WIFI Antenna L=70mm MHF L157J.007.001.J01 70 mm -40~+85℃",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 1,
+        "MPART.DESC": [
+          "标准零件"
+        ],
+        "children": []
+      }
+    ],
+    "312": [
+      {
+        "MPART.NO": "312-900301-05",
+        "MPART.NAME": "PCBA A201-Ai Dongle-LAN (RED)",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "自制",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 2,
+        "MPART.DESC": [
+          "标准零件",
+          "电路板组件"
+        ],
+        "children": [
+          {
+            "MPART.NO": "215-10150-00",
+            "MPART.NAME": "R C.TF 1/4W 150oHM F 1206SMD",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 17,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-50033-00",
+            "MPART.NAME": "R C.TF 1/10W 33oHM F 0603SMD",
+            "MPART.BNUM": 5.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 18,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-50100-00",
+            "MPART.NAME": "R C.TF 1/10W 100oHM F 0603SMD",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 19,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-50330-00",
+            "MPART.NAME": "R C.TF 1/10W 330oHM F 0603SMD",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 20,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-50499-00",
+            "MPART.NAME": "R C.TF 1/10W 499oHM F 0603SMD",
+            "MPART.BNUM": 4.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 21,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-51360-00",
+            "MPART.NAME": "R C.TF 1/10W 3.6K F 0603SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 22,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-51470-00",
+            "MPART.NAME": "R C.TF 1/10W 4.7KoHM F 0603SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 23,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-51510-00",
+            "MPART.NAME": "R C.TF 1/10W 5.1KoHM F 0603SMD",
+            "MPART.BNUM": 7.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 24,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-52100-00",
+            "MPART.NAME": "R C.TF 1/10W 10KoHM F 0603SMD",
+            "MPART.BNUM": 6.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 25,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-52110-00",
+            "MPART.NAME": "R C.TF 1/10W 11KoHM F 0603SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 26,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-52300-00",
+            "MPART.NAME": "R C.TF 1/10W 30KoHM F 0603SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 27,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-53100-00",
+            "MPART.NAME": "R C.TF 1/10W 100KoHM F 0603SMD",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 28,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-53200-00",
+            "MPART.NAME": "R C.TF 1/10W 200KoHM F 0603SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 29,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-90094-00",
+            "MPART.NAME": "R C. TF 1/10W 6.2k 5% 0603",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 30,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "215-90154-00",
+            "MPART.NAME": "R C. TNF 1/10W 0603 20K ±0.1% YAGEO / RT0603BRD0720KL",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 31,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "240-00067-00",
+            "MPART.NAME": "C AL 47uF 25V M SMD 3000h Lelon/VEU Φ6.3*5.7mm",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 32,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00000-00",
+            "MPART.NAME": "C-CP CER MT 101J 50V NPO 0603SMD",
+            "MPART.BNUM": 5.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 33,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00006-00",
+            "MPART.NAME": "C-CP CER MT 471J 50V NPO 0603SMD",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 34,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00015-00",
+            "MPART.NAME": "C-CP CER MT 104K 50V X7R 0603SMD",
+            "MPART.BNUM": 11.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 35,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00016-00",
+            "MPART.NAME": "C-CP CER MT 105K 16V X7R 0603SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 36,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00024-00",
+            "MPART.NAME": "C-CP CER MT 100J 50V NPO 0603SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 37,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-000484-00",
+            "MPART.NAME": "C-CER 10uF 16V ±20% X5R SMD -45~85℃ Yageo CC0603MRX5R7BB106",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 38,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00316-00",
+            "MPART.NAME": "C-CER MT SMD 2.2uF 16V 10% X5R 0603 Yageo/CC0603KRX5R7BB225",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 39,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00327-00",
+            "MPART.NAME": "C-CER MT SMD 106K 25V K±10% X7R 1210 muRata& GRM32DR71E106KA12L",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 40,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00346-00",
+            "MPART.NAME": "C-CER MT SMD 10uF 10V K X7R 0805 Murata/GRM21BR71A106KA73L",
+            "MPART.BNUM": 3.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 41,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00409-00",
+            "MPART.NAME": "C-CER 18pF 50V ±5% 0603 SMD Yageo C-CER MT SMD 18pF 50V J NPO 0603 YAGEO/C0603JRNPO9BN180/YAGEO NPO",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "预加工",
+            "MPART.ID": 42,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00418-00",
+            "MPART.NAME": "C-CER MT SMD 10nF 1kV K X7R 1812 YAGEO/CC1812KKX7RCBB103",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 43,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "246-00458-00",
+            "MPART.NAME": "C-CER MT SMD 22pf 50VDC J NP0 0603 PSA / 0603N220J500CT",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 44,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "261-52004-00",
+            "MPART.NAME": "SMD-BEAD  MOTTO/MS0503-5R6M 5.6±20% SMD Max/70.6 mΩ 4A",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 45,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "261-52009-00",
+            "MPART.NAME": "SMD-BEAD TAI-TECH/HCB1608KF-601T20 600Ω@100MHz Ferrite 1608 -40~+125℃ 2000mA",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 46,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "263-04089-00",
+            "MPART.NAME": "IC PWM CNTL SGMICRO/SGM61230 SMD -40~+125℃ TSOT-23-6",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 47,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "263-300009-00",
+            "MPART.NAME": "COMM-IC IC Plus IP101GRI -40℃~+85℃ QFN-32",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "预加工",
+            "MPART.ID": 48,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "263-300628-00",
+            "MPART.NAME": "Espressif-ESP32-WROVER-IE-N16R8 8MB SPRAM 16MB flash ESCP-16241A001-F--40~+85℃-SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "预加工",
+            "MPART.ID": 49,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "263-30082-00",
+            "MPART.NAME": "COMM-IC GIC/GI3485EENL SMD -40°C~125°C SOIC8",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 50,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "264-11000-00",
+            "MPART.NAME": "ESD Yangjie SRV05-4 3pf 5V -55~125℃ SOT23-6L",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "预加工",
+            "MPART.ID": 51,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "264-34027-00",
+            "MPART.NAME": "EMITTER-D  SMD Everlight/26-21/G6C-BU1V2B/CT Yellow green SMD",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 52,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "264-34032-00",
+            "MPART.NAME": "EMITTER-D EVERLIGHT/26-21/BHC-ATW/CT Blue 3.2x1.6mm SMD1206",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 53,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "265-100001-00",
+            "MPART.NAME": "Galaxy-MMBT2222A-0.6A-40V-NPN--55～150℃-SOT-23",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 54,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "265-500002-00",
+            "MPART.NAME": "MOSFET SMD Galaxy 2N7002HA 0.3A 60V -55~+150℃ SOT-23",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "预加工",
+            "MPART.ID": 55,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "270-900301-03",
+            "MPART.NAME": "PMU A201 94V-0 FR-4 4S 1.0mm HOZ/HOZ 87.0*160.0 1*4",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 56,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "274-20057-00",
+            "MPART.NAME": "Signal terminal HanRun/HR911105C AU/30U RJ45 Ethernet with shrapnel",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 57,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "274-300007-00",
+            "MPART.NAME": "Lycn/313102S351/6.1/2.5/3 Gold 5u 1*2Pin 2.54 mm 180° 1000V3A UL",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 58,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "301-10023-00",
+            "MPART.NAME": "TVS BrightKing/SMBJ10CA 10V SMD",
+            "MPART.BNUM": 2.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 60,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "302-10001-00",
+            "MPART.NAME": "CRYSTAL DIP KYUSHUDENTSU/HC-49S3 25MHz ±30ppm",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 61,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "TH310-900301-03",
+            "MPART.NAME": "SCH A201-Ai Dongle-LAN",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "虚拟",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "312-900301-05",
+            "MPART.OP": "",
+            "MPART.ID": 65,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          }
+        ]
+      }
+    ],
+    "334": [
+      {
+        "MPART.NO": "334-010202-00",
+        "MPART.NAME": "Ai Dongle Wlan Stick upper lid assembly（USB）",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "自制",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 3,
+        "MPART.DESC": [
+          "组装件"
+        ],
+        "children": [
+          {
+            "MPART.NO": "274-400020-00",
+            "MPART.NAME": "Singatron Tin 4 52±5 mm male 30V/1A",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "334-010202-00",
+            "MPART.OP": "预加工",
+            "MPART.ID": 59,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "508-20002-00",
+            "MPART.NAME": "RAKU-PUR 21-2350 A Black",
+            "MPART.BNUM": 2.8,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "334-010202-00",
+            "MPART.OP": "预加工",
+            "MPART.ID": 62,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "508-20003-00",
+            "MPART.NAME": "RAKU-PUR 21-2350 B Brown",
+            "MPART.BNUM": 0.4,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "334-010202-00",
+            "MPART.OP": "预加工",
+            "MPART.ID": 63,
+            "MPART.DESC": [
+              "标准零件"
+            ],
+            "children": []
+          },
+          {
+            "MPART.NO": "510-000024-00",
+            "MPART.NAME": "Ai Dongle Cover",
+            "MPART.BNUM": 1.0,
+            "MPART.MFG": "外购",
+            "MPART.LVL": 1,
+            "MPART.PRNT": "334-010202-00",
+            "MPART.OP": "预加工",
+            "MPART.ID": 64,
+            "MPART.DESC": [
+              "标准件"
+            ],
+            "children": []
+          }
+        ]
+      }
+    ],
+    "490": [
+      {
+        "MPART.NO": "490-00004-00",
+        "MPART.NAME": "YOUBANG LEAD-FREE SOLDER WIRE YB-201 SnCu0.7 FLUX 2.2% DIA.1.0mm",
+        "MPART.BNUM": 2.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 4,
+        "MPART.DESC": [
+          "标准零件"
+        ],
+        "children": []
+      }
+    ],
+    "510": [
+      {
+        "MPART.NO": "510-000025-00",
+        "MPART.NAME": "Ai Dongle Housing A",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 5,
+        "MPART.DESC": [
+          "标准件"
+        ],
+        "children": []
+      },
+      {
+        "MPART.NO": "510-000028-00",
+        "MPART.NAME": "Ai Dongle Rubber Nut",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 6,
+        "MPART.DESC": [
+          "标准件"
+        ],
+        "children": []
+      }
+    ],
+    "530": [
+      {
+        "MPART.NO": "530-200010-01",
+        "MPART.NAME": "非标准件 Ai Dongle Seal Circle",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 7,
+        "MPART.DESC": [
+          "标准零件"
+        ],
+        "children": []
+      },
+      {
+        "MPART.NO": "530-200011-00",
+        "MPART.NAME": "非标准件 Ai Dongle Rubber Plug",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 8,
+        "MPART.DESC": [
+          "标准零件"
+        ],
+        "children": []
+      },
+      {
+        "MPART.NO": "530-200016-00",
+        "MPART.NAME": "非标准件 Ai Dongle Rubber Plug B",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 9,
+        "MPART.DESC": [
+          "标准零件"
+        ],
+        "children": []
+      }
+    ],
+    "532": [
+      {
+        "MPART.NO": "532-000074-00",
+        "MPART.NAME": "Anti-twist WIFI stick label",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 10,
+        "MPART.DESC": [
+          "标签类",
+          "标识标签"
+        ],
+        "children": []
+      },
+      {
+        "MPART.NO": "532-01021-00",
+        "MPART.NAME": "QC PASS LABEL COPPERPLATE PAPER",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 11,
+        "MPART.DESC": [
+          "标签类",
+          "标识标签"
+        ],
+        "children": []
+      },
+      {
+        "MPART.NO": "532-100036-00",
+        "MPART.NAME": "Blank label 45X35mm PET50(K2411)PM8LK",
+        "MPART.BNUM": 3.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 12,
+        "MPART.DESC": [
+          "标签类",
+          "标识标签"
+        ],
+        "children": []
+      }
+    ],
+    "536": [
+      {
+        "MPART.NO": "536-000033-00",
+        "MPART.NAME": "Ai dongle 纸盒",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 13,
+        "MPART.DESC": [
+          "包装材料"
+        ],
+        "children": []
+      },
+      {
+        "MPART.NO": "536-300001-00",
+        "MPART.NAME": "Bubble bag 245X80mm",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 14,
+        "MPART.DESC": [
+          "包装材料"
+        ],
+        "children": []
+      }
+    ],
+    "540": [
+      {
+        "MPART.NO": "540-000003-02",
+        "MPART.NAME": "User manual for Wlan Stick（Ai Dongle)",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "外购",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 15,
+        "MPART.DESC": [
+          "文档类"
+        ],
+        "children": []
+      }
+    ],
+    "610": [
+      {
+        "MPART.NO": "610-52015-01",
+        "MPART.NAME": "display、comm B51260-30-A0P 610-52015-01 RED/ESP32-WROVER-IE/Ai-Dongle-Aiswei-Libra",
+        "MPART.BNUM": 1.0,
+        "MPART.MFG": "虚拟",
+        "MPART.LVL": 0,
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.OP": "预加工",
+        "MPART.ID": 16,
+        "MPART.DESC": [
+          "标准零件"
+        ],
+        "children": []
+      }
+    ]
+  }
+}

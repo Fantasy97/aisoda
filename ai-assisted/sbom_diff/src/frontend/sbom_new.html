@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>设计管理系统</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- 登录遮罩层 - 未登录时显示 -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-container">
+      <div class="login-content">
+        <div class="login-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2"/>
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <h2 class="login-title">超级BOM</h2>
+        <p class="login-subtitle">请使用飞书账号登录以继续</p>
+        <button class="btn btn-primary btn-login-large" onclick="feishuLogin()">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="none" style="margin-right: 8px;">
+            <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          飞书登录
+        </button>
+        <div class="login-tips">
+          <p>🔒 登录后可使用完整功能</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主页面内容 - 登录后显示 -->
+  <div class="main-page-content" id="mainPageContent" style="display: none;">
+  <!-- 顶部标题栏 -->
+  <div class="top-header">
+    <div class="top-header-left">
+      <div class="logo">🎨 超级BOM</div>
+    </div>
+    <div class="top-header-right">
+      <!-- 未登录状态 -->
+      <div class="user-info" id="loginButton" style="display: none;">
+        <button class="btn-login" onclick="feishuLogin()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 6px;">
+            <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          飞书登录
+        </button>
+      </div>
+      <!-- 已登录状态 -->
+      <div class="user-info" id="userInfo" style="display: none;">
+        <div class="user-avatar" id="userAvatar">?</div>
+        <span id="userName">未登录</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主容器 -->
+  <div class="main-container">
+    <!-- 左侧边栏 -->
+    <div class="left-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">
+          <span>导航</span>
+          <button class="sidebar-add-btn" id="sidebarAddBtn" title="添加导航项">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="sidebar-item active">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          全部设计
+          <!-- <span class="sidebar-badge">24</span> -->
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 2L2 6v8h12V6L8 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          新建设计
+        </div>
+        <div class="sidebar-item">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 2l1.5 3.5 4 .5-3 3 .5 4L8 11.5 5 13l.5-4L2.5 6l4-.5L8 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="currentColor" fill-opacity="0.1"/>
+          </svg>
+          小惟推荐
+        </div>
+        <!-- <div class="sidebar-item">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M14 14l-3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          设计详情
+          <span class="sidebar-badge">5</span>
+        </div> -->
+      </div>
+
+    </div>
+
+    <!-- 中间主操作区 -->
+    <div class="main-content">
+      <!-- 瀑布式标题区 -->
+      <div class="waterfall-header">
+        <div class="waterfall-title" id="mainTitle">设计项目管理</div>
+        <div class="detail-title-container" id="detailTitleContainer">
+          <div class="detail-title-label waterfall-title">审批名称</div>
+          <input
+            type="text"
+            class="detail-title-input"
+            id="detailTitleInput"
+            value="SP0012-3Q-23-5QP 及相关设计"
+          >
+        </div>
+      </div>
+
+      <!-- 搜索和操作栏 -->
+      <div class="search-action-bar" id="searchActionBar">
+        <div class="search-box">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M14 14l-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input type="text" class="search-input" placeholder="搜索设计项目、编号或描述...">
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            筛选
+          </button>
+          <button class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            新建设计
+          </button>
+        </div>
+      </div>
+
+      <!-- 设计列表视图 -->
+      <div id="designListView">
+        <!-- 筛选标签栏 -->
+        <div class="filter-bar">
+          <span class="filter-label">状态:</span>
+          <div class="filter-tags">
+            <div class="filter-tag active" data-status="all">全部</div>
+            <div class="filter-tag" data-status="DRAFT">草稿</div>
+            <div class="filter-tag" data-status="PENDING">审核中</div>
+            <div class="filter-tag" data-status="PUSHED">已推送</div>
+            <div class="filter-tag" data-status="FAILED">失败</div>
+            <div class="filter-tag" data-status="DISCARDED">已废弃</div>
+          </div>
+        </div>
+
+        <!-- 卡片列表 -->
+        <div class="card-list-container">
+          <div class="card-grid" id="designCardGrid">
+            <!-- 加载提示 -->
+            <div id="loadingIndicator" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #999;">
+              <div style="margin-bottom: 12px;">加载中...</div>
+            </div>
+            <!-- 空状态提示 -->
+            <div id="emptyState" style="grid-column: 1 / -1; text-align: center; padding: 60px; display: none;">
+              <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.3;">📭</div>
+              <div style="color: #999; font-size: 14px;">暂无设计记录</div>
+            </div>
+            <!-- 卡片将通过JavaScript动态生成 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 设计详情视图 -->
+      <div id="designDetailView" style="display: none;">
+        <div class="detail-container">
+          <!-- 固定区域容器 -->
+          <div class="detail-fixed-area">
+            <!-- 区域1: 操作区和总信息区 -->
+            <div class="detail-summary-section">
+              <div class="detail-header">
+                <div class="detail-title-section">
+                  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                    <!-- <input type="text" class="detail-title" id="detailTitleInput" value="SP0012-3Q-23-5QP 及相关设计" style="margin: 0; padding: 14px 18px; border: 2px solid #667eea; background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%); font-size: 22px; font-weight: 700; font-family: inherit; color: #1a1a1a; outline: none; flex: 1; border-radius: 12px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15); transition: all 0.3s ease;"> -->
+                    <!-- <span class="status-badge status-review" id="detailStatusBadge">
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 3v5l3 3M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      审批中
+                    </span> -->
+                  </div>
+                  <div class="detail-approval-header" style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+                    <div class="detail-meta" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                      <span>产品型号: <strong>SP00系列</strong></span>
+                      <span>创建时间: <strong>0000-00-00 00:00</strong></span>
+                    </div>
+                    <div style="font-weight: 600; color: #1a1a1a; font-size: 16px;">审批信息</div>
+                    <div class="detail-approval-row" style="display: flex; gap: 16px; flex-wrap: wrap;">
+                      <div class="detail-approval-card" style="flex: 1 1 220px; min-width: 200px; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.06) 0%, rgba(118, 75, 162, 0.06) 100%); display: flex; flex-direction: column; gap: 8px;">
+                        <div style="font-size: 13px; color: #6b7280;">节点 1 · 发起人</div>
+                        <div id="initiatorName" style="font-size: 15px; color: #1f2937;">创建人: <strong>未知</strong></div>
+                      </div>
+                      <div class="detail-approval-card" style="flex: 1 1 220px; min-width: 200px; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f9fafc; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <span style="font-size: 13px; color: #6b7280;">节点 2 · 研发代表</span>
+                          <span style="font-size: 12px; color: #94a3b8;">支持输入姓名联想，回车或选择后可添加多位</span>
+                        </div>
+                        <div style="position: relative; display: flex; flex-direction: column; gap: 6px;">
+                          <div
+                            id="approver1SelectedList"
+                            style="display: none; flex-wrap: wrap; gap: 6px;"
+                          ></div>
+                          <input
+                            type="text"
+                            id="approver1ContactInput"
+                            placeholder="请输入审批人姓名或工号"
+                            autocomplete="off"
+                            style="padding: 10px 12px; border: 1px solid #d0d7e2; border-radius: 8px; font-size: 14px; color: #1f2937;"
+                          />
+                          <input type="hidden" id="approver1ContactIds" />
+                          <div
+                            id="approver1Suggestions"
+                            style="position: absolute; top: 100%; left: 0; right: 0; background: #ffffff; border: 1px solid #d0d7e2; border-radius: 8px; margin-top: 4px; max-height: 220px; overflow-y: auto; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12); display: none; z-index: 20;"
+                          ></div>
+                        </div>
+                      </div>
+                      <div class="detail-approval-card" style="flex: 1 1 220px; min-width: 200px; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f9fafc; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <span style="font-size: 13px; color: #6b7280;">节点 3 · 部门经理</span>
+                          <span style="font-size: 12px; color: #94a3b8;">支持输入姓名联想，回车或选择后可添加多位</span>
+                        </div>
+                        <div style="position: relative; display: flex; flex-direction: column; gap: 6px;">
+                          <div
+                            id="approver2SelectedList"
+                            style="display: none; flex-wrap: wrap; gap: 6px;"
+                          ></div>
+                          <input
+                            type="text"
+                            id="approver2ContactInput"
+                            placeholder="请输入审批人姓名或工号"
+                            autocomplete="off"
+                            style="padding: 10px 12px; border: 1px solid #d0d7e2; border-radius: 8px; font-size: 14px; color: #1f2937;"
+                          />
+                          <input type="hidden" id="approver2ContactIds" />
+                          <div
+                            id="approver2Suggestions"
+                            style="position: absolute; top: 100%; left: 0; right: 0; background: #ffffff; border: 1px solid #d0d7e2; border-radius: 8px; margin-top: 4px; max-height: 220px; overflow-y: auto; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12); display: none; z-index: 20;"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="detail-actions">
+                  <button class="btn btn-secondary btn-sm" id="reuploadBtn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M8 11V3M5 6l3-3 3 3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    重新上传
+                  </button>
+                  <!-- <button class="btn btn-secondary btn-sm">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M8 3v8M5 8l3 3 3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    导出文件
+                  </button> -->
+                  <button class="btn btn-primary btn-sm" id="detailApprovalBtn">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M3 8h7M10 5l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    发起审批
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 区域2: 页签区域 -->
+            <div class="detail-tabs-section">
+              <div class="tabs-scroll-wrapper">
+                <div class="tabs-list">
+                  <button class="tab-item active" data-tab="sp0012">
+                    <div class="tab-status status-review"></div>
+                    <span>SP00xx-xx-xx-xxx</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 区域3: 详细信息区（可滚动） -->
+          <div class="detail-content-section">
+            <!-- SP0012-3Q-23-5QP 内容 -->
+            <div class="tab-content active" data-content="tab_0">
+              <!-- 分类筛选 -->
+              <div class="category-filters" id="category-filters-tab_0">
+                <button class="category-btn active" data-category="all">全部</button>
+              </div>
+
+              <!-- BOM表格 -->
+              <div class="bom-detail-table" id="bom-table-tab_0">
+                <!-- 表格内容将通过JavaScript动态生成 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小惟推荐视图 -->
+      <div id="recommendationView" style="display: none;">
+        <div class="recommendation-container">
+          <div class="recommendation-header">
+            <h2 class="recommendation-title">🤖 小惟推荐</h2>
+            <p class="recommendation-subtitle">基于您的历史数据和业务场景，为您推荐以下内容</p>
+          </div>
+          <div class="recommendation-content">
+            <div class="recommendation-placeholder">
+              <div class="placeholder-icon">✨</div>
+              <div class="placeholder-text">功能开发中，敬请期待...</div>
+              <div class="placeholder-hint">此功能将根据您的设计历史和使用习惯，智能推荐相关的设计建议和优化方案</div>
+            </div>
+          </div>
+          <!-- 右下角图片 -->
+          <div class="recommendation-image">
+            <img src="wwxw2.png" alt="小惟推荐" class="recommendation-img">
+          </div>
+        </div>
+      </div>
+
+      <!-- 新建设计视图 -->
+      <div id="newDesignView" style="display: none;">
+        <div class="upload-container-merged">
+          <!-- 合并的文件管理区域 -->
+          <div class="file-manager-section" id="fileManagerSection">
+            <!-- 顶部操作栏 -->
+            <div class="file-list-header">
+              <div class="header-left">
+                <h3>文件管理</h3>
+                <span class="file-count">共 <span id="fileCount">0</span> 个文件</span>
+                <div id="uploadDirInfo" class="upload-dir-info" style="display: none;">
+                  <span class="upload-dir-icon">✓</span>
+                  <span class="upload-dir-label">上传目录:</span>
+                  <span id="uploadDirPath" class="upload-dir-path"></span>
+                </div>
+              </div>
+              <div class="header-right">
+                <button class="btn btn-secondary" onclick="clearAllFiles()">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  清除全部
+                </button>
+                <button class="btn btn-primary" onclick="startProcessing()" id="processBtn" disabled>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  开始处理
+                </button>
+              </div>
+            </div>
+
+            <!-- 隐藏的文件输入框 -->
+            <input type="file" id="fileInput" class="file-input-hidden" accept=".xlsx,.xls" multiple>
+
+            <!-- 上传区域（包含拖拽提示和文件列表） -->
+            <div class="upload-area" id="uploadArea" tabindex="0">
+              <!-- 拖拽提示区域 -->
+              <div class="drag-hint" id="dragHint">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                  <path d="M8 12V4M8 4L5 7M8 4L11 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 12v8M16 20l3-3M16 20l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="3" y="10" width="18" height="8" rx="1" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <p class="drag-hint-text">拖拽文件到此处上传</p>
+                <p class="drag-hint-sub">或点击此处选择文件，也可使用 Ctrl+V 粘贴</p>
+              </div>
+
+              <!-- 文件列表 -->
+              <div id="fileList" class="file-list-merged">
+                <!-- 空状态 -->
+                <div class="empty-state-merged">
+                  <div class="empty-icon">📁</div>
+                  <p class="empty-text">暂无文件</p>
+                  <p class="empty-hint">拖拽Excel文件到此处，或点击上方区域选择，也可使用 Ctrl+V 粘贴</p>
+                  <p class="empty-format">支持 .xlsx 和 .xls 格式</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 底部提示信息 -->
+            <div class="file-manager-footer">
+              <div class="footer-tips">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 6px;">
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M8 5v3M8 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>支持批量上传多个Excel文件，文件将被自动处理并生成BOM数据</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧副功能区 -->
+    <div class="right-sidebar" id="rightSidebar" style="display: none;">
+      <button class="sidebar-toggle-btn" id="sidebarToggle">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 4L6 8l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="widget">
+        <div class="widget-title">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M8 2v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          问问小惟
+        </div>
+        <div class="activity-item">
+          <div class="activity-title">ODM变更如何设计BOM</div>
+          <div class="activity-time">差异推荐</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-title">SP型号的型号的功率替换</div>
+          <div class="activity-time">新建推荐</div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- 折叠后的悬浮按钮 -->
+    <button class="floating-toggle-btn" id="floatingToggle">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- 主页面内容结束 -->
+
+  <script src="script.js"></script>
+</body>
+</html>

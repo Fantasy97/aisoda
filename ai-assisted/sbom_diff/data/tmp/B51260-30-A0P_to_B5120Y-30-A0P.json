@@ -1,0 +1,48 @@
+{
+  "model_info": {
+    "base_model": "B51260-30-A0P",
+    "target_model": "B5120Y-30-A0P",
+    "title": "B5120Y-30-A0P  机种BOM差异表"
+  },
+  "diff_items": [
+    {
+      "MPART.NAME": "",
+      "base_bom": {
+        "MPART.NO": "312-900301-05",
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.BNUM": 1,
+        "MPART.OP": "",
+        "REMARK": ""
+      },
+      "target_bom": {
+        "MPART.NO": "312-900316-00",
+        "MPART.PRNT": "B5120Y-30-A0P",
+        "MPART.BNUM": 1,
+        "MPART.OP": "",
+        "REMARK": "change"
+      }
+    },
+    {
+      "MPART.NAME": "",
+      "base_bom": {
+        "MPART.NO": "540-000003-02",
+        "MPART.PRNT": "B51260-30-A0P",
+        "MPART.BNUM": 1,
+        "MPART.OP": "",
+        "REMARK": ""
+      },
+      "target_bom": {
+        "MPART.NO": "540-600512-00",
+        "MPART.PRNT": "B5120Y-30-A0P",
+        "MPART.BNUM": 1,
+        "MPART.OP": "",
+        "REMARK": "change"
+      }
+    }
+  ],
+  "sub_bom_items": [],
+  "statistics": {
+    "diff_count": 2,
+    "sub_bom_count": 0
+  }
+}
