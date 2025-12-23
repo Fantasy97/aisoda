@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P5 Style Diff Interface</title>
+    <!-- 引入 Impact 风格的字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+SC:wght@900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --p5-red: #D80018; /* P5 标志性红色 */
+            --p5-black: #000000;
+            --p5-white: #F2F2F2;
+            --p5-yellow: #FFE600; /* 用于强调 */
+            --p5-blue: #0044CC; /* 类似天鹅绒房间的蓝，用于新增 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            font-family: 'Anton', 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
+            /* 动态背景纹理 */
+            background-image: 
+                linear-gradient(45deg, #222 25%, transparent 25%, transparent 75%, #222 75%, #222),
+                linear-gradient(45deg, #222 25%, transparent 25%, transparent 75%, #222 75%, #222);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* --- 红色斜切背景层 --- */
+        .bg-slash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--p5-red);
+            clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+            z-index: -1;
+            /* 半色调圆点纹理 */
+            background-image: radial-gradient(rgba(0,0,0,0.2) 15%, transparent 16%);
+            background-size: 10px 10px;
+        }
+
+        /* --- 主容器 --- */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            padding: 40px 20px;
+            perspective: 1000px;
+        }
+
+        /* --- 标题区 --- */
+        .header-box {
+            transform: skewX(-10deg) rotate(-2deg);
+            background: var(--p5-black);
+            color: var(--p5-white);
+            display: inline-block;
+            padding: 10px 40px;
+            margin-bottom: 40px;
+            border: 4px solid var(--p5-white);
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .header-box h1 {
+            margin: 0;
+            font-size: 4rem;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+
+        .header-sub {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--p5-white);
+            color: var(--p5-black);
+            padding: 5px 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transform: rotate(3deg);
+        }
+
+        /* --- 列表容器 --- */
+        .diff-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* --- 列表头 --- */
+        .list-header {
+            display: flex;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            color: var(--p5-black);
+            font-size: 1.5rem;
+            font-weight: bold;
+            transform: skewX(-10deg);
+            text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+        }
+
+        /* --- 单个条目行 (The Row) --- */
+        .diff-row {
+            display: flex;
+            align-items: stretch; /* 让所有子元素等高 */
+            transform: skewX(-10deg); /* 核心：整体倾斜 */
+            background: var(--p5-white);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid var(--p5-black);
+            position: relative;
+            margin-left: 20px; /* 留出空间给悬停效果 */
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+            cursor: default;
+            animation: slideIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* 依次进场动画 */
+        .diff-row:nth-child(1) { animation-delay: 0.1s; }
+        .diff-row:nth-child(2) { animation-delay: 0.2s; }
+        .diff-row:nth-child(3) { animation-delay: 0.3s; }
+        .diff-row:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px) skewX(-10deg); opacity: 0; }
+            to { transform: translateX(0) skewX(-10deg); opacity: 1; }
+        }
+
+        /* 悬停交互：典型的 P5 选中效果 */
+        .diff-row:hover {
+            transform: translateX(-15px) scale(1.02) skewX(-10deg);
+            background: var(--p5-black);
+            color: var(--p5-white);
+            border-color: var(--p5-white);
+            z-index: 10;
+            box-shadow: 15px 15px 0 var(--p5-red);
+        }
+
+        /* --- 单元格样式 --- */
+        .col {
+            padding: 15px 10px;
+            display: flex;
+            align-items: center;
+            /* 反向倾斜文字，使其看起来直立，或者保留倾斜增加风格 */
+            transform: skewX(10deg); 
+            overflow: hidden;
+        }
+
+        /* 1. 名称列 */
+        .col-name {
+            flex: 2;
+            font-size: 1.5rem;
+            border-right: 2px solid var(--p5-black);
+            position: relative;
+        }
+        /* 装饰性星号 */
+        .col-name::before {
+            content: '★';
+            color: var(--p5-red);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .diff-row:hover .col-name { border-right-color: var(--p5-white); }
+
+        /* 2. 原始料号 */
+        .col-old {
+            flex: 2;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #555;
+            background: #ddd;
+            clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%); /* 梯形背景 */
+            justify-content: center;
+            margin: 5px;
+        }
+        .diff-row:hover .col-old { background: #333; color: #aaa; }
+
+        /* 3. 箭头 */
+        .col-arrow {
+            flex: 0.5;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--p5-red);
+        }
+        .diff-row:hover .col-arrow { color: var(--p5-yellow); }
+
+        /* 4. 变更料号 */
+        .col-new {
+            flex: 2;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            background: var(--p5-black);
+            color: var(--p5-white);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            justify-content: center;
+            margin: 5px;
+        }
+        .diff-row:hover .col-new { background: var(--p5-white); color: var(--p5-black); }
+
+        /* 5. 动作列 */
+        .col-action {
+            flex: 1.5;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        /* 动作背景块 - 像是一张贴纸 */
+        .action-tag {
+            padding: 5px 15px;
+            transform: rotate(-2deg);
+            border: 2px solid var(--p5-black);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        
+        .diff-row:hover .action-tag {
+            transform: rotate(5deg) scale(1.2); /* 悬停时晃动 */
+            border-color: var(--p5-black); 
+        }
+
+        /* 状态颜色 */
+        .status-mod { background: var(--p5-yellow); color: var(--p5-black); }
+        .status-add { background: var(--p5-blue); color: var(--p5-white); }
+        .status-del { background: #555; color: var(--p5-white); text-decoration: line-through; }
+
+        /* 装饰线 */
+        .decoration-line {
+            height: 5px;
+            background: var(--p5-black);
+            width: 100%;
+            margin: 20px 0;
+            transform: rotate(1deg);
+        }
+
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .container { width: 100%; padding: 10px; }
+            .diff-row { flex-direction: column; transform: skewX(0); margin: 0 0 20px 0; border: 4px solid black;}
+            .col { transform: skewX(0); padding: 10px; border: none; }
+            .col-old, .col-new { clip-path: none; width: 90%; text-align: center; }
+            .col-arrow { transform: rotate(90deg); }
+            .diff-row:hover { transform: scale(1.02); }
+            .header-box { transform: none; width: 90%; text-align: center;}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景红色斜切块 -->
+    <div class="bg-slash"></div>
+
+    <div class="container">
+        <!-- 标题头 -->
+        <div class="header-box">
+            <h1>Phantom Diff</h1>
+            <div class="header-sub">BOM CHANGE LIST</div>
+        </div>
+
+        <!-- 表头 (伪装) -->
+        <div class="list-header">
+            <div style="flex:2">ITEM NAME</div>
+            <div style="flex:2; text-align:center;">ORIGINAL</div>
+            <div style="flex:0.5"></div>
+            <div style="flex:2; text-align:center;">CHANGED</div>
+            <div style="flex:1.5; text-align:center;">ACTION</div>
+        </div>
+
+        <!-- 装饰线 -->
+        <div class="decoration-line"></div>
+
+        <!-- 列表内容 -->
+        <div class="diff-list">
+
+            <!-- Row 1: Modify -->
+            <div class="diff-row">
+                <div class="col col-name">IRON CASING</div>
+                <div class="col col-old">IRON-001-A</div>
+                <div class="col col-arrow">➜</div>
+                <div class="col col-new">IRON-001-B</div>
+                <div class="col col-action">
+                    <span class="action-tag status-mod">MODIFY</span>
+                </div>
+            </div>
+
+            <!-- Row 2: Add -->
+            <div class="diff-row">
+                <div class="col col-name">RED CIRCUIT</div>
+                <div class="col col-old">--- NULL ---</div>
+                <div class="col col-arrow">➜</div>
+                <div class="col col-new">RC-V2-FINAL</div>
+                <div class="col col-action">
+                    <span class="action-tag status-add">NEW!!</span>
+                </div>
+            </div>
+
+            <!-- Row 3: Delete -->
+            <div class="diff-row">
+                <div class="col col-name">OLD STAND</div>
+                <div class="col col-old">WOOD-STD-X</div>
+                <div class="col col-arrow">➜</div>
+                <div class="col col-new">--- NULL ---</div>
+                <div class="col col-action">
+                    <span class="action-tag status-del">DELETE</span>
+                </div>
+            </div>
+
+            <!-- Row 4: Modify -->
+            <div class="diff-row">
+                <div class="col col-name">DIAMOND LENS</div>
+                <div class="col col-old">DL-REF-04</div>
+                <div class="col col-arrow">➜</div>
+                <div class="col col-new">DL-REF-05</div>
+                <div class="col col-action">
+                    <span class="action-tag status-mod">MODIFY</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

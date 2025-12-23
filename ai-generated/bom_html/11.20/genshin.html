@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genshin Style Diff Interface</title>
+    <!-- 引入衬线字体以模拟书籍/图鉴感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gs-bg: #ECE5D8; /* 羊皮纸底色 */
+            --gs-dark: #3B4255; /* 深蓝灰文字 */
+            --gs-gold: #D3BC8E; /* 原神金 */
+            --gs-gold-dark: #B89F74;
+            --gs-white: #F9F6F2;
+            
+            /* 元素色/状态色 */
+            --anemo: #75C7A8; /* 类似风元素/新增 */
+            --pyro: #E7654B;  /* 类似火元素/删除 */
+            --geo: #EBD257;   /* 类似岩元素/变更 */
+            --electro: #A757CB; /* 紫色装饰 */
+            
+            --card-shadow: 0 4px 12px rgba(59, 66, 85, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1C2235; /* 深邃星空背景，让图鉴浮起来 */
+            background-image: radial-gradient(circle at 50% 50%, #2a324a 0%, #1C2235 100%);
+            font-family: 'Noto Serif SC', 'Cinzel', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--gs-dark);
+        }
+
+        /* --- 图鉴主容器 --- */
+        .book-container {
+            width: 95%;
+            max-width: 1000px;
+            background-color: var(--gs-bg);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 0 0 4px rgba(211, 188, 142, 0.3), 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 顶部金色装饰线 */
+        .book-container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gs-gold-dark), transparent);
+        }
+
+        /* --- 标题区域 --- */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--gs-dark);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .header-sub {
+            color: #8A8A9D;
+            font-size: 1rem;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* 四角星装饰 */
+        .star-icon {
+            color: var(--gs-gold);
+            font-size: 1.2rem;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+        /* --- 表头 --- */
+        .list-header {
+            display: grid;
+            grid-template-columns: 2fr 2.5fr 0.5fr 2.5fr 1.5fr;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            color: #8A8A9D;
+            border-bottom: 2px solid rgba(184, 159, 116, 0.3);
+            margin-bottom: 15px;
+        }
+
+        /* --- 列表项 (卡片) --- */
+        .diff-card {
+            display: grid;
+            grid-template-columns: 2fr 2.5fr 0.5fr 2.5fr 1.5fr;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid transparent;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* 悬停效果：浮起 + 金色光晕 */
+        .diff-card:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(211, 188, 142, 0.3);
+            border-color: var(--gs-gold);
+        }
+
+        /* 1. 名称列 */
+        .col-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--gs-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 小图标装饰 */
+        .item-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gs-gold-dark);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            color: #fff;
+            font-size: 0.8rem;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+        }
+
+        /* 2 & 4. 料号槽位 (模拟圣遗物/武器背景) */
+        .slot-box {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Cinzel', serif; /* 数字用衬线体更显高级 */
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        /* 原始料号 - 灰色/一星背景 */
+        .slot-old {
+            background: linear-gradient(135deg, #EBEBEB, #D4D4D4);
+            color: #666;
+        }
+        .diff-card:hover .slot-old { opacity: 0.7; }
+
+        /* 变更料号 - 金色/五星背景 */
+        .slot-new {
+            background: linear-gradient(135deg, #5D6083, #3F4463);
+            color: #F0C768; /* 金色文字 */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            border: 1px solid #6E7499;
+        }
+        
+        /* 空槽位 */
+        .slot-empty {
+            background: transparent;
+            border: 1px dashed #ccc;
+            color: #aaa;
+        }
+
+        /* 3. 箭头 */
+        .col-arrow {
+            text-align: center;
+            color: var(--gs-gold-dark);
+            font-size: 1.2rem;
+            opacity: 0.6;
+        }
+
+        /* 5. 动作 (模拟元素图标) */
+        .action-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        /* 新增 - 风/草 (Growth) */
+        .act-add {
+            background: linear-gradient(to right, #75C7A8, #4CA688);
+        }
+        /* 删除 - 火 (Burn) */
+        .act-del {
+            background: linear-gradient(to right, #E7654B, #C5462E);
+        }
+        /* 变更 - 岩 (Solid/Contract) */
+        .act-mod {
+            background: linear-gradient(to right, #EBD257, #CFAA24);
+            color: #5C4B16; /* 深色文字以保证对比度 */
+        }
+
+        /* --- 装饰圆环背景 (模拟Paimon菜单背景) --- */
+        .bg-circle {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border: 2px solid rgba(211, 188, 142, 0.1);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .bg-circle::after {
+            content: '';
+            position: absolute;
+            top: 50px; left: 50px; right: 50px; bottom: 50px;
+            border: 1px solid rgba(211, 188, 142, 0.1);
+            border-radius: 50%;
+        }
+
+        /* --- 手机端适配 --- */
+        @media (max-width: 768px) {
+            .book-container { padding: 20px 10px; width: 100%; border-radius: 0; }
+            .list-header { display: none; }
+            .diff-card { 
+                grid-template-columns: 1fr; 
+                gap: 10px; 
+                text-align: center;
+                padding: 20px;
+            }
+            .col-name { justify-content: center; font-size: 1.3rem; margin-bottom: 10px;}
+            .col-arrow { transform: rotate(90deg); margin: 5px 0;}
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 主容器 -->
+    <div class="book-container">
+        
+        <!-- 背景装饰 -->
+        <div class="bg-circle"></div>
+
+        <!-- 标题 -->
+        <div class="header">
+            <h1><span class="star-icon">✦</span> 物料变更记录 <span class="star-icon">✦</span></h1>
+            <div class="header-sub">Archive of Material Changes</div>
+        </div>
+
+        <!-- 表头 -->
+        <div class="list-header">
+            <div>名称 / Item Name</div>
+            <div style="text-align: center;">原始 / Original</div>
+            <div></div>
+            <div style="text-align: center;">变更 / New</div>
+            <div style="text-align: center;">状态 / Status</div>
+        </div>
+
+        <!-- 列表内容 -->
+        
+        <!-- Row 1: Modify (岩元素风格) -->
+        <div class="diff-card">
+            <div class="col-name">
+                <div class="item-icon">⚔️</div>
+                精锻外壳
+            </div>
+            <div class="slot-box slot-old">SHELL-001-A</div>
+            <div class="col-arrow">➤</div>
+            <div class="slot-box slot-new">SHELL-001-B</div>
+            <div style="text-align: center;">
+                <div class="action-badge act-mod">✦ 变更</div>
+            </div>
+        </div>
+
+        <!-- Row 2: Add (风/草元素风格) -->
+        <div class="diff-card">
+            <div class="col-name">
+                <div class="item-icon">🌿</div>
+                元素反应堆
+            </div>
+            <div class="slot-box slot-empty">---</div>
+            <div class="col-arrow">➤</div>
+            <div class="slot-box slot-new" style="color: #aeffd8; border-color:#75C7A8;">CORE-RCT-V2</div>
+            <div style="text-align: center;">
+                <div class="action-badge act-add">✚ 新增</div>
+            </div>
+        </div>
+
+        <!-- Row 3: Delete (火元素风格) -->
+        <div class="diff-card">
+            <div class="col-name">
+                <div class="item-icon">🔥</div>
+                旧式晶体管
+            </div>
+            <div class="slot-box slot-old" style="text-decoration: line-through; opacity: 0.8;">TRANS-OLD-X</div>
+            <div class="col-arrow">➤</div>
+            <div class="slot-box slot-empty">---</div>
+            <div style="text-align: center;">
+                <div class="action-badge act-del">✖ 删除</div>
+            </div>
+        </div>
+
+        <!-- Row 4: Modify (普通) -->
+        <div class="diff-card">
+            <div class="col-name">
+                <div class="item-icon">🔮</div>
+                透镜阵列
+            </div>
+            <div class="slot-box slot-old">LENS-ARR-04</div>
+            <div class="col-arrow">➤</div>
+            <div class="slot-box slot-new">LENS-ARR-05</div>
+            <div style="text-align: center;">
+                <div class="action-badge act-mod">✦ 变更</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

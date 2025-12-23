@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超级BOM - 小红书风格版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f8f8f8; /* 小红书常用的极浅灰背景 */
+            color: #333;
+            overflow: hidden;
+        }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24; user-select: none; color: #666; }
+        .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+        
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+        textarea, input { field-sizing: content; }
+        input:disabled, textarea:disabled { background-color: #f6f6f6; color: #aaa; cursor: not-allowed; border-color: #eee; }
+
+        /* 表格样式 - 小红书风格：卡片化 */
+        .bom-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; font-size: 0.9rem; margin-top: -8px; }
+        .bom-table thead tr { background: transparent; }
+        .bom-table th { 
+            background-color: transparent; 
+            color: #999; 
+            font-weight: 500; 
+            text-align: left; 
+            padding: 0 16px 8px 16px; 
+            border: none;
+            font-size: 0.8rem;
+        }
+        .bom-table tbody tr {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: #fff;
+        }
+        .bom-table tbody tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            z-index: 10;
+            position: relative;
+        }
+        
+        .bom-table td { 
+            padding: 16px; 
+            border: none;
+            color: #333; 
+            vertical-align: top; 
+            background-color: #fff;
+        }
+        /* 圆角处理 */
+        .bom-table td:first-child { border-top-left-radius: 16px; border-bottom-left-radius: 16px; }
+        .bom-table td:last-child { border-top-right-radius: 16px; border-bottom-right-radius: 16px; }
+        
+        /* 数量徽章 */
+        .qty-badge { 
+            display: inline-flex; align-items: center; justify-content: center; 
+            padding: 2px 10px; border-radius: 20px; 
+            background-color: #f6f6f6; border: 1px solid transparent; 
+            color: #666; font-size: 0.75rem; font-weight: 600; 
+            cursor: text; flex-shrink: 0; white-space: nowrap;
+        }
+
+        /* 标签样式 - 话题标签风格 */
+        .tag-pill {
+            display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600; margin-right: 6px; margin-bottom: 4px;
+            border: none; cursor: default; transition: all 0.2s; position: relative; padding-right: 24px;
+        }
+        .tag-pill::before { content: "#"; margin-right: 2px; opacity: 0.6; }
+        
+        .tag-remove {
+            position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+            width: 14px; height: 14px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; cursor: pointer; opacity: 0.4; transition: opacity 0.2s; background: rgba(0,0,0,0.1);
+        }
+        .tag-remove:hover { opacity: 1; }
+        .tag-remove::before { content: "×"; font-size: 10px; line-height: 1; margin-top: -1px; color: #fff; }
+
+        .tag-purple { background-color: #f4f0ff; color: #7d5fff; }
+        .tag-orange { background-color: #fff4e6; color: #ff8a00; }
+        .tag-teal { background-color: #e0fbf8; color: #00bfa5; }
+        .tag-blue { background-color: #e8f3ff; color: #2e85ff; }
+
+        .tag-add-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 24px; height: 24px; border-radius: 50%; border: 1px dashed #ccc;
+            color: #999; font-size: 16px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px; background: #fff;
+        }
+        .tag-add-btn:hover { border-color: #ff2442; color: #ff2442; background-color: #fff0f2; }
+
+        /* 下拉菜单 Popover */
+        .popover-menu {
+            position: fixed; background-color: #fff; border: none; border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            width: 260px; z-index: 200; display: none; flex-direction: column; padding: 12px; animation: fadeIn 0.15s ease-out;
+        }
+        .popover-input-wrapper {
+            display: flex; align-items: center; background: #f6f6f6; border: 1px solid transparent; border-radius: 12px; margin-bottom: 8px; position: relative; padding: 2px;
+        }
+        .popover-input-wrapper:focus-within { background: #fff; border-color: #ff2442; }
+        .category-trigger {
+            display: flex; align-items: center; padding: 6px 8px; cursor: pointer; border-right: 1px solid #eee; transition: background 0.2s;
+        }
+        .popover-search { flex: 1; background: transparent; border: none; padding: 6px 8px; color: #333; font-size: 0.85rem; outline: none; min-width: 0; }
+        
+        .category-dropdown {
+            position: absolute; top: 100%; left: 0; margin-top: 8px; background-color: #fff; border: none; border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 160px; z-index: 210; display: none; padding: 6px;
+        }
+        .category-option { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 0.8rem; color: #333; border-radius: 8px; cursor: pointer; font-weight: 500; }
+        .category-option:hover { background-color: #f6f6f6; }
+        .category-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .popover-item { display: flex; align-items: center; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; color: #333; transition: background 0.2s; justify-content: space-between; }
+        .popover-item:hover { background-color: #f6f6f6; }
+        
+        /* Tooltip */
+        .fixed-tooltip {
+            position: fixed; background-color: rgba(51, 51, 51, 0.9); color: #fff; border-radius: 8px; padding: 12px; z-index: 300;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2); pointer-events: none; display: none; font-size: 0.75rem; max-width: 220px; backdrop-filter: blur(4px);
+        }
+
+        /* 交互模式 */
+        .js-inline-edit { transition: all 0.2s; border-radius: 6px; padding: 0 4px; margin: 0 -4px; }
+        .mode-edit .bom-row .js-inline-edit:hover { background-color: rgba(0,0,0,0.04); cursor: text; }
+        .js-inline-edit[contenteditable="true"] { background-color: #fff; border: 2px solid #ff2442; outline: none; color: #333; cursor: text; box-shadow: 0 4px 12px rgba(255, 36, 66, 0.15); z-index: 20; position: relative; border-radius: 8px; padding: 2px 6px; }
+        
+        .mode-delete .bom-row { cursor: alias; opacity: 1; }
+        .mode-delete .bom-row:hover { transform: scale(0.98); background-color: #fff0f2; }
+        .mode-delete .bom-row:hover td { background-color: #fff0f2; }
+        .mode-drag .bom-row { cursor: grab; }
+        .mode-drag .bom-row:active { cursor: grabbing; transform: scale(1.02); z-index: 50; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .drag-over { border-top: 2px solid #ff2442; }
+
+        /* Badge - 胶囊风格 */
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-block; box-shadow: none; letter-spacing: 0.5px; }
+        .badge-add { background: #e0f9f4; color: #00bfa5; }
+        .badge-remove { background: #fff0f2; color: #ff2442; }
+        .badge-modify { background: #fff9e6; color: #ffbc00; }
+        
+        /* 小红书风格按钮 */
+        .btn-xhs-primary {
+            background: #ff2442;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(255, 36, 66, 0.3);
+            font-weight: 600;
+        }
+        .btn-xhs-primary:hover {
+            background: #e61e3a;
+            box-shadow: 0 6px 16px rgba(255, 36, 66, 0.4);
+            transform: translateY(-1px);
+        }
+        .btn-xhs-ghost {
+            background: #fff; color: #333; border: 1px solid #eee; font-weight: 600;
+        }
+        .btn-xhs-ghost:hover { border-color: #ccc; color: #000; }
+
+        .type-tab {
+            padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; border: 1px solid transparent; color: #999;
+        }
+        .type-tab:hover { background-color: #fff; color: #666; }
+        .type-tab.active { background-color: #fff; color: #ff2442; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        
+        #sidebar { transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.3s, opacity 0.3s; overflow: hidden; white-space: nowrap; border-right: none; box-shadow: 4px 0 20px rgba(0,0,0,0.02); z-index: 60; }
+        #sidebar.collapsed { width: 0 !important; padding: 0; opacity: 0; }
+        
+        /* Chat Styles - 气泡风格 */
+        .chat-msg-user {
+            align-self: flex-end;
+            background: #ff2442;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 20px 20px 4px 20px;
+            max-width: 85%;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(255, 36, 66, 0.2);
+            font-weight: 500;
+        }
+        .chat-msg-ai {
+            align-self: flex-start;
+            background-color: #fff;
+            color: #333;
+            padding: 12px 16px;
+            border-radius: 20px 20px 20px 4px;
+            max-width: 85%;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        /* Modal Style - 弹窗 */
+        .modal-bg { background-color: #fff; border: none; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+        .modal-header { padding: 24px 24px 16px 24px; }
+        .modal-footer { padding: 16px 24px 24px 24px; }
+        
+        .modal-enter { animation: modalIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        
+        /* Input Focus Ring */
+        .input-xhs:focus { border-color: #ff2442; box-shadow: 0 0 0 3px rgba(255, 36, 66, 0.1); }
+    </style>
+</head>
+<body class="flex h-screen w-full relative bg-[#f8f8f8]">
+
+    <!-- Tooltip -->
+    <div id="globalTooltip" class="fixed-tooltip">
+        <div class="font-bold mb-2 text-white border-b border-gray-500 pb-2 opacity-90">标签说明</div>
+        <div class="flex items-center gap-2 mb-1.5"><span class="w-2 h-2 rounded-full bg-[#7d5fff]"></span> <span class="text-white">上阶料号 (Parent)</span></div>
+        <div class="flex items-center gap-2 mb-1.5"><span class="w-2 h-2 rounded-full bg-[#ff8a00]"></span> <span class="text-white">位置号 (Reference)</span></div>
+        <div class="flex items-center gap-2 mb-1.5"><span class="w-2 h-2 rounded-full bg-[#00bfa5]"></span> <span class="text-white">工位 (Station)</span></div>
+        <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#2e85ff]"></span> <span class="text-white">其他 (Misc)</span></div>
+    </div>
+
+    <!-- 标签下拉菜单 -->
+    <div id="tagPopover" class="popover-menu">
+        <div class="popover-input-wrapper">
+            <div id="categoryTrigger" class="category-trigger" title="切换标签类别">
+                <span id="currentCategoryDot" class="category-dot bg-purple-400"></span>
+                <span class="material-symbols-outlined text-[16px] ml-1">expand_more</span>
+            </div>
+            <div id="categoryDropdown" class="category-dropdown"></div>
+            <input type="text" id="tagInput" class="popover-search" placeholder="搜索或创建标签..." autocomplete="off">
+        </div>
+        <div class="text-[11px] text-gray-400 px-2 mb-1 mt-2 font-medium">推荐选项</div>
+        <div id="popoverList" class="flex flex-col gap-1 max-h-[200px] overflow-y-auto"></div>
+    </div>
+
+    <!-- 左侧主区域 -->
+    <div id="mainPane" class="flex-1 flex flex-col min-w-[400px] bg-[#f8f8f8] relative">
+        
+        <button id="toggleSidebarBtn" class="absolute top-6 right-6 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-white hover:bg-gray-50 text-gray-400 hover:text-[#ff2442] transition-colors shadow-sm hover:shadow-md">
+            <span class="material-symbols-outlined" id="toggleIcon">dock_to_left</span>
+        </button>
+
+        <!-- 悬浮工具栏 (Float Action Button 风格) -->
+        <div class="absolute bottom-8 right-8 z-50 flex flex-col gap-3 p-2">
+            <button onclick="setMode('drag')" id="btn-drag" class="w-12 h-12 flex items-center justify-center rounded-full bg-white text-gray-500 hover:text-[#ff2442] shadow-lg transition-all hover:scale-110" title="拖动排序"><span class="material-symbols-outlined">drag_pan</span></button>
+            <button onclick="setMode('edit')" id="btn-edit" class="w-12 h-12 flex items-center justify-center rounded-full btn-xhs-primary shadow-lg transition-all hover:scale-110" title="编辑详情"><span class="material-symbols-outlined icon-filled text-white">edit</span></button>
+            <button onclick="setMode('delete')" id="btn-delete" class="w-12 h-12 flex items-center justify-center rounded-full bg-white text-gray-500 hover:text-[#ff2442] shadow-lg transition-all hover:scale-110" title="删除条目"><span class="material-symbols-outlined">delete</span></button>
+        </div>
+
+        <!-- 顶部输入 -->
+        <div class="p-8 pb-4 shrink-0 flex flex-col items-center">
+            <div class="flex items-center gap-2 mb-6">
+                <!-- 模拟小红书Logo风格 -->
+                <div class="bg-[#ff2442] text-white px-2 py-0 rounded-lg text-xl font-black italic tracking-tighter">BOM</div>
+                <h1 class="text-2xl font-bold text-[#333]">超级清单 <span class="text-xs font-bold text-[#ff2442] bg-[#ff2442]/10 px-2 py-0.5 rounded-full ml-1 align-middle">RED</span></h1>
+            </div>
+            
+            <div class="input-container flex flex-col p-2 w-full max-w-4xl shadow-sm border border-transparent hover:shadow-md transition-shadow bg-white rounded-[24px]">
+                <textarea id="promptInput" placeholder="输入需求，AI帮您生成清单差异..." class="w-full bg-transparent text-gray-800 border-none outline-none text-base leading-relaxed px-4 py-2 placeholder-gray-400 resize-none" rows="1"></textarea>
+                <div class="flex items-center justify-between px-2 pb-1">
+                    <div class="flex items-center gap-2">
+                        <button class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-[#ff2442] transition-colors"><span class="material-symbols-outlined text-[20px]">add_circle</span></button>
+                    </div>
+                    <button id="sendBtn" class="flex items-center justify-center px-4 h-8 rounded-full btn-xhs-primary opacity-50 cursor-not-allowed text-white text-sm transition-all">发布</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表格区域 -->
+        <div class="flex-1 overflow-auto p-8 pt-2">
+            <div class="bg-transparent min-w-[600px]">
+                <div id="bomHeader" class="relative px-2 py-4 flex justify-between items-center mb-2">
+                    <div class="flex gap-4 text-sm font-medium z-10">
+                        <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
+                            <span class="text-gray-400 text-xs uppercase tracking-wider font-bold">Base</span>
+                            <span class="text-[#333] bg-white px-4 py-1.5 rounded-full font-bold shadow-sm js-inline-edit cursor-pointer border border-transparent hover:border-[#ff2442] transition-all">SP0013-00-23-5QP</span>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
+                            <span class="text-gray-400 text-xs uppercase tracking-wider font-bold">Diff</span>
+                            <span class="text-[#333] bg-white px-4 py-1.5 rounded-full font-bold shadow-sm js-inline-edit cursor-pointer border border-transparent hover:border-[#ff2442] transition-all">SP0013-3C-33-5QP</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 z-20">
+                        <button onclick="openEditModal()" class="text-xs text-white bg-[#333] hover:bg-black px-3 py-1.5 rounded-full flex items-center gap-1 font-bold shadow-lg shadow-gray-200 transition-all hover:-translate-y-0.5"><span class="material-symbols-outlined text-[14px] text-white">add</span> 新建</button>
+                        <button class="text-xs text-[#333] bg-white hover:bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-full flex items-center gap-1 font-medium shadow-sm"><span class="material-symbols-outlined text-[14px]">ios_share</span> 导出</button>
+                    </div>
+                </div>
+
+                <table class="bom-table mode-edit" id="bomTableBody">
+                    <thead>
+                        <tr>
+                            <th class="w-1/4 pl-6">物料笔记</th>
+                            <th class="w-1/4">原始版本 P/N</th>
+                            <th class="w-1/4">变更版本 P/N</th>
+                            <th class="w-1/6">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 示例数据 -->
+                        <tr class="bom-row">
+                            <td class="pl-6">
+                                <div class="font-bold text-[#333] text-base js-inline-edit js-name">一键扫码标签</div>
+                                <div class="text-xs text-gray-400 mt-1 js-inline-edit js-desc">English Description</div>
+                            </td>
+                            <td class="tag-container-cell js-old-tags" data-tags='[{"text":"SP0013-00-23-5QP","type":"parent"},{"text":"组装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-bold text-[#ff2442] text-lg font-mono tracking-tight js-inline-edit js-pn">532-000103-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap items-center tag-list-wrapper"></div>
+                            </td>
+                            <td class="tag-container-cell js-new-tags" data-tags='[{"text":"SP0013-3C-33-5QP","type":"parent"},{"text":"组装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-bold text-[#ff2442] text-lg font-mono tracking-tight js-inline-edit js-new-pn">532-000213-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-new-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap items-center tag-list-wrapper"></div>
+                            </td>
+                            <td><span class="badge badge-modify js-type">变更</span></td>
+                        </tr>
+                        <tr class="bom-row">
+                            <td class="pl-6">
+                                <div class="font-bold text-[#333] text-base js-inline-edit js-name">文档包</div>
+                                <div class="text-xs text-gray-400 mt-1 js-inline-edit js-desc">Main Control Unit</div>
+                            </td>
+                            <td class="tag-container-cell js-old-tags" data-tags='[{"text":"SP0013-00-23-5QP","type":"parent"},{"text":"包装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-bold text-[#ff2442] text-lg font-mono tracking-tight js-inline-edit js-pn">334-010915-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap items-center tag-list-wrapper"></div>
+                            </td>
+                            <td class="tag-container-cell js-new-tags" data-tags='[{"text":"SP0013-3C-33-5QP","type":"parent"},{"text":"包装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-bold text-[#ff2442] text-lg font-mono tracking-tight js-inline-edit js-new-pn">334-000269-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-new-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap items-center tag-list-wrapper"></div>
+                            </td>
+                            <td><span class="badge badge-modify js-type">变更</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="h-20"></div>
+        </div>
+    </div>
+
+    <!-- 侧边栏 -->
+    <div id="sidebar" class="w-[360px] bg-white flex flex-col shrink-0 z-10 border-l border-gray-100">
+        <div class="h-16 flex items-center justify-between px-6 shrink-0 bg-white">
+            <span class="font-bold text-[#333] text-lg flex items-center gap-2">小助手</span>
+            <div class="flex items-center gap-2">
+                <button onclick="clearChat()" class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-[#ff2442] transition-colors" title="清空">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                </button>
+            </div>
+        </div>
+        <div id="chatContainer" class="flex-1 overflow-y-auto p-6 flex flex-col gap-2 bg-white">
+            <div class="flex gap-3 items-start animate-fade-in">
+                <div class="w-8 h-8 rounded-full bg-[#ff2442] flex items-center justify-center shrink-0 mt-1 shadow-md shadow-red-100">
+                    <span class="material-symbols-outlined text-white text-[16px]">smart_toy</span>
+                </div>
+                <div class="chat-msg-ai">
+                    <p class="font-medium">更新完毕 ✨</p>
+                    <p class="mt-2 text-gray-500 text-xs leading-relaxed">现在可以在上方输入框输入“新建 [物料名称]”来试试看哦～</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新增/编辑 模态框 -->
+    <div id="editModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-[#333]/20 backdrop-blur-sm">
+        <div class="modal-bg w-[600px] flex flex-col max-h-[90vh]">
+            
+            <div class="modal-header shrink-0 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-2xl font-bold text-[#333]">编辑详情</h3>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors"><span class="material-symbols-outlined text-[20px]">close</span></button>
+            </div>
+            
+            <div class="px-6 pb-2">
+                <div class="flex bg-[#f6f6f6] p-1.5 rounded-[24px]">
+                    <div class="type-tab flex-1 text-center" data-type="add" onclick="switchTab('add')">新增</div>
+                    <div class="type-tab flex-1 text-center" data-type="remove" onclick="switchTab('remove')">删除</div>
+                    <div class="type-tab flex-1 text-center" data-type="modify" onclick="switchTab('modify')">变更</div>
+                </div>
+            </div>
+
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 block mb-2 ml-1">物料名称</label>
+                        <input type="text" id="modalName" class="input-xhs w-full bg-[#f8f8f8] text-[#333] border border-transparent rounded-2xl px-4 py-3 text-sm focus:bg-white outline-none transition-all placeholder-gray-400" placeholder="填写物料名称">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 block mb-2 ml-1">英文备注</label>
+                        <input type="text" id="modalDesc" class="input-xhs w-full bg-[#f8f8f8] text-[#333] border border-transparent rounded-2xl px-4 py-3 text-sm focus:bg-white outline-none transition-all placeholder-gray-400" placeholder="Description">
+                    </div>
+                </div>
+
+                <div class="flex gap-4 items-stretch">
+                    <div id="cardOriginal" class="flex-1 bg-white border border-gray-100 rounded-3xl p-5 shadow-sm transition-all duration-200 hover:shadow-md">
+                        <div class="text-xs text-gray-400 mb-4 font-bold uppercase tracking-wider flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-gray-300"></span> Original</div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1 ml-1 font-bold">料号 P/N</label>
+                                <input type="text" id="modalPN" class="input-xhs w-full bg-[#f8f8f8] text-[#333] border border-transparent rounded-xl px-3 py-2 text-xs font-mono font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1 ml-1 font-bold">数量 Qty</label>
+                                <input type="number" id="modalQty" class="input-xhs w-full bg-[#f8f8f8] text-[#333] border border-transparent rounded-xl px-3 py-2 text-xs font-mono font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1 ml-1 font-bold">标签 Tags</label>
+                                <div id="modalTagsOriginal" class="tag-container-cell min-h-[40px] rounded-xl border border-dashed border-gray-200 p-2 bg-[#fcfcfc]" data-tags="[]">
+                                    <div class="tag-list-wrapper flex flex-wrap items-center"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center text-gray-300">
+                        <span class="material-symbols-outlined text-[28px]">arrow_right_alt</span>
+                    </div>
+
+                    <div id="cardNew" class="flex-1 bg-white border border-gray-100 rounded-3xl p-5 shadow-sm transition-all duration-200 hover:shadow-md">
+                        <div class="text-xs text-[#ff2442] mb-4 font-bold uppercase tracking-wider flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#ff2442]"></span> New</div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1 ml-1 font-bold">料号 P/N</label>
+                                <input type="text" id="modalNewPN" class="input-xhs w-full bg-[#f8f8f8] text-[#333] border border-transparent rounded-xl px-3 py-2 text-xs font-mono font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1 ml-1 font-bold">数量 Qty</label>
+                                <input type="number" id="modalNewQty" class="input-xhs w-full bg-[#f8f8f8] text-[#333] border border-transparent rounded-xl px-3 py-2 text-xs font-mono font-bold outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1 ml-1 font-bold">标签 Tags</label>
+                                <div id="modalTagsNew" class="tag-container-cell min-h-[40px] rounded-xl border border-dashed border-gray-200 p-2 bg-[#fcfcfc]" data-tags="[]">
+                                    <div class="tag-list-wrapper flex flex-wrap items-center"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer flex justify-end gap-4 shrink-0">
+                <button onclick="closeModal()" class="px-6 py-2.5 rounded-full text-sm text-gray-500 hover:bg-gray-100 transition-colors font-bold">取消</button>
+                <button onclick="saveModal()" class="px-8 py-2.5 rounded-full text-sm btn-xhs-primary hover:shadow-lg transition-all font-bold tracking-wide">保存笔记</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="modeToast" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-[#333] text-white px-6 py-3 rounded-full shadow-2xl text-sm font-bold pointer-events-none opacity-0 transition-all z-50 flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px] text-[#ff2442]">verified</span>
+        <span id="toastMsg">当前模式：编辑</span>
+    </div>
+
+    <script>
+        // --- 标签配置 (小红书色系) ---
+        const TAG_CATEGORIES = {
+            'parent': { label: '上阶料号', colorClass: 'tag-purple', bg: 'bg-[#f4f0ff]' },
+            'ref': { label: '位置号', colorClass: 'tag-orange', bg: 'bg-[#fff4e6]' },
+            'station': { label: '工位', colorClass: 'tag-teal', bg: 'bg-[#e0fbf8]' },
+            'misc': { label: '其他', colorClass: 'tag-blue', bg: 'bg-[#e8f3ff]' }
+        };
+        
+        let currentSelectedType = 'parent'; 
+        let activeCell = null; 
+        let currentModalType = 'modify'; 
+        let isAddingMode = false;
+        let editingRow = null;
+
+        // --- 指令与聊天逻辑 ---
+        const promptInput = document.getElementById('promptInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatContainer = document.getElementById('chatContainer');
+
+        promptInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            if (this.value.trim().length > 0) {
+                sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        });
+
+        promptInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleCommand();
+            }
+        });
+
+        sendBtn.addEventListener('click', handleCommand);
+
+        function handleCommand() {
+            const text = promptInput.value.trim();
+            if (!text) return;
+
+            // User Message
+            addChatMessage(text, true);
+            promptInput.value = '';
+            promptInput.style.height = 'auto';
+            sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Process Command
+            setTimeout(() => {
+                const response = processCommand(text);
+                addChatMessage(response, false);
+            }, 600);
+        }
+
+        function addChatMessage(text, isUser) {
+            const div = document.createElement('div');
+            div.className = isUser ? 'chat-msg-user' : 'chat-msg-ai';
+            div.innerText = text;
+            chatContainer.appendChild(div);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function processCommand(text) {
+            const cleanText = text.trim();
+            const createMatch = cleanText.match(/^新建\s*(.+)$/);
+            
+            if (createMatch) {
+                const itemName = createMatch[1];
+                createTableRow({
+                    name: itemName,
+                    desc: 'Created via command',
+                    type: 'add'
+                });
+                return `已为您新建物料记录："${itemName}"`;
+            }
+            return "收到。您可以尝试输入“新建 [物料名称]”来添加记录。";
+        }
+
+        function clearChat() {
+            const container = document.getElementById('chatContainer');
+            container.innerHTML = '';
+            const notice = document.createElement('div');
+            notice.className = 'text-center text-xs text-gray-300 font-bold mt-4';
+            notice.innerText = '暂无更多消息';
+            container.appendChild(notice);
+        }
+
+        // --- 表格操作逻辑 ---
+        function createTableRow(data) {
+            // 默认值
+            const name = data.name || '未命名';
+            const desc = data.desc || '';
+            const pn = data.pn || '--';
+            const newPn = data.newPn || '--';
+            const qty = data.qty || 0;
+            const newQty = data.newQty || 1;
+            const type = data.type || 'add'; // add, remove, modify, info
+            const tagsOld = data.tagsOld || '[]';
+            const tagsNew = data.tagsNew || '[]';
+
+            let badgeHtml = '<span class="text-gray-400 text-xs js-type">- 无变更 -</span>';
+            if (type === 'add') badgeHtml = '<span class="badge badge-add js-type">新增</span>';
+            else if (type === 'remove') badgeHtml = '<span class="badge badge-remove js-type">删除</span>';
+            else if (type === 'modify') badgeHtml = '<span class="badge badge-modify js-type">变更</span>';
+
+            const tr = document.createElement('tr');
+            tr.className = 'bom-row';
+            tr.setAttribute('draggable', currentMode === 'drag');
+            
+            tr.innerHTML = `
+                <td class="pl-6">
+                    <div class="font-bold text-[#333] text-base js-inline-edit js-name">${name}</div>
+                    <div class="text-xs text-gray-400 mt-1 js-inline-edit js-desc" placeholder="添加备注...">${desc}</div>
+                </td>
+                <td class="tag-container-cell js-old-tags" data-tags='${tagsOld}'>
+                    <div class="flex items-center flex-wrap gap-2">
+                        <div class="font-bold text-[#ff2442] text-lg font-mono tracking-tight js-inline-edit js-pn">${pn}</div>
+                        ${type !== 'add' ? `<span class="qty-badge js-inline-edit my-1 js-qty">x${qty}</span>` : ''}
+                    </div>
+                    <div class="mt-2 flex flex-wrap items-center tag-list-wrapper"></div>
+                </td>
+                <td class="tag-container-cell js-new-tags" data-tags='${tagsNew}'>
+                    <div class="flex items-center flex-wrap gap-2">
+                        <div class="font-bold text-[#ff2442] text-lg font-mono tracking-tight js-inline-edit js-new-pn">${newPn}</div>
+                        ${type !== 'remove' ? `<span class="qty-badge js-inline-edit my-1 js-new-qty">x${newQty}</span>` : ''}
+                    </div>
+                    <div class="mt-2 flex flex-wrap items-center tag-list-wrapper"></div>
+                </td>
+                <td>${badgeHtml}</td>
+            `;
+            
+            document.querySelector('#bomTableBody tbody').appendChild(tr);
+            
+            // Init tags for the new row
+            refreshCellTags(tr.querySelector('.js-old-tags'));
+            refreshCellTags(tr.querySelector('.js-new-tags'));
+            
+            // Scroll to bottom
+            const tableContainer = document.querySelector('.flex-1.overflow-auto');
+            if(tableContainer) tableContainer.scrollTop = tableContainer.scrollHeight;
+        }
+
+        // --- 弹窗逻辑 ---
+        function openEditModal(row = null) {
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const modalTagsOrig = document.getElementById('modalTagsOriginal');
+            const modalTagsNew = document.getElementById('modalTagsNew');
+
+            if (row) {
+                isAddingMode = false;
+                editingRow = row;
+                
+                document.getElementById('modalName').value = row.querySelector('.js-name')?.innerText || '';
+                document.getElementById('modalDesc').value = row.querySelector('.js-desc')?.innerText || '';
+                
+                document.getElementById('modalPN').value = row.querySelector('.js-pn')?.innerText || '';
+                const qtyText = row.querySelector('.js-qty')?.innerText || '0';
+                document.getElementById('modalQty').value = parseInt(qtyText.replace('x', '')) || 0;
+                const oldTagsCell = row.querySelector('.js-old-tags');
+                modalTagsOrig.dataset.tags = oldTagsCell ? oldTagsCell.dataset.tags : '[]';
+
+                document.getElementById('modalNewPN').value = row.querySelector('.js-new-pn')?.innerText || '';
+                const newQtyText = row.querySelector('.js-new-qty')?.innerText || '0';
+                document.getElementById('modalNewQty').value = parseInt(newQtyText.replace('x', '')) || 0;
+                const newTagsCell = row.querySelector('.js-new-tags');
+                modalTagsNew.dataset.tags = newTagsCell ? newTagsCell.dataset.tags : '[]';
+
+                const typeText = row.querySelector('.js-type')?.innerText || '';
+                if(typeText.includes('新增')) switchTab('add');
+                else if(typeText.includes('删除')) switchTab('remove');
+                else switchTab('modify');
+            } else {
+                isAddingMode = true;
+                editingRow = null;
+                document.getElementById('modalName').value = '';
+                document.getElementById('modalDesc').value = '';
+                document.getElementById('modalPN').value = '';
+                document.getElementById('modalQty').value = '0';
+                document.getElementById('modalNewPN').value = '';
+                document.getElementById('modalNewQty').value = '1';
+                modalTagsOrig.dataset.tags = '[]';
+                modalTagsNew.dataset.tags = '[]';
+                switchTab('add');
+            }
+            refreshCellTags(modalTagsOrig);
+            refreshCellTags(modalTagsNew);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function switchTab(type) {
+            currentModalType = type;
+            document.querySelectorAll('.type-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.type === type) tab.classList.add('active');
+            });
+
+            const cardOriginal = document.getElementById('cardOriginal');
+            const cardNew = document.getElementById('cardNew');
+            const toggleCard = (card, disabled) => {
+                card.style.opacity = disabled ? '0.5' : '1';
+                card.querySelectorAll('input').forEach(i => i.disabled = disabled);
+                const addBtn = card.querySelector('.tag-add-btn');
+                if(addBtn) addBtn.style.pointerEvents = disabled ? 'none' : 'auto';
+            };
+
+            if (type === 'add') {
+                toggleCard(cardOriginal, true);
+                toggleCard(cardNew, false);
+                cardOriginal.querySelectorAll('input').forEach(i => i.value = '');
+                cardOriginal.querySelector('.tag-container-cell').dataset.tags = '[]';
+                refreshCellTags(cardOriginal.querySelector('.tag-container-cell'));
+            } else if (type === 'remove') {
+                toggleCard(cardOriginal, false);
+                toggleCard(cardNew, true);
+                cardNew.querySelectorAll('input').forEach(i => i.value = '');
+                cardNew.querySelector('.tag-container-cell').dataset.tags = '[]';
+                refreshCellTags(cardNew.querySelector('.tag-container-cell'));
+            } else {
+                toggleCard(cardOriginal, false);
+                toggleCard(cardNew, false);
+            }
+        }
+
+        function saveModal() {
+            const data = {
+                name: document.getElementById('modalName').value,
+                desc: document.getElementById('modalDesc').value,
+                pn: document.getElementById('modalPN').value,
+                qty: document.getElementById('modalQty').value,
+                tagsOld: document.getElementById('modalTagsOriginal').dataset.tags,
+                newPn: document.getElementById('modalNewPN').value,
+                newQty: document.getElementById('modalNewQty').value,
+                tagsNew: document.getElementById('modalTagsNew').dataset.tags,
+                type: currentModalType
+            };
+
+            if (isAddingMode) {
+                createTableRow(data);
+            } else if (editingRow) {
+                // Update existing row
+                editingRow.querySelector('.js-name').innerText = data.name;
+                editingRow.querySelector('.js-desc').innerText = data.desc;
+                
+                const pnEl = editingRow.querySelector('.js-pn'); if(pnEl) pnEl.innerText = data.pn;
+                const qtyEl = editingRow.querySelector('.js-qty'); if(qtyEl) { 
+                    qtyEl.innerText = `x${data.qty}`; 
+                    qtyEl.style.display = data.type === 'add' ? 'none' : 'inline-flex';
+                }
+                
+                const newPnEl = editingRow.querySelector('.js-new-pn'); if(newPnEl) newPnEl.innerText = data.newPn;
+                const newQtyEl = editingRow.querySelector('.js-new-qty'); if(newQtyEl) {
+                    newQtyEl.innerText = `x${data.newQty}`;
+                    newQtyEl.style.display = data.type === 'remove' ? 'none' : 'inline-flex';
+                }
+
+                // Update tags
+                const oldTagsCell = editingRow.querySelector('.js-old-tags');
+                if(oldTagsCell) { oldTagsCell.dataset.tags = data.tagsOld; refreshCellTags(oldTagsCell); }
+                
+                const newTagsCell = editingRow.querySelector('.js-new-tags');
+                if(newTagsCell) { newTagsCell.dataset.tags = data.tagsNew; refreshCellTags(newTagsCell); }
+
+                // Update badge
+                let badgeHtml = '<span class="text-gray-400 text-xs js-type">- 无变更 -</span>';
+                if (data.type === 'add') badgeHtml = '<span class="badge badge-add js-type">新增</span>';
+                else if (data.type === 'remove') badgeHtml = '<span class="badge badge-remove js-type">删除</span>';
+                else if (data.type === 'modify') badgeHtml = '<span class="badge badge-modify js-type">变更</span>';
+                editingRow.cells[3].innerHTML = badgeHtml;
+            }
+
+            closeModal();
+            showModeToast(isAddingMode ? '已发布笔记' : '笔记已更新');
+        }
+
+        // --- Tooltip ---
+        const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+        const tooltipEl = document.getElementById('globalTooltip');
+        tooltipTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', (e) => {
+                const rect = e.target.getBoundingClientRect();
+                tooltipEl.style.display = 'block';
+                tooltipEl.style.top = `${rect.top - tooltipEl.offsetHeight - 8}px`;
+                tooltipEl.style.left = `${rect.left + (rect.width/2) - (tooltipEl.offsetWidth/2)}px`;
+            });
+            trigger.addEventListener('mouseleave', () => tooltipEl.style.display = 'none');
+        });
+
+        // --- 标签系统逻辑 ---
+        function initCellTags() {
+            document.querySelectorAll('.tag-container-cell').forEach(cell => refreshCellTags(cell));
+        }
+
+        function refreshCellTags(cell) {
+            let wrapper = cell.querySelector('.tag-list-wrapper');
+            if (!wrapper) {
+                wrapper = document.createElement('div');
+                wrapper.className = 'mt-2 flex flex-wrap items-center tag-list-wrapper';
+                cell.appendChild(wrapper);
+            }
+            wrapper.innerHTML = '';
+
+            let tags = [];
+            try { tags = JSON.parse(cell.dataset.tags || '[]'); } catch (e) { tags = []; }
+
+            tags.forEach((tag, index) => {
+                const cat = TAG_CATEGORIES[tag.type] || TAG_CATEGORIES['misc'];
+                const tagEl = document.createElement('div');
+                tagEl.className = `tag-pill ${cat.colorClass}`;
+                tagEl.innerHTML = `${tag.text} <span class="tag-remove" data-idx="${index}"></span>`;
+                
+                tagEl.querySelector('.tag-remove').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeTag(cell, index);
+                });
+                wrapper.appendChild(tagEl);
+            });
+
+            const addBtn = document.createElement('div');
+            addBtn.className = 'tag-add-btn';
+            addBtn.innerHTML = '+';
+            addBtn.onclick = (e) => showPopover(e, cell);
+            wrapper.appendChild(addBtn);
+        }
+
+        function removeTag(cell, index) {
+            let tags = JSON.parse(cell.dataset.tags || '[]');
+            tags.splice(index, 1);
+            cell.dataset.tags = JSON.stringify(tags);
+            refreshCellTags(cell);
+        }
+
+        function addTag(cell, text, type) {
+            let tags = [];
+            try { tags = JSON.parse(cell.dataset.tags || '[]'); } catch(e){}
+            if(!tags.some(t => t.text === text && t.type === type)) {
+                tags.push({ text, type });
+                cell.dataset.tags = JSON.stringify(tags);
+                refreshCellTags(cell);
+            }
+            hidePopover();
+        }
+
+        // --- Popover 交互 ---
+        const tagPopover = document.getElementById('tagPopover');
+        const tagInput = document.getElementById('tagInput');
+        const categoryTrigger = document.getElementById('categoryTrigger');
+        const categoryDropdown = document.getElementById('categoryDropdown');
+        const currentCategoryDot = document.getElementById('currentCategoryDot');
+        const popoverList = document.getElementById('popoverList');
+
+        function showPopover(e, cell) {
+            e.stopPropagation();
+            activeCell = cell;
+            tagInput.value = '';
+            currentSelectedType = 'parent'; 
+            updateCategoryTriggerUI();
+            renderPopoverList(); 
+
+            const rect = e.target.getBoundingClientRect();
+            tagPopover.style.display = 'flex';
+            tagPopover.style.left = `${rect.left}px`;
+            if (rect.bottom + tagPopover.offsetHeight > window.innerHeight) {
+                tagPopover.style.top = `${rect.top - tagPopover.offsetHeight - 5}px`;
+            } else {
+                tagPopover.style.top = `${rect.bottom + 5}px`;
+            }
+            tagInput.focus();
+        }
+
+        function hidePopover() {
+            tagPopover.style.display = 'none';
+            categoryDropdown.style.display = 'none';
+            activeCell = null;
+        }
+
+        function updateCategoryTriggerUI() {
+            const cat = TAG_CATEGORIES[currentSelectedType];
+            currentCategoryDot.className = `category-dot ${cat.bg}`;
+        }
+
+        categoryTrigger.onclick = (e) => {
+            e.stopPropagation();
+            if(categoryDropdown.style.display === 'block') {
+                categoryDropdown.style.display = 'none';
+            } else {
+                renderCategoryDropdownOptions();
+                categoryDropdown.style.display = 'block';
+            }
+        };
+
+        function renderCategoryDropdownOptions() {
+            categoryDropdown.innerHTML = '';
+            Object.entries(TAG_CATEGORIES).forEach(([key, val]) => {
+                const item = document.createElement('div');
+                item.className = 'category-option';
+                item.innerHTML = `<span class="category-dot ${val.bg}"></span> ${val.label}`;
+                item.onclick = (e) => {
+                    e.stopPropagation();
+                    currentSelectedType = key;
+                    updateCategoryTriggerUI();
+                    categoryDropdown.style.display = 'none';
+                    renderPopoverList();
+                    tagInput.focus();
+                };
+                categoryDropdown.appendChild(item);
+            });
+        }
+
+        function renderPopoverList() {
+            popoverList.innerHTML = '';
+            const searchText = tagInput.value.trim();
+            const currentCat = TAG_CATEGORIES[currentSelectedType];
+
+            if (searchText) {
+                const createItem = document.createElement('div');
+                createItem.className = 'popover-item';
+                createItem.innerHTML = `<div class="flex items-center gap-2 w-full"><span class="text-gray-400 text-xs mr-1">创建话题:</span><span class="tag-pill ${currentCat.colorClass} mb-0">${searchText}</span></div>`;
+                createItem.onclick = () => addTag(activeCell, searchText, currentSelectedType);
+                popoverList.appendChild(createItem);
+            }
+
+            const recommendations = [
+                { text: 'SP0013-00-23-5QP', type: 'parent' },
+                { text: 'default', type: 'ref' },
+                { text: '包装', type: 'station' }
+            ];
+
+            let existingTags = [];
+            try { existingTags = JSON.parse(activeCell.dataset.tags || '[]'); } catch(e){}
+            
+            recommendations.forEach(rec => {
+                if (searchText && !rec.text.toLowerCase().includes(searchText.toLowerCase())) return;
+                if (existingTags.some(t => t.text === rec.text && t.type === rec.type)) return;
+
+                const recCat = TAG_CATEGORIES[rec.type];
+                const item = document.createElement('div');
+                item.className = 'popover-item';
+                item.innerHTML = `<div class="flex items-center gap-2"><span class="tag-pill ${recCat.colorClass} mb-0">${rec.text}</span></div>`;
+                item.onclick = () => addTag(activeCell, rec.text, rec.type);
+                popoverList.appendChild(item);
+            });
+        }
+
+        tagInput.addEventListener('input', () => renderPopoverList());
+        tagInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const text = tagInput.value.trim();
+                if (text) addTag(activeCell, text, currentSelectedType);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!tagPopover.contains(e.target) && e.target.className !== 'tag-add-btn') {
+                hidePopover();
+            }
+        });
+
+        // --- 内联编辑 ---
+        function makeEditable(element) {
+            if (element.isContentEditable) return;
+            element.contentEditable = true;
+            element.focus();
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            
+            const saveHandler = () => {
+                element.contentEditable = false;
+                showModeToast("笔记已保存");
+                element.removeEventListener('blur', saveHandler);
+                element.removeEventListener('keydown', keyHandler);
+            };
+            const keyHandler = (k) => {
+                if (k.key === 'Enter') { k.preventDefault(); element.blur(); }
+            };
+            element.addEventListener('blur', saveHandler);
+            element.addEventListener('keydown', keyHandler);
+        }
+
+        // --- 模式控制与事件 ---
+        let currentMode = 'edit';
+        const tableBody = document.querySelector('#bomTableBody tbody');
+        const thead = document.querySelector('.bom-table thead');
+        let draggedRow = null;
+        let draggedColIndex = null;
+
+        tableBody.addEventListener('click', (e) => {
+            if (currentMode === 'edit') {
+                if (e.target.classList.contains('js-inline-edit') || e.target.classList.contains('qty-badge')) {
+                    makeEditable(e.target);
+                    e.stopPropagation();
+                    return;
+                }
+                if (!e.target.closest('.tag-container-cell') && !e.target.closest('.tag-add-btn')) {
+                    const row = e.target.closest('tr');
+                    if(row) openEditModal(row);
+                }
+            } else if (currentMode === 'delete') {
+                const row = e.target.closest('tr');
+                if(row) {
+                    row.style.transform = 'scale(0.8) translateX(-100px)';
+                    row.style.opacity = '0';
+                    setTimeout(() => row.remove(), 250);
+                }
+            }
+        });
+
+        function setMode(mode) {
+            currentMode = mode;
+            // Reset buttons
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.className = "w-12 h-12 flex items-center justify-center rounded-full bg-white text-gray-500 hover:text-[#ff2442] shadow-lg transition-all hover:scale-110";
+            });
+
+            // Set active button
+            if(mode === 'drag') {
+                 const btn = document.getElementById('btn-drag');
+                 btn.className = "w-12 h-12 flex items-center justify-center rounded-full bg-[#fff9e6] text-[#ffbc00] shadow-xl scale-110 transition-all";
+            } else if (mode === 'edit') {
+                 const btn = document.getElementById('btn-edit');
+                 btn.className = "w-12 h-12 flex items-center justify-center rounded-full btn-xhs-primary shadow-xl scale-110 transition-all";
+                 btn.querySelector('span').classList.add('text-white');
+            } else if (mode === 'delete') {
+                 const btn = document.getElementById('btn-delete');
+                 btn.className = "w-12 h-12 flex items-center justify-center rounded-full bg-[#fff0f2] text-[#ff2442] shadow-xl scale-110 transition-all";
+            }
+
+            showModeToast(`切换模式：${mode === 'edit' ? '编辑详情' : mode === 'drag' ? '拖拽排序' : '删除条目'}`);
+            document.querySelectorAll('.bom-row').forEach(r => r.setAttribute('draggable', mode === 'drag'));
+            document.querySelectorAll('thead th').forEach(th => th.setAttribute('draggable', mode === 'drag'));
+            document.querySelector('.bom-table').className = `bom-table mode-${mode}`;
+        }
+
+        // 行拖拽
+        tableBody.addEventListener('dragstart', (e) => {
+            if (currentMode !== 'drag') { e.preventDefault(); return; }
+            draggedRow = e.target.closest('tr');
+            if(draggedRow) { e.dataTransfer.effectAllowed = 'move'; draggedRow.style.opacity = '0.5'; }
+        });
+        tableBody.addEventListener('dragend', (e) => {
+            if(draggedRow) { draggedRow.style.opacity = '1'; draggedRow = null; document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over')); }
+        });
+        tableBody.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (currentMode !== 'drag') return;
+            const targetRow = e.target.closest('tr');
+            if (targetRow && targetRow !== draggedRow) { document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over')); targetRow.classList.add('drag-over'); }
+        });
+        tableBody.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (currentMode !== 'drag') return;
+            const targetRow = e.target.closest('tr');
+            if (targetRow && draggedRow && draggedRow !== targetRow) { tableBody.insertBefore(draggedRow, targetRow); targetRow.classList.remove('drag-over'); }
+        });
+
+        // 列拖拽
+        thead.addEventListener('dragstart', (e) => {
+            if (currentMode !== 'drag') { e.preventDefault(); return; }
+            const th = e.target.closest('th');
+            if (!th) return;
+            draggedColIndex = Array.from(th.parentNode.children).indexOf(th);
+            e.dataTransfer.effectAllowed = 'move';
+            th.style.opacity = '0.5';
+        });
+        thead.addEventListener('dragover', (e) => e.preventDefault());
+        thead.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (currentMode !== 'drag' || draggedColIndex === null) return;
+            const targetTh = e.target.closest('th');
+            if (!targetTh) return;
+            const targetIndex = Array.from(targetTh.parentNode.children).indexOf(targetTh);
+            if (draggedColIndex === targetIndex) return;
+            moveElement(thead.querySelector('tr'), draggedColIndex, targetIndex);
+            tableBody.querySelectorAll('tr').forEach(row => moveElement(row, draggedColIndex, targetIndex));
+            thead.querySelectorAll('th').forEach(th => th.style.opacity = '1');
+            draggedColIndex = null;
+        });
+        thead.addEventListener('dragend', () => { thead.querySelectorAll('th').forEach(th => th.style.opacity = '1'); draggedColIndex = null; });
+
+        function moveElement(parentElement, fromIndex, toIndex) {
+            const children = Array.from(parentElement.children);
+            const elementToMove = children[fromIndex];
+            const targetElement = children[toIndex];
+            if (fromIndex < toIndex) parentElement.insertBefore(elementToMove, targetElement.nextSibling);
+            else parentElement.insertBefore(elementToMove, targetElement);
+        }
+
+        function showModeToast(msg) {
+            const t = document.getElementById('modeToast');
+            const msgSpan = document.getElementById('toastMsg');
+            msgSpan.innerText = msg;
+            t.style.opacity = '1';
+            t.style.transform = 'translate(-50%, -20px)';
+            setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transform = 'translate(-50%, 0)';
+            }, 2000);
+        }
+
+        // 启动
+        initCellTags();
+        setMode('edit');
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+        toggleSidebarBtn.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZZZ Style Diff Interface</title>
+    <!-- 引入工业/机械风格字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Chakra+Petch:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --zzz-neon: #DFFF00; /* 标志性的电光绿/黄 */
+            --zzz-black: #111111;
+            --zzz-dark: #1A1A1A;
+            --zzz-gray: #333333;
+            --zzz-orange: #FF5500;
+            --zzz-white: #F2F2F2;
+            --scanline: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            font-family: 'Chakra Petch', sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--zzz-white);
+        }
+
+        /* --- 背景纹理 (CRT网格 + 噪点) --- */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+        
+        /* --- CRT 扫描线效果 --- */
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* --- 主容器 (类似录像带/显示屏) --- */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        /* --- 标题区域 --- */
+        .header-section {
+            display: flex;
+            align-items: flex-end;
+            border-bottom: 4px solid var(--zzz-neon);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        /* 警示斜纹条 */
+        .header-section::after {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            right: 0;
+            width: 150px;
+            height: 10px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--zzz-neon),
+                var(--zzz-neon) 10px,
+                var(--zzz-black) 10px,
+                var(--zzz-black) 20px
+            );
+        }
+
+        .title-main {
+            font-family: 'Teko', sans-serif;
+            font-size: 4rem;
+            line-height: 0.8;
+            color: var(--zzz-white);
+            text-transform: uppercase;
+            margin: 0;
+            text-shadow: 4px 4px 0 var(--zzz-gray);
+        }
+
+        .title-sub {
+            background: var(--zzz-neon);
+            color: var(--zzz-black);
+            font-weight: bold;
+            padding: 2px 8px;
+            font-size: 1.2rem;
+            margin-left: 15px;
+            transform: skewX(-10deg);
+        }
+
+        /* --- 列表行 (VHS 磁带感) --- */
+        .diff-row {
+            display: flex;
+            background: var(--zzz-dark);
+            margin-bottom: 15px;
+            border: 2px solid var(--zzz-gray);
+            position: relative;
+            transition: all 0.2s;
+            /* 切角设计 */
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% 80%, 
+                98% 100%, 
+                0 100%
+            );
+        }
+
+        .diff-row:hover {
+            border-color: var(--zzz-neon);
+            transform: translateX(10px);
+            box-shadow: -5px 5px 0 rgba(223, 255, 0, 0.2);
+        }
+
+        .col {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 1. 名称列 (胶带风格) */
+        .col-name {
+            flex: 1.8;
+            font-weight: bold;
+            font-size: 1.4rem;
+            border-right: 2px dashed var(--zzz-gray);
+            color: var(--zzz-white);
+        }
+        
+        /* 圆点装饰 */
+        .dot-deco {
+            width: 12px;
+            height: 12px;
+            background: var(--zzz-gray);
+            border-radius: 50%;
+            margin-right: 12px;
+            transition: 0.2s;
+        }
+        .diff-row:hover .dot-deco { background: var(--zzz-neon); }
+
+        /* 2. & 4. 料号 (数码管风格) */
+        .col-code {
+            flex: 2;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+        }
+
+        .code-old {
+            color: #666;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .code-new {
+            color: var(--zzz-white);
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        /* 3. 箭头 */
+        .col-arrow {
+            flex: 0.4;
+            justify-content: center;
+            color: var(--zzz-neon);
+            font-size: 1.5rem;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+        .diff-row:hover .col-arrow { opacity: 1; text-shadow: 0 0 8px var(--zzz-neon); }
+
+        /* 5. 动作 (印章/贴纸风格) */
+        .col-action {
+            flex: 1.2;
+            justify-content: flex-end;
+            padding-right: 30px;
+            font-family: 'Teko', sans-serif;
+        }
+
+        .badge {
+            font-size: 1.5rem;
+            padding: 0 15px;
+            border: 2px solid currentColor;
+            text-transform: uppercase;
+            transform: rotate(-5deg);
+            font-weight: bold;
+        }
+
+        /* 状态色 */
+        .status-mod { color: var(--zzz-neon); border-color: var(--zzz-neon); background: rgba(223, 255, 0, 0.1); }
+        .status-add { color: #00FFFF; border-color: #00FFFF; background: rgba(0, 255, 255, 0.1); } /* 冰蓝 */
+        .status-del { color: var(--zzz-orange); border-color: var(--zzz-orange); background: rgba(255, 85, 0, 0.1); }
+
+        /* --- 底部装饰 --- */
+        .footer-deco {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            font-family: 'Teko', sans-serif;
+            color: #555;
+            font-size: 1.5rem;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+        
+        /* 跑马灯文字效果 */
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        /* 手机适配 */
+        @media (max-width: 768px) {
+            .diff-row { flex-direction: column; clip-path: none; border-bottom: 4px solid var(--zzz-gray);}
+            .col { padding: 10px; border: none; justify-content: center; }
+            .col-name { border-bottom: 1px dashed #333; }
+            .col-arrow { transform: rotate(90deg); }
+            .title-main { font-size: 3rem; }
+            .header-section::after { display: none; }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- 背景层 -->
+    <div class="bg-grid"></div>
+    <!-- 扫描线层 -->
+    <div class="crt-overlay"></div>
+
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header-section">
+            <h1 class="title-main">PROXY<br>DATA // DIFF</h1>
+            <div class="title-sub">NO. 60Z-ZZZ</div>
+        </div>
+
+        <!-- 列表 -->
+        
+        <!-- Row 1: Modify (MOD) -->
+        <div class="diff-row">
+            <div class="col col-name">
+                <div class="dot-deco"></div>
+                高转速引擎壳
+            </div>
+            <div class="col col-code code-old">ENG-001-A</div>
+            <div class="col col-arrow">>></div>
+            <div class="col col-code code-new">ENG-001-B</div>
+            <div class="col col-action">
+                <span class="badge status-mod">Modify</span>
+            </div>
+        </div>
+
+        <!-- Row 2: Add (NEW) -->
+        <div class="diff-row">
+            <div class="col col-name">
+                <div class="dot-deco"></div>
+                邦布逻辑核心
+            </div>
+            <div class="col col-code code-old">--- NULL ---</div>
+            <div class="col col-arrow">>></div>
+            <div class="col col-code code-new" style="color: #00FFFF;">BANGBOO-V2</div>
+            <div class="col col-action">
+                <span class="badge status-add">New Entry</span>
+            </div>
+        </div>
+
+        <!-- Row 3: Delete (DEL) -->
+        <div class="diff-row">
+            <div class="col col-name">
+                <div class="dot-deco"></div>
+                旧式真空管
+            </div>
+            <div class="col col-code code-old" style="color: var(--zzz-orange);">TUBE-OLD-X</div>
+            <div class="col col-arrow">>></div>
+            <div class="col col-code code-new">--- VOID ---</div>
+            <div class="col col-action">
+                <span class="badge status-del">Delete</span>
+            </div>
+        </div>
+
+        <!-- Row 4: Modify (MOD) -->
+        <div class="diff-row">
+            <div class="col col-name">
+                <div class="dot-deco"></div>
+                以太适应性护盾
+            </div>
+            <div class="col col-code code-old">SHIELD-04</div>
+            <div class="col col-arrow">>></div>
+            <div class="col col-code code-new">SHIELD-05</div>
+            <div class="col col-action">
+                <span class="badge status-mod">Update</span>
+            </div>
+        </div>
+
+        <!-- 底部装饰 -->
+        <div class="footer-deco">
+            <span>SYSTEM: ONLINE</span>
+            <span>// HOLLOW INVESTIGATION TEAM //</span>
+            <span>SYNC RATE: 99.9%</span>
+        </div>
+
+    </div>
+
+</body>
+</html>

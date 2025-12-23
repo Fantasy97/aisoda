@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraOS Web Experience</title>
+  <!-- External Libraries via CDN for beauty and functionality -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.min.js"></script>
+
+  <style>
+    :root {
+      --bg-color: #f3f3f3;
+      --taskbar-bg: rgba(243, 243, 243, 0.85);
+      --window-bg: rgba(255, 255, 255, 0.9);
+      --acrylic-blur: blur(20px) saturate(125%);
+      --accent-color: #0078d4;
+      --text-color: #222;
+      --border-color: rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --Wallpaper: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #202020;
+        --taskbar-bg: rgba(32, 32, 32, 0.85);
+        --window-bg: rgba(40, 40, 40, 0.85);
+        --text-color: #eee;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text-color);
+    }
+
+    /* --- Boot Screen --- */
+    #boot-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      transition: opacity 1s;
+    }
+
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border-left-color: var(--accent-color);
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* --- Desktop --- */
+    #desktop {
+      background-image: var(--Wallpaper);
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.1s ease-out;
+    }
+
+    #desktop-icons {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-wrap: wrap;
+      height: 90%;
+      width: fit-content;
+    }
+
+    .d-icon {
+      width: 80px;
+      text-align: center;
+      padding: 10px 5px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+      transition: background 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .d-icon:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .d-icon.selected {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px dotted rgba(255, 255, 255, 0.5);
+    }
+
+    .d-icon i {
+      font-size: 32px;
+      margin-bottom: 5px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    .d-icon[data-app="file-explorer"] i {
+      color: #ffd66b;
+    }
+
+    .d-icon[data-app="edge"] i {
+      color: #00ca7d;
+    }
+
+    .d-icon span {
+      font-size: 12px;
+      word-break: break-word;
+    }
+
+    /* --- Taskbar --- */
+    #taskbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      background: var(--taskbar-bg);
+      backdrop-filter: var(--acrylic-blur);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+      z-index: 10000;
+    }
+
+    .taskbar-center {
+      display: flex;
+      gap: 8px;
+      height: 100%;
+      align-items: center;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .tb-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-color);
+      position: relative;
+    }
+
+    .tb-icon:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .tb-icon:active {
+      transform: scale(0.9);
+    }
+
+    .tb-icon.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      width: 16px;
+      height: 3px;
+      background: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    #start-btn i {
+      color: #00a2ed;
+    }
+
+    .taskbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 12px;
+      h
+    }
+
+    #clock {
+      text-align: center;
+      cursor: default;
+    }
+
+    /* --- Start Menu --- */
+    #start-menu {
+      position: absolute;
+      bottom: 55px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      width: 600px;
+      height: 600px;
+      background: var(--window-bg);
+      backdrop-filter: var(--acrylic-blur);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display: none;
+      flex-direction: column;
+      opacity: 0;
+      transition: all 0.2s ease-out;
+      z-index: 10001;
+    }
+
+    #start-menu.open {
+      display: flex;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .search-bar {
+      background: rgba(128, 128, 128, 0.1);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      color: var(--text-color);
+    }
+
+    .pinned-apps {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .app-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .app-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .app-item i {
+      font-size: 28px;
+    }
+
+    .app-item span {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    /* --- Windows --- */
+    .window {
+      position: absolute;
+      background: var(--window-bg);
+      backdrop-filter: blur(40px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 300px;
+      min-height: 200px;
+      resize: both;
+      animation: openWindow 0.2s ease-out;
+    }
+
+    @keyframes openWindow {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .window.minimized {
+      display: none;
+    }
+
+    .window.maximized {
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: calc(100% - 48px) !important;
+      border-radius: 0;
+      resize: none;
+    }
+
+    .title-bar {
+      height: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      border-bottom: 1px solid var(--border-color);
+      cursor: grab;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .title-bar-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .window-controls {
+      display: flex;
+      height: 100%;
+    }
+
+    .win-btn {
+      width: 40px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .win-btn:hover {
+      background: rgba(128, 128, 128, 0.1);
+    }
+
+    .win-btn.close:hover {
+      background: #e81123;
+      color: white;
+    }
+
+    .window-content {
+      flex: 1;
+      overflow: auto;
+      position: relative;
+      user-select: text;
+    }
+
+    /* --- APP STYLES --- */
+    /* Notepad */
+    textarea.notepad-area {
+      width: 100%;
+      height: 100%;
+      border: none;
+      padding: 10px;
+      resize: none;
+      outline: none;
+      background: transparent;
+      color: var(--text-color);
+      font-family: monospace;
+    }
+
+    .app-menu {
+      padding: 5px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 12px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .menu-item {
+      padding: 2px 8px;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      background: rgba(128, 128, 128, 0.1);
+      border-radius: 4px;
+    }
+
+    /* Terminal */
+    .terminal {
+      background: #1e1e1e;
+      color: #ccc;
+      font-family: 'Consolas', monospace;
+      padding: 10px;
+      height: 100%;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .term-output {
+      white-space: pre-wrap;
+    }
+
+    .term-input-line {
+      display: flex;
+      margin-top: 5px;
+    }
+
+    .prompt {
+      color: #4caf50;
+      margin-right: 5px;
+      font-weight: bold;
+    }
+
+    .py-prompt {
+      color: #ffd700;
+    }
+
+    .term-input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      outline: none;
+      flex: 1;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .error {
+      color: #ff6b6b;
+    }
+
+    /* File Explorer */
+    .fe-container {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+    }
+
+    .fe-toolbar {
+      padding: 8px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      gap: 10px;
+    }
+
+    .fe-path {
+      padding: 4px 10px;
+      border: 1px solid var(--border-color);
+      flex: 1;
+      border-radius: 4px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .fe-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .fe-sidebar {
+      width: 150px;
+      border-right: 1px solid var(--border-color);
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    .fe-sidebar div {
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .fe-sidebar div:hover {
+      background: rgba(128, 128, 128, 0.1);
+    }
+
+    .fe-content {
+      flex: 1;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      grid-auto-rows: min-content;
+      gap: 10px;
+      overflow-y: auto;
+    }
+
+    .file-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .file-item:hover {
+      background: rgba(128, 128, 128, 0.1);
+    }
+
+    .file-item i {
+      font-size: 32px;
+    }
+
+    .file-item[data-type="folder"] i {
+      color: #ffd66b;
+    }
+
+    .file-item[data-type="txt"] i {
+      color: #aaa;
+    }
+
+    .file-item[data-type="js"] i,
+    .file-item[data-type="py"] i {
+      color: #519aba;
+    }
+
+    .file-item span {
+      font-size: 11px;
+      word-break: break-all;
+    }
+
+    /* Paint */
+    .paint-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .paint-toolbar {
+      padding: 5px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(128, 128, 128, 0.05);
+    }
+
+    canvas.paint-canvas {
+      background: #fff;
+      cursor: crosshair;
+      display: block;
+      margin: auto;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .color-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+
+    .color-btn.active {
+      border: 2px solid var(--text-color);
+      transform: scale(1.1);
+    }
+
+    /* VS Code (Monaco) container */
+    #monaco-container {
+      width: 100%;
+      height: calc(100% - 30px);
+    }
+
+    /* Snake Game */
+    .game-container {
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      flex-direction: column;
+      color: #0f0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    #game-canvas {
+      border: 2px solid #0f0;
+      box-shadow: 0 0 20px #0f0;
+      background: #001100;
+    }
+
+    .game-ui {
+      display: flex;
+      justify-content: space-between;
+      width: 400px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      text-shadow: 0 0 5px #0f0;
+    }
+
+    .game-over-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      display: none;
+    }
+
+    .game-over-overlay h1 {
+      font-size: 40px;
+      color: red;
+      text-shadow: 0 0 10px red;
+      margin: 0;
+    }
+
+    .neon-btn {
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 5px 15px;
+      background: transparent;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 0 5px #0f0;
+    }
+
+    .neon-btn:hover {
+      background: #0f0;
+      color: #000;
+    }
+
+    /* Video Editor (Simulated) */
+    .vid-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: #222;
+      color: white;
+    }
+
+    .vid-preview {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vid-timeline {
+      height: 100px;
+      border-top: 1px solid #444;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .vid-controls {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      padding: 10px;
+      background: #333;
+    }
+
+    .trk {
+      height: 30px;
+      background: #4caf50;
+      border-radius: 4px;
+      position: relative;
+      width: 80%;
+      cursor: ew-resize;
+    }
+
+    .trk::after {
+      content: 'Clip 1.mp4';
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 10px;
+      color: black;
+    }
+
+    .playhead {
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background: red;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+    }
+
+    #vid-canvas {
+      height: 90%;
+      max-width: 100%;
+    }
+
+    .vid-filters {
+      display: flex;
+      gap: 5px;
+      padding: 5px;
+    }
+
+    .filter-btn {
+      font-size: 10px;
+      padding: 2px 5px;
+      cursor: pointer;
+      background: #444;
+      border: 1px solid #555;
+      color: white;
+    }
+
+    .filter-btn:hover {
+      background: var(--accent-color);
+    }
+
+    /* Context Menu */
+    #context-menu {
+      position: absolute;
+      background: var(--window-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      padding: 5px 0;
+      display: none;
+      z-index: 99999;
+      width: 200px;
+    }
+
+    .ctx-item {
+      padding: 8px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .ctx-item:hover {
+      background: rgba(128, 128, 128, 0.1);
+    }
+
+    .ctx-hr {
+      border-top: 1px solid var(--border-color);
+      margin: 3px 0;
+    }
+
+    /* BSOD */
+    #bsod {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0078d7;
+      color: white;
+      z-index: 100000;
+      padding: 100px;
+      font-family: 'Segoe UI', sans-serif;
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    #bsod h1 {
+      font-size: 100px;
+      font-weight: 100;
+      margin: 0;
+    }
+
+    #bsod p {
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Boot Screen -->
+  <div id="boot-screen">
+    <i class="fa-brands fa-windows" style="font-size: 64px; margin-bottom: 40px; color: #00a2ed;"></i>
+    <div class="spinner"></div>
+    <div id="boot-text">Starting AuraOS...</div>
+  </div>
+
+  <!-- BSOD (Hidden) -->
+  <div id="bsod">
+    <h1>:(</h1>
+    <p>Your PC ran into a problem and needs to restart. We're just collecting some error info, and then we'll restart for you.</p>
+    <p style="font-size: 16px; margin-top: 30px;">Stop Code: CRITICAL_PROCESS_DIED</p>
+  </div>
+
+  <!-- Desktop Environment -->
+  <div id="desktop">
+    <div id="desktop-icons">
+      <!-- Icons generated by JS based on VFS -->
+    </div>
+
+    <div id="windows-container"></div> <!-- Windows spawn here -->
+    <div id="context-menu"></div>
+  </div>
+
+  <!-- Start Menu -->
+  <div id="start-menu">
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Type here to search">
+    </div>
+    <div style="font-weight: 600; margin-bottom: 10px; font-size: 14px;">Pinned</div>
+    <div class="pinned-apps" id="start-apps">
+      <!-- Populated by JS -->
+    </div>
+    <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 32px; height: 32px; background: #555; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white;"><i class="fa-solid fa-user"></i></div>
+        <span style="font-size: 12px; font-weight: 600;">User</span>
+      </div>
+      <i class="fa-solid fa-power-off" style="cursor: pointer; padding: 8px;" onclick="triggerBSOD()"></i>
+    </div>
+  </div>
+
+  <!-- Taskbar -->
+  <div id="taskbar">
+    <div style="display: flex; gap: 5px;">
+      <!-- Widgets placeholder -->
+    </div>
+    <div class="taskbar-center">
+      <div class="tb-icon" id="start-btn"><i class="fa-brands fa-windows"></i></div>
+      <!-- Open apps appended here -->
+    </div>
+    <div class="taskbar-right">
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-volume-high"></i>
+      <div id="clock">
+        <div id="time" style="font-weight: 600;"></div>
+        <div id="date"></div>
+      </div>
+      <div style="width: 5px; border-left: 1px solid var(--border-color); height: 100%; margin-left: 5px; cursor: pointer;" onclick="WindowManager.minimizeAll()"></div>
+    </div>
+  </div>
+
+  <script>
+    /* --- SYSTEM CORE & VIRTUAL FILE SYSTEM --- */
+    // Define Application Metadata
+    const AppRegistry = {
+      'file-explorer': {
+        title: 'File Explorer',
+        icon: 'fa-solid fa-folder-open',
+        color: '#ffd66b',
+        func: createFileExplorer
+      },
+      'notepad': {
+        title: 'Notepad',
+        icon: 'fa-solid fa-file-lines',
+        color: '#4cc2ff',
+        func: createNotepad
+      },
+      'terminal': {
+        title: 'Terminal',
+        icon: 'fa-solid fa-terminal',
+        color: '#fff',
+        func: createTerminal
+      },
+      'vscode': {
+        title: 'Code Editor',
+        icon: 'fa-solid fa-code',
+        color: '#0078d4',
+        func: createVSCode
+      },
+      'paint': {
+        title: 'Paint',
+        icon: 'fa-solid fa-palette',
+        color: '#e05194',
+        func: createPaint
+      },
+      'edge': {
+        title: 'Browser',
+        icon: 'fa-brands fa-edge',
+        color: '#00ca7d',
+        func: createBrowser
+      },
+      'calculator': {
+        title: 'Calculator',
+        icon: 'fa-solid fa-calculator',
+        color: '#fff',
+        func: createCalculator
+      },
+      'game': {
+        title: 'Cyber Snake',
+        icon: 'fa-solid fa-gamepad',
+        color: '#adff2f',
+        func: createGame
+      },
+      'video': {
+        title: 'Video Editor',
+        icon: 'fa-solid fa-film',
+        color: '#9b59b6',
+        func: createVideoEditor
+      }
+    };
+    // In-memory Virtual File System
+    const VFS = {
+      root: {
+        type: 'folder',
+        children: {
+          'Desktop': {
+            type: 'folder',
+            children: {
+              'Welcome.txt': {
+                type: 'file',
+                ext: 'txt',
+                content: 'Welcome to AuraOS!\nThis is a pure web-based operating system simulation.\nEverything is contained in one HTML file.'
+              },
+              'Project': {
+                type: 'folder',
+                children: {}
+              },
+              'script.js': {
+                type: 'file',
+                ext: 'js',
+                content: 'console.log("Hello World");'
+              }
+            }
+          },
+          'Documents': {
+            type: 'folder',
+            children: {}
+          },
+          'Pictures': {
+            type: 'folder',
+            children: {}
+          }
+        }
+      },
+      // Helper to get path content
+      Resolve: function(path) {
+        let parts = path.split('/').filter(p => p);
+        let current = this.root;
+        for (let part of parts) {
+          if (current.type === 'folder' && current.children[part]) {
+            current = current.children[part];
+          } else {
+            return null;
+          }
+        }
+        return current;
+      }
+    };
+    /* --- WINDOW MANAGER --- */
+    let zIndexCounter = 100;
+    let activeWindows = {}; // id -> { element, taskbarEntry, minimized }
+    const WindowManager = {
+      open: function(appId, filePath = null) {
+        const app = AppRegistry[appId];
+        if (!app) return;
+        const id = 'win-' + Date.now();
+        zIndexCounter++;
+        // Basic Window HTML
+        const win = document.createElement('div');
+        win.className = 'window';
+        win.id = id;
+        win.style.zIndex = zIndexCounter;
+        win.style.left = (50 + (Object.keys(activeWindows).length * 20)) + 'px';
+        win.style.top = (50 + (Object.keys(activeWindows).length * 20)) + 'px';
+        win.style.width = '800px';
+        win.style.height = '500px';
+        let specificTitle = app.title;
+        if (filePath) specificTitle += ` - ${filePath.split('/').pop()}`;
+        win.innerHTML = `
+                <div class="title-bar">
+                    <div class="title-bar-text"><i class="${app.icon}" style="color: ${app.color}"></i> ${specificTitle}</div>
+                    <div class="window-controls">
+                        <div class="win-btn" onclick="WindowManager.minimize('${id}')"><i class="fa-solid fa-minus"></i></div>
+                        <div class="win-btn" onclick="WindowManager.maximize('${id}')"><i class="fa-regular fa-square"></i></div>
+                        <div class="win-btn close" onclick="WindowManager.close('${id}')"><i class="fa-solid fa-xmark"></i></div>
+                    </div>
+                </div>
+                <div class="window-content" id="${id}-content"></div>
+            `;
+        document.getElementById('windows-container').appendChild(win);
+        // Initialize drag and focus logic
+        this.makeDraggable(win);
+        win.addEventListener('mousedown', () => this.focus(id));
+        // Add to Taskbar
+        const tbIcon = document.createElement('div');
+        tbIcon.className = 'tb-icon active';
+        tbIcon.id = id + '-tb';
+        tbIcon.innerHTML = `<i class="${app.icon}" style="color: ${app.color}"></i>`;
+        tbIcon.onclick = () => this.toggle(id);
+        document.querySelector('.taskbar-center').appendChild(tbIcon);
+        activeWindows[id] = {
+          element: win,
+          tbIcon: tbIcon,
+          minimized: false
+        };
+        // Run App Logic to fill content
+        app.func(document.getElementById(`${id}-content`), filePath, id);
+      },
+      close: function(id) {
+        if (activeWindows[id]) {
+          activeWindows[id].element.remove();
+          activeWindows[id].tbIcon.remove();
+          delete activeWindows[id];
+        }
+      },
+      minimize: function(id) {
+        activeWindows[id].element.classList.add('minimized');
+        activeWindows[id].tbIcon.classList.remove('active');
+        activeWindows[id].minimized = true;
+      },
+      maximize: function(id) {
+        activeWindows[id].element.classList.toggle('maximized');
+      },
+      focus: function(id) {
+        zIndexCounter++;
+        activeWindows[id].element.style.zIndex = zIndexCounter;
+        // Update Menu Bars in real OS, here just visuals
+        Object.values(activeWindows).forEach(w => w.tbIcon.classList.remove('active'));
+        if (!activeWindows[id].minimized) {
+          activeWindows[id].tbIcon.classList.add('active');
+        }
+      },
+      toggle: function(id) {
+        if (activeWindows[id].minimized) {
+          activeWindows[id].element.classList.remove('minimized');
+          activeWindows[id].minimized = false;
+          this.focus(id);
+        } else if (activeWindows[id].element.style.zIndex == zIndexCounter) {
+          this.minimize(id);
+        } else {
+          this.focus(id);
+        }
+      },
+      minimizeAll: function() {
+        Object.keys(activeWindows).forEach(id => this.minimize(id));
+      },
+      makeDraggable: function(el) {
+        let titleBar = el.querySelector('.title-bar');
+        let isDragging = false;
+        let startX, startY, initialLeft, initialTop;
+        titleBar.addEventListener('mousedown', (e) => {
+          if (e.target.closest('.window-controls')) return; // Don't drag if clicking buttons
+          if (el.classList.contains('maximized')) return;
+          isDragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          initialLeft = el.offsetLeft;
+          initialTop = el.offsetTop;
+          document.body.style.cursor = 'grabbing';
+        });
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          el.style.left = (initialLeft + e.clientX - startX) + 'px';
+          el.style.top = (initialTop + e.clientY - startY) + 'px';
+        });
+        document.addEventListener('mouseup', () => {
+          isDragging = false;
+          document.body.style.cursor = 'default';
+        });
+      }
+    };
+    /* --- APP IMPLEMENTATIONS --- */
+    // 1. NOTEPAD
+    function createNotepad(container, filePath, winId) {
+      container.innerHTML = `
+            <div class="app-menu">
+                <div class="menu-item">File</div>
+                <div class="menu-item">Edit</div>
+                <div class="menu-item">Format</div>
+            </div>
+            <textarea class="notepad-area" spellcheck="false"></textarea>
+        `;
+      const ta = container.querySelector('textarea');
+      if (filePath) {
+        let fileObj = VFS.Resolve(filePath);
+        if (fileObj) ta.value = fileObj.content;
+      }
+      ta.focus();
+    }
+    // 2. TERMINAL (Simulated Python/Bash)
+    function createTerminal(container) {
+      container.innerHTML = `<div class="terminal" id="term-${Date.now()}"><div class="term-output">AuraOS PowerShell [Version 10.0.22]\n(c) Aura Corporation. All rights reserved.\n\nTry 'help' or switch to python with 'python'.\n\n</div></div>`;
+      const term = container.firstChild;
+      let currentPath = '/Desktop';
+      let mode = 'sh'; // sh or python
+      function createInputLine() {
+        const line = document.createElement('div');
+        line.className = 'term-input-line';
+        const promptTxt = mode === 'sh' ? `User@AuraOS:${currentPath}$` : '>>>';
+        line.innerHTML = `<span class="prompt ${mode==='python'?'py-prompt':''}">${promptTxt}</span><input type="text" class="term-input" spellcheck="false">`;
+        term.appendChild(line);
+        const input = line.querySelector('input');
+        input.focus();
+        term.scrollTop = term.scrollHeight;
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            this.disabled = true;
+            processCommand(this.value);
+          }
+        });
+        container.closest('.window').addEventListener('click', () => {
+          if (!input.disabled) input.focus();
+        });
+      }
+
+      function output(text, isError = false) {
+        const div = document.createElement('div');
+        div.className = isError ? 'error' : '';
+        div.textContent = text;
+        term.appendChild(div);
+      }
+
+      function processCommand(cmd) {
+        cmd = cmd.trim();
+        if (cmd === '') {
+          createInputLine();
+          return;
+        }
+        if (mode === 'sh') {
+          const args = cmd.split(' ');
+          switch (args[0].toLowerCase()) {
+            case 'help':
+              output('Available commands: ls, cd, echo, clear, python, whoami, open <app>');
+              break;
+            case 'clear':
+              term.innerHTML = '<div class="term-output"></div>';
+              break;
+            case 'echo':
+              output(args.slice(1).join(' '));
+              break;
+            case 'whoami':
+              output('admin');
+              break;
+            case 'ls':
+              let dir = VFS.Resolve(currentPath);
+              output(Object.keys(dir.children).map(k => {
+                return dir.children[k].type === 'folder' ? k + '/' : k;
+              }).join('  '));
+              break;
+            case 'python':
+              mode = 'python';
+              output('Python 3.10.0 (default, Oct 10 2023) [MSC v.1916 64 bit (AMD64)] on win32\nType "help", "copyright", "credits" or "license" for more information.\nType "exit()" to return to shell.');
+              break;
+            case 'open':
+              if (args[1] && AppRegistry[args[1]]) WindowManager.open(args[1]);
+              else output('App not found. usage: open [notepad|paint|game...]', 'err');
+              break;
+            default:
+              output(`Command not found: ${args[0]}`, true);
+          }
+        } else if (mode === 'python') {
+          if (cmd === 'exit()') {
+            mode = 'sh';
+          } else {
+            try {
+              // Safe(ish) eval for demo purposes. 
+              // In production, never use eval. Use a JS parser library.
+              // Mapping JS math to appear somewhat pythonesque
+              let result = eval(cmd);
+              if (result !== undefined) output(String(result));
+            } catch (e) {
+              output(`Traceback (most recent call last):\n  File "<stdin>", line 1, in <module>\n${e.name}: ${e.message}`, true);
+            }
+          }
+        }
+        createInputLine();
+      }
+      createInputLine();
+    }
+    // 3. FILE EXPLORER
+    function createFileExplorer(container) {
+      let currentPath = 'Desktop';
+      container.innerHTML = `
+            <div class="fe-container">
+                <div class="fe-toolbar">
+                    <button onclick="this.closest('.fe-container').dispatchEvent(new CustomEvent('navup'))"><i class="fa-solid fa-arrow-up"></i></button>
+                    <div class="fe-path"><i class="fa-solid fa-computer" style="margin-right:5px"></i> This PC > ${currentPath}</div>
+                </div>
+                <div class="fe-body">
+                    <div class="fe-sidebar">
+                        <div onclick="this.closest('.fe-container').dispatchEvent(new CustomEvent('navto', {detail: 'Desktop'}))"><i class="fa-solid fa-desktop" style="color: #0078d4;"></i> Desktop</div>
+                        <div onclick="this.closest('.fe-container').dispatchEvent(new CustomEvent('navto', {detail: 'Documents'}))"><i class="fa-solid fa-file" style="color: #fce100;"></i> Documents</div>
+                        <div onclick="this.closest('.fe-container').dispatchEvent(new CustomEvent('navto', {detail: 'Pictures'}))"><i class="fa-solid fa-image" style="color: #00ca7d;"></i> Pictures</div>
+                    </div>
+                    <div class="fe-content"></div>
+                </div>
+            </div>
+        `;
+      const contentArea = container.querySelector('.fe-content');
+      const pathDisplay = container.querySelector('.fe-path');
+
+      function render() {
+        contentArea.innerHTML = '';
+        pathDisplay.innerHTML = `<i class="fa-solid fa-computer" style="margin-right:5px"></i> This PC > ${currentPath}`;
+        const dir = VFS.Resolve(currentPath);
+        if (!dir || dir.type !== 'folder') return;
+        for (let key in dir.children) {
+          const item = dir.children[key];
+          const el = document.createElement('div');
+          el.className = 'file-item';
+          let icon = 'fa-file';
+          let typeStr = 'file';
+          if (item.type === 'folder') {
+            icon = 'fa-folder';
+            typeStr = 'folder';
+          } else if (item.ext === 'txt') {
+            icon = 'fa-file-lines';
+            typeStr = 'txt';
+          } else if (item.ext === 'js' || item.ext === 'py') {
+            icon = 'fa-file-code';
+            typeStr = item.ext;
+          }
+          el.setAttribute('data-type', typeStr);
+          el.innerHTML = `<i class="fa-solid ${icon}"></i><span>${key}</span>`;
+          el.ondblclick = () => {
+            if (item.type === 'folder') {
+              currentPath += '/' + key;
+              render();
+            } else {
+              // Open file based on extension
+              if (item.ext === 'txt') WindowManager.open('notepad', currentPath + '/' + key);
+              if (item.ext === 'js') WindowManager.open('vscode', currentPath + '/' + key);
+            }
+          };
+          contentArea.appendChild(el);
+        }
+      }
+      container.querySelector('.fe-container').addEventListener('navup', () => {
+        if (!currentPath.includes('/')) return;
+        currentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        render();
+      });
+      container.querySelector('.fe-container').addEventListener('navto', (e) => {
+        currentPath = e.detail;
+        render();
+      });
+      render();
+    }
+    // 4. PAINT
+    function createPaint(container) {
+      container.innerHTML = `
+            <div class="paint-container">
+                <div class="paint-toolbar">
+                    <div class="color-btn active" style="background: black;" data-c="#000"></div>
+                    <div class="color-btn" style="background: red;" data-c="#f00"></div>
+                    <div class="color-btn" style="background: blue;" data-c="#00f"></div>
+                    <div class="color-btn" style="background: green;" data-c="#0f0"></div>
+                    <div class="color-btn" style="background: white;" data-c="#fff" title="Eraser"></div>
+                    <div style="border-left: 1px solid #ccc; height: 20px; margin: 0 5px;"></div>
+                    Size: <input type="range" min="1" max="20" value="5" id="brush-size">
+                    <button id="clear-btn" style="margin-left: auto;">Clear</button>
+                </div>
+                <div style="flex:1; overflow: auto; padding: 10px; background: #ccc;">
+                    <canvas class="paint-canvas" width="800" height="600"></canvas>
+                </div>
+            </div>
+        `;
+      const canvas = container.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      let painting = false;
+      let color = '#000';
+      let lineWidth = 5;
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.lineCap = 'round';
+      // Toolbar logic
+      container.querySelectorAll('.color-btn').forEach(btn => {
+        btn.onclick = function() {
+          container.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          color = this.getAttribute('data-c');
+        }
+      });
+      container.querySelector('#brush-size').oninput = function() {
+        lineWidth = this.value;
+      };
+      container.querySelector('#clear-btn').onclick = function() {
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      };
+
+      function draw(e) {
+        if (!painting) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = color;
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+      }
+      canvas.addEventListener('mousedown', (e) => {
+        painting = true;
+        draw(e);
+      });
+      canvas.addEventListener('mouseup', () => {
+        painting = false;
+        ctx.beginPath();
+      });
+      canvas.addEventListener('mousemove', draw);
+    }
+    // 5. VS CODE (Monaco)
+    function createVSCode(container, filePath) {
+      container.innerHTML = `<div class="app-menu"><div class="menu-item">File</div><div class="menu-item">Run</div></div><div id="monaco-container"></div>`;
+      // Check if Monaco is loaded
+      if (typeof monaco === 'undefined') {
+        container.querySelector('#monaco-container').innerHTML = '<div style="padding:20px; color: red;">Internet required to load Monaco Editor.</div>';
+        return;
+      }
+      let initialContent = '// Type your JavaScript here\nconsole.log("Hello AuraOS!");';
+      let lang = 'javascript';
+      if (filePath) {
+        let f = VFS.Resolve(filePath);
+        if (f) {
+          initialContent = f.content;
+          lang = f.ext === 'js' ? 'javascript' : 'plaintext';
+        }
+      }
+      require.config({
+        paths: {
+          'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs'
+        }
+      });
+      require(['vs/editor/editor.main'], function() {
+        let editor = monaco.editor.create(container.querySelector('#monaco-container'), {
+          value: initialContent,
+          language: lang,
+          theme: 'vs-dark',
+          automaticLayout: true
+        });
+      });
+    }
+    // 6. GAME (Cyber Snake)
+    function createGame(container, fp, winId) {
+      container.innerHTML = `
+            <div class="game-container">
+                <div class="game-ui"><span>Score: <span id="score">0</span></span><span>High: <span id="hiscore">0</span></span></div>
+                <canvas id="game-canvas" width="400" height="400"></canvas>
+                <div style="margin-top: 10px; font-size: 12px;">Use Arrow Keys</div>
+                <div class="game-over-overlay" id="go-screen">
+                    <h1>GAME OVER</h1>
+                    <button class="neon-btn" onclick="this.parentElement.dispatchEvent(new Event('restart'))">RESTART</button>
+                </div>
+            </div>
+        `;
+      const canvas = container.querySelector('canvas');
+      const ctx = canvas.getContext('2d');
+      const scoreEl = container.querySelector('#score');
+      const goScreen = container.querySelector('#go-screen');
+      const gridSize = 20;
+      const tileCount = canvas.width / gridSize;
+      let snake = [{
+        x: 10,
+        y: 10
+      }];
+      let food = {
+        x: 15,
+        y: 15
+      };
+      let dx = 0;
+      let dy = 0;
+      let score = 0;
+      let gameLoop;
+      let running = false;
+
+      function drawGame() {
+        // Move
+        const head = {
+          x: snake[0].x + dx,
+          y: snake[0].y + dy
+        };
+        // Collision detection
+        if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount || snake.some(s => s.x === head.x && s.y === head.y)) {
+          gameOver();
+          return;
+        }
+        if (dx !== 0 || dy !== 0) {
+          snake.unshift(head);
+          // Eat food
+          if (head.x === food.x && head.y === food.y) {
+            score += 10;
+            scoreEl.innerText = score;
+            placeFood();
+          } else {
+            snake.pop();
+          }
+        }
+        // Draw
+        ctx.fillStyle = '#001100'; // BG
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Grid effect
+        ctx.strokeStyle = '#003300';
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < tileCount; i++) {
+          ctx.beginPath();
+          ctx.moveTo(i * gridSize, 0);
+          ctx.lineTo(i * gridSize, canvas.height);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, i * gridSize);
+          ctx.lineTo(canvas.width, i * gridSize);
+          ctx.stroke();
+        }
+        // Snake
+        ctx.fillStyle = '#0f0';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#0f0';
+        snake.forEach(part => ctx.fillRect(part.x * gridSize + 1, part.y * gridSize + 1, gridSize - 2, gridSize - 2));
+        // Food
+        ctx.fillStyle = '#ff00ff';
+        ctx.shadowColor = '#ff00ff';
+        ctx.fillRect(food.x * gridSize + 1, food.y * gridSize + 1, gridSize - 2, gridSize - 2);
+        ctx.shadowBlur = 0;
+      }
+
+      function placeFood() {
+        food = {
+          x: Math.floor(Math.random() * tileCount),
+          y: Math.floor(Math.random() * tileCount)
+        };
+        // Ensure not on snake
+        if (snake.some(s => s.x === food.x && s.y === food.y)) placeFood();
+      }
+
+      function gameOver() {
+        clearInterval(gameLoop);
+        running = false;
+        goScreen.style.display = 'block';
+      }
+
+      function startGame() {
+        snake = [{
+          x: 10,
+          y: 10
+        }];
+        dx = 1;
+        dy = 0;
+        score = 0;
+        scoreEl.innerText = 0;
+        placeFood();
+        goScreen.style.display = 'none';
+        running = true;
+        if (gameLoop) clearInterval(gameLoop);
+        gameLoop = setInterval(drawGame, 100);
+      }
+      // Input handling attached to document, need to check if this window is focused
+      const keyHandler = (e) => {
+        if (!running || document.getElementById(winId).style.zIndex != zIndexCounter) return;
+        switch (e.key) {
+          case 'ArrowUp':
+            if (dy === 0) {
+              dx = 0;
+              dy = -1;
+            }
+            break;
+          case 'ArrowDown':
+            if (dy === 0) {
+              dx = 0;
+              dy = 1;
+            }
+            break;
+          case 'ArrowLeft':
+            if (dx === 0) {
+              dx = -1;
+              dy = 0;
+            }
+            break;
+          case 'ArrowRight':
+            if (dx === 0) {
+              dx = 1;
+              dy = 0;
+            }
+            break;
+        }
+      };
+      document.addEventListener('keydown', keyHandler);
+      // Cleanup when window closes
+      const observer = new MutationObserver((mutations) => {
+        if (!document.body.contains(container)) {
+          clearInterval(gameLoop);
+          document.removeEventListener('keydown', keyHandler);
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.getElementById('windows-container'), {
+        childList: true,
+        subtree: true
+      });
+      goScreen.addEventListener('restart', startGame);
+      ctx.fillStyle = '#001100';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0f0';
+      ctx.font = "20px Courier New";
+      ctx.textAlign = "center";
+      ctx.fillText("Press Arrow Key to Start", canvas.width / 2, canvas.height / 2);
+      document.addEventListener('keydown', function starter(e) {
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key) && document.getElementById(winId).style.zIndex == zIndexCounter && !running) {
+          document.removeEventListener('keydown', starter);
+          startGame();
+        }
+      });
+    }
+    // 7. BROWSER (Mock)
+    function createBrowser(container) {
+      container.innerHTML = `
+            <div style="display:flex; flex-direction:column; height:100%;">
+                <div style="padding: 8px; background: #f0f0f0; border-bottom: 1px solid #ccc; display:flex; gap:10px;">
+                    <i class="fa-solid fa-arrow-left" style="color:#888;"></i>
+                    <i class="fa-solid fa-arrow-right" style="color:#888;"></i>
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <input type="text" value="https://www.auraos.web/welcome" style="flex:1; border-radius: 20px; border: 1px solid #ccc; padding: 4px 15px;">
+                </div>
+                <div style="flex:1; background: white; padding: 40px; text-align: center; overflow-y: auto;">
+                    <h1 style="color: var(--accent-color);">Welcome to Aura Edge</h1>
+                    <p>This is a simulated browser environment.</p>
+                    <div style="margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; max-width: 800px; margin: 50px auto;">
+                        <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px; cursor: pointer;" class="hover-shadow">
+                            <i class="fa-brands fa-google" style="font-size: 30px; color: #DB4437;"></i><br>Search
+                        </div>
+                        <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px; cursor: pointer;" class="hover-shadow">
+                            <i class="fa-brands fa-youtube" style="font-size: 30px; color: #FF0000;"></i><br>Videos
+                        </div>
+                        <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px; cursor: pointer;" class="hover-shadow">
+                            <i class="fa-brands fa-github" style="font-size: 30px; color: #333;"></i><br>Code
+                        </div>
+                    </div>
+                    <p style="color: #888; margin-top: 50px;">(Note: Cannot load real websites due to iframe restrictions in a single file environment)</p>
+                </div>
+            </div>
+        `;
+    }
+    // 8. CALCULATOR
+    function createCalculator(container) {
+      container.style.background = '#f9f9f9';
+      container.innerHTML = `
+            <div style="padding: 15px; height: 100%; display: flex; flex-direction: column;">
+                <div id="calc-display" style="font-size: 40px; text-align: right; margin-bottom: 10px; font-weight: 300; overflow:hidden;">0</div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; flex: 1;">
+                    <button class="calc-btn op">C</button><button class="calc-btn op">/</button><button class="calc-btn op">*</button><button class="calc-btn op" style="color:red">DEL</button>
+                    <button class="calc-btn">7</button><button class="calc-btn">8</button><button class="calc-btn">9</button><button class="calc-btn op">-</button>
+                    <button class="calc-btn">4</button><button class="calc-btn">5</button><button class="calc-btn">6</button><button class="calc-btn op">+</button>
+                    <button class="calc-btn">1</button><button class="calc-btn">2</button><button class="calc-btn">3</button><button class="calc-btn eq" style="grid-row: span 2; background: var(--accent-color); color: white;">=</button>
+                    <button class="calc-btn" style="grid-column: span 2;">0</button><button class="calc-btn">.</button>
+                </div>
+            </div>
+            <style>
+                .calc-btn { border: 1px solid #eee; background: white; font-size: 18px; border-radius: 4px; cursor: pointer; transition:0.1s; }
+                .calc-btn:hover { background: #eee; }
+                .calc-btn.op { background: #f0f0f0; }
+                .calc-btn:active { transform: scale(0.95); }
+            </style>
+        `;
+      const display = container.querySelector('#calc-display');
+      let currentExpr = '';
+      container.querySelectorAll('.calc-btn').forEach(btn => {
+        btn.onclick = () => {
+          const val = btn.innerText;
+          if (val === 'C') currentExpr = '';
+          else if (val === 'DEL') currentExpr = currentExpr.slice(0, -1);
+          else if (val === '=') {
+            try {
+              currentExpr = String(eval(currentExpr));
+            } catch {
+              currentExpr = 'Error';
+            }
+          } else currentExpr += val;
+          display.innerText = currentExpr || '0';
+        }
+      });
+    }
+    // 9. VIDEO EDITOR (Simulation via Canvas)
+    function createVideoEditor(container, fp, winId) {
+      container.innerHTML = `
+            <div class="vid-container">
+                <div class="app-menu" style="background: #333; border-color: #444;">
+                    <div class="menu-item">Import Media</div>
+                    <div class="menu-item">Export</div>
+                </div>
+                <div class="vid-preview">
+                    <canvas id="vid-canvas" width="640" height="360"></canvas>
+                    <div style="position: absolute; bottom: 10px; right: 10px;" class="vid-filters">
+                        <button class="filter-btn" data-f="none">Normal</button>
+                        <button class="filter-btn" data-f="grayscale(1)">B&W</button>
+                        <button class="filter-btn" data-f="sepia(1)">Sepia</button>
+                        <button class="filter-btn" data-f="hue-rotate(90deg)">Alien</button>
+                    </div>
+                </div>
+                <div class="vid-controls">
+                    <i class="fa-solid fa-backward-step" style="cursor: pointer;"></i>
+                    <i class="fa-solid fa-play" id="vid-play" style="cursor: pointer; font-size: 20px;"></i>
+                    <i class="fa-solid fa-forward-step" style="cursor: pointer;"></i>
+                </div>
+                <div class="vid-timeline">
+                    <div style="font-size: 10px; color: #aaa; display:flex; justify-content:space-between;"><span>00:00</span><span>00:10</span></div>
+                    <div style="background: #333; height: 30px; position:relative; border-radius: 4px;">
+                        <div class="trk"></div>
+                        <div class="playhead" id="p-head"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+      const canvas = container.querySelector('#vid-canvas');
+      const ctx = canvas.getContext('2d');
+      const playBtn = container.querySelector('#vid-play');
+      const playhead = container.querySelector('#p-head');
+      let isPlaying = false;
+      let progress = 0; // 0 to 100
+      let animFrame;
+      let filter = 'none';
+      // Procedural animation for "video" content
+      function drawFrame(time) {
+        ctx.filter = filter;
+        ctx.fillStyle = '#111';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Animated abstract shapes
+        const t = time * 0.002;
+        ctx.fillStyle = `hsl(${t * 50}, 70%, 50%)`;
+        ctx.beginPath();
+        ctx.arc(320 + Math.sin(t) * 100, 180 + Math.cos(t * 1.5) * 50, 50, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = `hsl(${(t * 50) + 180}, 70%, 50%)`;
+        ctx.fillRect(100 + Math.cos(t) * 50, 100 + Math.sin(t) * 50, 80, 80);
+        ctx.fillStyle = "white";
+        ctx.font = "20px Arial";
+        ctx.fillText("Simulated Video Output", 20, 30);
+        ctx.filter = 'none';
+      }
+
+      function loop(timestamp) {
+        if (!isPlaying) return;
+        drawFrame(timestamp);
+        progress = (progress + 0.2) % 100;
+        playhead.style.left = progress + '%';
+        animFrame = requestAnimationFrame(loop);
+      }
+      playBtn.onclick = () => {
+        isPlaying = !isPlaying;
+        playBtn.className = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+        if (isPlaying) animFrame = requestAnimationFrame(loop);
+        else cancelAnimationFrame(animFrame);
+      };
+      container.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          filter = btn.getAttribute('data-f');
+          if (!isPlaying) drawFrame(performance.now());
+        }
+      });
+      drawFrame(0); // Initial frame
+      // Cleanup
+      const observer = new MutationObserver(() => {
+        if (!document.body.contains(container)) {
+          cancelAnimationFrame(animFrame);
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.getElementById('windows-container'), {
+        childList: true,
+        subtree: true
+      });
+    }
+    /* --- UI/UX & EVENTS --- */
+    // Initialize Desktop Icons
+    function initDesktop() {
+      const dc = document.getElementById('desktop-icons');
+      // Add Apps
+      for (let key in AppRegistry) {
+        if (['notepad', 'vscode', 'video'].includes(key)) continue; // don't put editors directly on desktop
+        dc.innerHTML += `
+                <div class="d-icon" onclick="selectIcon(this)" ondblclick="WindowManager.open('${key}')" data-app="${key}">
+                    <i class="${AppRegistry[key].icon}" style="color: ${AppRegistry[key].color}"></i>
+                    <span>${AppRegistry[key].title}</span>
+                </div>`;
+      }
+      // Add Files from VFS Desktop
+      const dtFiles = VFS.root.children['Desktop'].children;
+      for (let fName in dtFiles) {
+        let f = dtFiles[fName];
+        let icon = f.type === 'folder' ? 'fa-folder' : 'fa-file-lines';
+        let color = f.type === 'folder' ? '#ffd66b' : 'white';
+        let appToOpen = f.type === 'folder' ? 'file-explorer' : 'notepad';
+        dc.innerHTML += `
+                <div class="d-icon" onclick="selectIcon(this)" ondblclick="WindowManager.open('${appToOpen}', 'Desktop/${fName}')">
+                    <i class="fa-solid ${icon}" style="color: ${color}; text-shadow: 0 2px 5px rgba(0,0,0,0.5);"></i>
+                    <span>${fName}</span>
+                </div>`;
+      }
+    }
+
+    function selectIcon(el) {
+      document.querySelectorAll('.d-icon').forEach(i => i.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    document.getElementById('desktop').addEventListener('click', (e) => {
+      if (e.target.id === 'desktop' || e.target.id === 'desktop-icons') {
+        document.querySelectorAll('.d-icon').forEach(i => i.classList.remove('selected'));
+      }
+    });
+    // Start Menu
+    function initStartMenu() {
+      const sm = document.getElementById('start-apps');
+      for (let key in AppRegistry) {
+        sm.innerHTML += `
+                <div class="app-item" onclick="WindowManager.open('${key}'); toggleStartMenu();">
+                    <div style="width:40px; height:40px; background:${AppRegistry[key].color}; border-radius:8px; display:flex; justify-content:center; align-items:center;">
+                        <i class="${AppRegistry[key].icon}" style="color:white; font-size:20px;"></i>
+                    </div>
+                    <span>${AppRegistry[key].title}</span>
+                </div>`;
+      }
+    }
+    const startBtn = document.getElementById('start-btn');
+    const startMenu = document.getElementById('start-menu');
+
+    function toggleStartMenu() {
+      startMenu.classList.toggle('open');
+      startBtn.classList.toggle('active');
+    }
+    startBtn.onclick = (e) => {
+      e.stopPropagation();
+      toggleStartMenu();
+    };
+    startMenu.onclick = (e) => e.stopPropagation();
+    document.addEventListener('click', () => {
+      if (startMenu.classList.contains('open')) toggleStartMenu();
+      document.getElementById('context-menu').style.display = 'none';
+    });
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('time').innerText = now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      document.getElementById('date').innerText = now.toLocaleDateString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    // Context Menu
+    const ctxMenu = document.getElementById('context-menu');
+    document.getElementById('desktop').addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      if (e.target.closest('.window') || e.target.closest('#taskbar')) return;
+      ctxMenu.style.display = 'block';
+      ctxMenu.style.left = e.clientX + 'px';
+      ctxMenu.style.top = e.clientY + 'px';
+      ctxMenu.innerHTML = `
+            <div class="ctx-item"><i class="fa-solid fa-eye width:20px;"></i> View</div>
+            <div class="ctx-item"><i class="fa-solid fa-arrow-down-a-z width:20px;"></i> Sort by</div>
+            <div class="ctx-item" onclick="location.reload()"><i class="fa-solid fa-rotate-right width:20px;"></i> Refresh</div>
+            <div class="ctx-hr"></div>
+            <div class="ctx-item" onclick="WindowManager.open('notepad')"><i class="fa-solid fa-file-circle-plus width:20px;"></i> New Text Document</div>
+            <div class="ctx-hr"></div>
+            <div class="ctx-item"><i class="fa-solid fa-display width:20px;"></i> Display settings</div>
+            <div class="ctx-item" onclick="changeWallpaper()"><i class="fa-solid fa-wand-magic-sparkles width:20px;"></i> Personalize</div>
+        `;
+    });
+    const wallpapers = [
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop', // Abstract fluid
+      'https://images.unsplash.com/photo-1477346611705-65d1883cee1e?auto=format&fit=crop&w=1920&q=80', // Mountains
+      'https://images.unsplash.com/photo-1536431311719-398b670a94f8?auto=format&fit=crop&w=1920&q=80', // Cyberpunk city
+      '#0078d7' // Solid windows blue
+    ];
+    let wpIndex = 0;
+
+    function changeWallpaper() {
+      wpIndex = (wpIndex + 1) % wallpapers.length;
+      let bg = wallpapers[wpIndex].startsWith('#') ? wallpapers[wpIndex] : `url('${wallpapers[wpIndex]}')`;
+      document.documentElement.style.setProperty('--Wallpaper', bg);
+    }
+    // Parallax effect on wallpaper
+    document.addEventListener('mousemove', (e) => {
+      const x = (window.innerWidth - e.clientX) / 50;
+      const y = (window.innerHeight - e.clientY) / 50;
+      document.getElementById('desktop').style.transform = `translate(${x}px, ${y}px) scale(1.02)`;
+    });
+    // BSOD Easter Egg
+    function triggerBSOD() {
+      document.getElementById('bsod').style.display = 'flex';
+      setTimeout(() => location.reload(), 5000);
+    }
+    // Boot Sequence
+    window.onload = () => {
+      initDesktop();
+      initStartMenu();
+      setTimeout(() => {
+        document.getElementById('boot-text').innerText = "Getting things ready...";
+      }, 1500);
+      setTimeout(() => {
+        const bs = document.getElementById('boot-screen');
+        bs.style.opacity = '0';
+        setTimeout(() => bs.remove(), 1000);
+        // Auto open Welcome file
+        setTimeout(() => WindowManager.open('notepad', 'Desktop/Welcome.txt'), 800);
+      }, 3500);
+    };
+    // Handle requirejs for Monaco if it fails to load from CDN
+    window.onerror = function() {
+      if (typeof require === 'undefined') console.warn("Monaco editor loader failed. Code editor will not function.");
+    }
+  </script>
+</body>
+
+</html>

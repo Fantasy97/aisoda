@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超级BOM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #131314;
+            color: #e3e3e3;
+            overflow: hidden;
+        }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; user-select: none; }
+        .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #444746; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5e5e5e; }
+
+        textarea, input { field-sizing: content; }
+        input:disabled, textarea:disabled { background-color: #1a1b1c; color: #555; cursor: not-allowed; border-color: #333; }
+
+        /* 表格样式 */
+        .bom-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.9rem; }
+        .bom-table th { background-color: #1e1f20; color: #9ca3af; font-weight: 500; text-align: left; padding: 12px 16px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 10; transition: background-color 0.2s; }
+        .bom-table td { padding: 12px 16px; border-bottom: 1px solid #2d2e2f; color: #e2e8f0; vertical-align: top; transition: background-color 0.2s; }
+        
+        /* 数量徽章 */
+        .qty-badge { 
+            display: inline-flex; align-items: center; justify-content: center; 
+            padding: 1px 8px; border-radius: 9999px; 
+            background-color: #2b2c2d; border: 1px solid #444; 
+            color: #9ca3af; font-size: 0.75rem; font-weight: 500; 
+            cursor: text; flex-shrink: 0; white-space: nowrap;
+        }
+
+        /* 标签样式 */
+        .tag-pill {
+            display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 12px;
+            font-size: 0.7rem; font-weight: 500; margin-right: 4px; margin-bottom: 2px;
+            border: 1px solid transparent; cursor: default; transition: all 0.2s; position: relative; padding-right: 20px;
+        }
+        .tag-remove {
+            position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+            width: 14px; height: 14px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; cursor: pointer; opacity: 0.6; transition: opacity 0.2s;
+        }
+        .tag-remove:hover { opacity: 1; background-color: rgba(0,0,0,0.2); }
+        .tag-remove::before { content: "×"; font-size: 12px; line-height: 1; margin-top: -1px;}
+
+        .tag-purple { background-color: rgba(168, 85, 247, 0.2); color: #e9d5ff; border: 1px solid rgba(168, 85, 247, 0.3); }
+        .tag-orange { background-color: rgba(249, 115, 22, 0.2); color: #fdba74; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .tag-teal { background-color: rgba(20, 184, 166, 0.2); color: #99f6e4; border: 1px solid rgba(20, 184, 166, 0.3); }
+        .tag-blue { background-color: rgba(59, 130, 246, 0.2); color: #bfdbfe; border: 1px solid rgba(59, 130, 246, 0.3); }
+
+        .tag-add-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 20px; height: 20px; border-radius: 50%; border: 1px dashed #666;
+            color: #888; font-size: 14px; cursor: pointer; transition: all 0.2s; margin-bottom: 2px;
+        }
+        .tag-add-btn:hover { border-color: #aaa; color: #fff; background-color: rgba(255,255,255,0.1); }
+
+        /* 下拉菜单 Popover */
+        .popover-menu {
+            position: fixed; background-color: #1e1f20; border: 1px solid #333; border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+            width: 260px; z-index: 200; display: none; flex-direction: column; padding: 8px; animation: fadeIn 0.15s ease-out;
+        }
+        .popover-input-wrapper {
+            display: flex; align-items: center; background: #131314; border: 1px solid #333; border-radius: 6px; margin-bottom: 8px; position: relative;
+        }
+        .popover-input-wrapper:focus-within { border-color: #3b82f6; }
+        .category-trigger {
+            display: flex; align-items: center; padding: 6px 8px; cursor: pointer; border-right: 1px solid #333; transition: background 0.2s; border-top-left-radius: 5px; border-bottom-left-radius: 5px;
+        }
+        .category-trigger:hover { background-color: #2b2c2d; }
+        .popover-search { flex: 1; background: transparent; border: none; padding: 6px 8px; color: #fff; font-size: 0.85rem; outline: none; min-width: 0; }
+        
+        /* 类别选择下拉 */
+        .category-dropdown {
+            position: absolute; top: 100%; left: 0; margin-top: 4px; background-color: #252627; border: 1px solid #444; border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5); width: 160px; z-index: 210; display: none; padding: 4px;
+        }
+        .category-option { display: flex; align-items: center; gap: 8px; padding: 6px 8px; font-size: 0.75rem; color: #e2e8f0; border-radius: 4px; cursor: pointer; }
+        .category-option:hover { background-color: #333; }
+        .category-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .popover-item { display: flex; align-items: center; padding: 6px 8px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; color: #e2e8f0; transition: background 0.2s; justify-content: space-between; }
+        .popover-item:hover { background-color: #2b2c2d; }
+        .tag-preview { padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; display: inline-block; }
+
+        /* Tooltip */
+        .fixed-tooltip {
+            position: fixed; background-color: rgba(0, 0, 0, 0.95); color: #fff; border-radius: 6px; padding: 10px; z-index: 300;
+            border: 1px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.5); pointer-events: none; display: none; font-size: 0.75rem; max-width: 200px;
+        }
+
+        /* 交互模式 */
+        .mode-edit .bom-row:hover td { background-color: rgba(59, 130, 246, 0.15); }
+        .js-inline-edit { transition: all 0.2s; border-radius: 4px; padding: 0 4px; margin: 0 -4px; }
+        .mode-edit .bom-row .js-inline-edit:hover, #bomHeader .js-inline-edit:hover { background-color: rgba(255, 255, 255, 0.1); cursor: text; box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
+        .js-inline-edit[contenteditable="true"] { background-color: #000; border: 1px solid #3b82f6; outline: none; color: white; cursor: text; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); z-index: 20; position: relative; }
+        
+        .mode-delete .bom-row { cursor: alias; }
+        .mode-delete .bom-row:hover td { background-color: rgba(239, 68, 68, 0.15); text-decoration: line-through; color: #fca5a5; }
+        .mode-drag .bom-row { cursor: grab; }
+        .mode-drag .bom-row:active { cursor: grabbing; }
+        .mode-drag .bom-row:hover td { background-color: rgba(255, 255, 255, 0.05); }
+        .drag-over { border-top: 2px solid #3b82f6; }
+        .mode-drag th { cursor: grab; }
+        .mode-drag th:active { cursor: grabbing; }
+        .mode-drag th:hover { background-color: #2b2c2d; }
+
+        .badge { padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
+        .badge-add { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .badge-remove { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-modify { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .badge-info { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+
+        .type-tab {
+            padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s; border: 1px solid transparent; opacity: 0.6;
+        }
+        .type-tab:hover { opacity: 0.9; background-color: #2b2c2d; }
+        .type-tab.active { opacity: 1; background-color: #2b2c2d; border-color: currentColor; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        
+        .type-tab[data-type="add"].active { color: #4ade80; border-color: #4ade80; }
+        .type-tab[data-type="remove"].active { color: #f87171; border-color: #f87171; }
+        .type-tab[data-type="modify"].active { color: #facc15; border-color: #facc15; }
+
+        #sidebar { transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s, opacity 0.3s; overflow: hidden; white-space: nowrap; }
+        #sidebar.collapsed { width: 0 !important; padding: 0; border-left: none; opacity: 0; }
+        
+        /* Chat Styles */
+        .chat-msg-user {
+            align-self: flex-end;
+            background-color: #3b82f6;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px 12px 0 12px;
+            max-width: 85%;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        .chat-msg-ai {
+            align-self: flex-start;
+            background-color: #2b2c2d;
+            color: #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 12px 12px 12px 0;
+            max-width: 85%;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        .chat-icon {
+            width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            background-color: #3b82f6; margin-right: 8px; flex-shrink: 0;
+        }
+
+        .modal-enter { animation: modalIn 0.2s ease-out forwards; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body class="flex h-screen w-full relative">
+
+    <!-- Tooltip -->
+    <div id="globalTooltip" class="fixed-tooltip">
+        <div class="font-bold mb-2 text-gray-300 border-b border-gray-700 pb-1">标签类别说明</div>
+        <div class="flex items-center gap-2 mb-1"><span class="w-2 h-2 rounded-full bg-purple-400"></span> <span class="text-purple-200">上阶料号 (Parent)</span></div>
+        <div class="flex items-center gap-2 mb-1"><span class="w-2 h-2 rounded-full bg-orange-400"></span> <span class="text-orange-200">位置号 (Reference)</span></div>
+        <div class="flex items-center gap-2 mb-1"><span class="w-2 h-2 rounded-full bg-teal-400"></span> <span class="text-teal-200">工位 (Station)</span></div>
+        <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400"></span> <span class="text-blue-200">其他 (Misc)</span></div>
+    </div>
+
+    <!-- 标签下拉菜单 -->
+    <div id="tagPopover" class="popover-menu">
+        <div class="popover-input-wrapper">
+            <div id="categoryTrigger" class="category-trigger" title="切换标签类别">
+                <span id="currentCategoryDot" class="category-dot bg-purple-400"></span>
+                <span class="material-symbols-outlined text-[14px] text-gray-400 ml-1">arrow_drop_down</span>
+            </div>
+            <div id="categoryDropdown" class="category-dropdown"></div>
+            <input type="text" id="tagInput" class="popover-search" placeholder="查找或创建选项..." autocomplete="off">
+        </div>
+        <div class="text-[10px] text-gray-500 px-1 mb-1 mt-1">选项</div>
+        <div id="popoverList" class="flex flex-col gap-1 max-h-[200px] overflow-y-auto"></div>
+    </div>
+
+    <!-- 左侧主区域 -->
+    <div id="mainPane" class="flex-1 flex flex-col min-w-[400px] bg-[#131314] relative">
+        
+        <button id="toggleSidebarBtn" class="absolute top-6 right-6 z-40 w-10 h-10 flex items-center justify-center rounded-full bg-[#2b2c2d] hover:bg-[#37393b] text-gray-400 hover:text-white transition-colors shadow-lg border border-[#333]">
+            <span class="material-symbols-outlined" id="toggleIcon">dock_to_left</span>
+        </button>
+
+        <!-- 悬浮工具栏 -->
+        <div class="absolute bottom-8 right-8 z-50 flex flex-col gap-2 p-2 bg-[#1e1f20] rounded-full shadow-2xl border border-[#333]">
+            <button onclick="setMode('drag')" id="btn-drag" class="w-10 h-10 flex items-center justify-center rounded-full text-gray-400 hover:text-white hover:bg-[#333] transition-colors" title="拖动排序"><span class="material-symbols-outlined">drag_pan</span></button>
+            <button onclick="setMode('edit')" id="btn-edit" class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition-colors" title="编辑详情"><span class="material-symbols-outlined icon-filled">edit</span></button>
+            <button onclick="setMode('delete')" id="btn-delete" class="w-10 h-10 flex items-center justify-center rounded-full text-gray-400 hover:text-red-400 hover:bg-[#333] transition-colors" title="删除条目"><span class="material-symbols-outlined">delete</span></button>
+        </div>
+
+        <!-- 顶部输入 -->
+        <div class="p-6 pb-2 shrink-0 flex flex-col items-center">
+            <h1 class="text-2xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-white mb-6 text-center">超级BOM</h1>
+            <div class="input-container flex flex-col p-4 w-full max-w-4xl shadow-lg border border-[#333] bg-[#1e1f20] rounded-[24px]">
+                <textarea id="promptInput" placeholder="输入需求，生成BOM差异表" class="w-full bg-transparent text-gray-200 border-none outline-none text-base leading-relaxed px-2 mb-2" rows="1"></textarea>
+                <div class="flex items-center justify-between px-1">
+                    <div class="flex items-center gap-2">
+                        <button class="w-8 h-8 flex items-center justify-center rounded-full bg-[#2b2c2d] text-white"><span class="material-symbols-outlined text-[18px]">add</span></button>
+                        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-[#004a77] text-[#c2e7ff] text-xs"><span class="material-symbols-outlined text-[14px]">table_chart</span><span>BOM Analysis</span></div>
+                    </div>
+                    <button id="sendBtn" class="flex items-center justify-center w-8 h-8 rounded-full bg-white text-black opacity-50 cursor-not-allowed"><span class="material-symbols-outlined text-[18px]">send</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表格区域 -->
+        <div class="flex-1 overflow-auto p-6 pt-4">
+            <div class="bg-[#1e1f20] rounded-xl border border-[#333] overflow-hidden shadow-xl min-w-[600px]">
+                <div id="bomHeader" class="relative px-4 py-3 border-b border-[#333] flex justify-center items-center bg-[#252627]">
+                    <div class="flex gap-6 text-sm font-medium z-10">
+                        <div class="flex items-center gap-2"><span class="text-gray-400">基准:</span><span id="referenceModelLabel" class="text-white bg-[#333] px-2 py-0.5 rounded js-inline-edit">SP0013-00-23-5QP</span></div>
+                        <div class="flex items-center gap-2"><span class="text-gray-400">对比:</span><span id="newModelLabel" class="text-white bg-[#333] px-2 py-0.5 rounded js-inline-edit">SP0013-3C-33-5QP</span></div>
+                    </div>
+                    <div class="absolute right-4 flex items-center gap-3 z-20">
+                        <button onclick="openEditModal()" class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 mr-2"><span class="material-symbols-outlined text-[16px]">add</span> 新增</button>
+                        <button class="text-xs text-gray-400 hover:text-white flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">upload</span> 导入</button>
+                        <button class="text-xs text-blue-300 hover:text-blue-200 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">download</span> 导出</button>
+                    </div>
+                </div>
+
+                <table class="bom-table mode-edit" id="bomTableBody">
+                    <thead>
+                        <tr>
+                            <th class="w-1/4">物料名称</th>
+                            <th class="w-1/4"><div class="flex items-center gap-1">原始料号<span class="material-symbols-outlined text-gray-500 text-[16px] cursor-help tooltip-trigger">help</span></div></th>
+                            <th class="w-1/4"><div class="flex items-center gap-1">变更料号<span class="material-symbols-outlined text-gray-500 text-[16px] cursor-help tooltip-trigger">help</span></div></th>
+                            <th class="w-1/6">变更类型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 示例数据 -->
+                        <tr class="bom-row">
+                            <td>
+                                <div class="font-medium text-white text-base js-inline-edit js-name">一键扫码标签</div>
+                                <div class="text-xs text-gray-500 mt-1 js-inline-edit js-desc" placeholder="添加备注...">English Description</div>
+                            </td>
+                            <td class="tag-container-cell js-old-tags" data-tags='[{"text":"SP0013-00-23-5QP","type":"parent"},{"text":"组装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-medium text-white font-mono js-inline-edit js-pn">532-000103-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap gap-1 items-center tag-list-wrapper"></div>
+                            </td>
+                            <td class="tag-container-cell js-new-tags" data-tags='[{"text":"SP0013-3C-33-5QP","type":"parent"},{"text":"组装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-medium text-white font-mono js-inline-edit js-new-pn">532-000213-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-new-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap gap-1 items-center tag-list-wrapper"></div>
+                            </td>
+                            <td><span class="badge badge-modify js-type">变更</span></td>
+                        </tr>
+                        <tr class="bom-row">
+                            <td>
+                                <div class="font-medium text-white text-base js-inline-edit js-name">文档包</div>
+                                <div class="text-xs text-gray-500 mt-1 js-inline-edit js-desc" placeholder="添加备注...">Main Control Unit</div>
+                            </td>
+                            <td class="tag-container-cell js-old-tags" data-tags='[{"text":"SP0013-00-23-5QP","type":"parent"},{"text":"包装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-medium text-white font-mono js-inline-edit js-pn">334-010915-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap gap-1 items-center tag-list-wrapper"></div>
+                            </td>
+                            <td class="tag-container-cell js-new-tags" data-tags='[{"text":"SP0013-3C-33-5QP","type":"parent"},{"text":"包装","type":"station"}]'>
+                                <div class="flex items-center flex-wrap gap-2">
+                                    <div class="font-medium text-white font-mono js-inline-edit js-new-pn">334-000269-00</div>
+                                    <span class="qty-badge js-inline-edit my-1 js-new-qty">x1</span>
+                                </div>
+                                <div class="mt-2 flex flex-wrap gap-1 items-center tag-list-wrapper"></div>
+                            </td>
+                            <td><span class="badge badge-modify js-type">变更</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="h-10"></div>
+        </div>
+    </div>
+
+    <!-- 侧边栏 -->
+    <div id="sidebar" class="w-[350px] bg-[#1a1b1c] border-l border-[#333] flex flex-col shrink-0">
+        <div class="h-14 border-b border-[#333] flex items-center justify-between px-4 shrink-0 bg-[#1e1f20]">
+            <span class="font-medium text-sm flex items-center gap-2">问问小维</span>
+            <div class="flex items-center gap-3">
+                <button onclick="clearChat()" class="text-gray-400 hover:text-red-400 transition-colors" title="清空对话">
+                    <span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+                </button>
+                <button class="text-gray-400 hover:text-white"><span class="material-symbols-outlined text-[18px]">history</span></button>
+            </div>
+        </div>
+        <div id="chatContainer" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+            <div class="flex gap-3 items-start animate-fade-in">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-blue-500 to-teal-400 flex items-center justify-center shrink-0 mt-1"><span class="material-symbols-outlined text-[14px] text-white">smart_toy</span></div>
+                <div class="chat-msg-ai"><p>更新完毕。</p><p class="mt-2 text-gray-400 text-xs">您现在可以通过上方输入框输入指令来新建物料（例如：新建 包装袋）。</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新增/编辑 模态框 -->
+    <div id="editModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div class="bg-[#1e1f20] w-[600px] rounded-2xl border border-[#333] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <div class="p-6 border-b border-[#333] bg-[#252627] shrink-0">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalTitle" class="text-xl font-medium text-white">变更详情</h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-white"><span class="material-symbols-outlined">close</span></button>
+                </div>
+                
+                <div class="flex gap-2 bg-[#131314] p-1 rounded-lg border border-[#333]">
+                    <div class="type-tab flex-1 text-center" data-type="add" onclick="switchTab('add')">新增 (Add)</div>
+                    <div class="type-tab flex-1 text-center" data-type="remove" onclick="switchTab('remove')">删除 (Remove)</div>
+                    <div class="type-tab flex-1 text-center" data-type="modify" onclick="switchTab('modify')">变更 (Modify)</div>
+                </div>
+            </div>
+
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs text-gray-500 block mb-1">物料名称 (Name)</label>
+                        <input type="text" id="modalName" class="w-full bg-[#131314] text-white border border-[#333] rounded px-3 py-2 text-sm focus:border-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-xs text-gray-500 block mb-1">英文备注 (Description)</label>
+                        <input type="text" id="modalDesc" class="w-full bg-[#131314] text-gray-300 border border-[#333] rounded px-3 py-2 text-sm focus:border-blue-500 outline-none">
+                    </div>
+                </div>
+
+                <div class="flex gap-4 items-stretch">
+                    <div id="cardOriginal" class="flex-1 bg-[#131314] border border-[#333] rounded-lg p-4 transition-opacity duration-200">
+                        <div class="text-xs text-gray-500 mb-3 font-bold uppercase tracking-wider">Original (原始)</div>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-[10px] text-gray-600 block mb-1">料号 P/N</label>
+                                <input type="text" id="modalPN" class="w-full bg-[#1e1f20] text-gray-300 border border-[#333] rounded px-2 py-1.5 text-xs font-mono focus:border-blue-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-600 block mb-1">数量 Qty</label>
+                                <input type="number" id="modalQty" class="w-full bg-[#1e1f20] text-gray-300 border border-[#333] rounded px-2 py-1.5 text-xs font-mono focus:border-blue-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-600 block mb-1">标签 Tags</label>
+                                <div id="modalTagsOriginal" class="tag-container-cell min-h-[24px] rounded border border-dashed border-[#333] p-1" data-tags="[]">
+                                    <div class="tag-list-wrapper flex flex-wrap gap-1 items-center"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center text-gray-600">
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </div>
+
+                    <div id="cardNew" class="flex-1 bg-[#131314] border border-[#333] rounded-lg p-4 transition-opacity duration-200">
+                        <div class="text-xs text-gray-500 mb-3 font-bold uppercase tracking-wider">New (变更后)</div>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-[10px] text-gray-600 block mb-1">料号 P/N</label>
+                                <input type="text" id="modalNewPN" class="w-full bg-[#1e1f20] text-gray-300 border border-[#333] rounded px-2 py-1.5 text-xs font-mono focus:border-blue-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-600 block mb-1">数量 Qty</label>
+                                <input type="number" id="modalNewQty" class="w-full bg-[#1e1f20] text-gray-300 border border-[#333] rounded px-2 py-1.5 text-xs font-mono focus:border-blue-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-600 block mb-1">标签 Tags</label>
+                                <div id="modalTagsNew" class="tag-container-cell min-h-[24px] rounded border border-dashed border-[#333] p-1" data-tags="[]">
+                                    <div class="tag-list-wrapper flex flex-wrap gap-1 items-center"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="p-4 border-t border-[#333] flex justify-end gap-3 bg-[#252627] shrink-0">
+                <button onclick="closeModal()" class="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-[#333] transition-colors">取消</button>
+                <button onclick="saveModal()" class="px-6 py-2 rounded-lg text-sm bg-blue-600 text-white hover:bg-blue-500 shadow-lg transition-colors font-medium">保存记录</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="modeToast" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-[#2b2c2d] text-white px-4 py-2 rounded-lg shadow-lg text-sm border border-[#333] pointer-events-none opacity-0 transition-opacity z-50">当前模式：编辑</div>
+
+    <script>
+        // API 配置（参考 src/frontend/index.html 的实现）
+        const DETECTED_ORIGIN = window.location.origin;
+        const API_BASE =
+            (DETECTED_ORIGIN && DETECTED_ORIGIN.startsWith('http') && DETECTED_ORIGIN !== 'null')
+                ? DETECTED_ORIGIN
+                : 'http://localhost:5000';
+        const API_ENDPOINT = `${API_BASE}/api/bom/diff`;
+        const DEFAULT_USE_LLM = false;
+        const DEFAULT_USE_SAMPLE_DATA = true;
+
+        let isProcessingCommand = false;
+
+        // --- 标签配置 ---
+        const TAG_CATEGORIES = {
+            'parent': { label: '上阶料号', colorClass: 'tag-purple', bg: 'bg-purple-400' },
+            'ref': { label: '位置号', colorClass: 'tag-orange', bg: 'bg-orange-400' },
+            'station': { label: '工位', colorClass: 'tag-teal', bg: 'bg-teal-400' },
+            'misc': { label: '其他', colorClass: 'tag-blue', bg: 'bg-blue-400' }
+        };
+        
+        let currentSelectedType = 'parent'; 
+        let activeCell = null; 
+        let currentModalType = 'modify'; 
+        let isAddingMode = false;
+        let editingRow = null;
+
+        // --- 指令与聊天逻辑 ---
+        const promptInput = document.getElementById('promptInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatContainer = document.getElementById('chatContainer');
+
+        promptInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            if (this.value.trim().length > 0 && !isProcessingCommand) {
+                setSendButtonState(false);
+            } else {
+                setSendButtonState(true);
+            }
+        });
+
+        promptInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleCommand();
+            }
+        });
+
+        sendBtn.addEventListener('click', handleCommand);
+
+        async function handleCommand() {
+            if (isProcessingCommand) return;
+
+            const text = promptInput.value.trim();
+            if (!text) return;
+
+            addChatMessage(text, true);
+            promptInput.value = '';
+            promptInput.style.height = 'auto';
+
+            isProcessingCommand = true;
+            setSendButtonState(true);
+
+            try {
+                const response = await processCommand(text);
+                addChatMessage(response, false);
+            } catch (error) {
+                console.error('处理命令失败', error);
+                addChatMessage(`请求失败：${error.message || '未知错误'}`, false);
+            } finally {
+                isProcessingCommand = false;
+                const hasText = promptInput.value.trim().length > 0;
+                setSendButtonState(!hasText);
+            }
+        }
+
+        function setSendButtonState(disabled) {
+            if (disabled) {
+                sendBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                sendBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            sendBtn.disabled = disabled;
+        }
+
+        function addChatMessage(text, isUser) {
+            const div = document.createElement('div');
+            div.className = isUser ? 'chat-msg-user' : 'chat-msg-ai';
+            // 将换行符转换为 <br> 标签，支持多行显示
+            div.innerHTML = text.replace(/\n/g, '<br>');
+            chatContainer.appendChild(div);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // 辅助函数：根据物料名称查找表格行
+        function findRowByName(itemName) {
+            const rows = document.querySelectorAll('#bomTableBody tbody .bom-row');
+            for (let row of rows) {
+                const nameEl = row.querySelector('.js-name');
+                if (nameEl && nameEl.innerText.trim() === itemName.trim()) {
+                    return row;
+                }
+            }
+            return null;
+        }
+
+        async function processCommand(text) {
+            const payload = {
+                command: text.trim(),
+                use_llm: DEFAULT_USE_LLM,
+                use_sample_data: DEFAULT_USE_SAMPLE_DATA
+            };
+
+            try {
+                console.log('发送请求到:', API_ENDPOINT);
+                console.log('请求数据:', payload);
+                
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                console.log('响应状态:', response.status, response.statusText);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('响应错误:', errorText);
+                    let errorMsg = `HTTP ${response.status}: ${response.statusText}`;
+                    try {
+                        const errorJson = JSON.parse(errorText);
+                        errorMsg = errorJson.error || errorJson.message || errorMsg;
+                    } catch (e) {
+                        // 如果不是 JSON，使用原始文本
+                        if (errorText) errorMsg = errorText;
+                    }
+                    throw new Error(errorMsg);
+                }
+
+                const result = await response.json();
+                console.log('响应数据:', result);
+
+                if (!result.success) {
+                    return `处理失败：${result.error || result.message || '未知错误'}`;
+                }
+
+                if (Array.isArray(result.operations) && result.operations.length) {
+                    renderOperations(result.operations);
+                } else {
+                    clearBomTable();
+                }
+
+                if (result.summary) {
+                    updateBomHeader(result.summary);
+                }
+
+                let message = result.message || '处理完成';
+                if (Array.isArray(result.warnings) && result.warnings.length) {
+                    message += `\n⚠️ ${result.warnings.join('\n⚠️ ')}`;
+                }
+
+                return message;
+            } catch (error) {
+                console.error('调用 /api/bom/diff 失败', error);
+                let errorMsg = error.message || '未知错误';
+                
+                // 网络错误特殊处理
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                    errorMsg = `无法连接到服务器。请确保后端服务已启动在 ${API_BASE || 'http://localhost:5000'}。\n\n错误详情：${error.message}`;
+                }
+                
+                return `请求失败：${errorMsg}\n\n请检查：\n1. 后端服务是否已启动（python src/backend/api_server.py）\n2. 服务地址是否为 http://localhost:5000\n3. 浏览器控制台是否有更多错误信息`;
+            }
+        }
+
+        function clearBomTable() {
+            const tbody = document.querySelector('#bomTableBody tbody');
+            if (tbody) {
+                tbody.innerHTML = '';
+            }
+        }
+
+        function renderOperations(operations) {
+            const tbody = document.querySelector('#bomTableBody tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            operations.forEach((operation, index) => {
+                const rowData = mapOperationToRowData(operation, index);
+                createTableRow(rowData);
+            });
+        }
+
+        function mapOperationToRowData(operation, index) {
+            const op = operation || {};
+            const data = op.data || {};
+            const action = op.action || data.type || 'info';
+
+            let type = 'info';
+            if (action === 'delete') type = 'remove';
+            else if (action === 'modify') type = 'modify';
+            else if (action === 'create') type = 'add';
+
+            return {
+                name: data.name || `物料${index + 1}`,
+                desc: data.desc || '',
+                pn: data.pn || '--',
+                newPn: type === 'remove' ? '--' : (data.newPn || '--'),
+                qty: data.qty ?? 1,
+                newQty: data.newQty ?? 1,
+                type,
+                tagsOld: data.tagsOld || '[]',
+                tagsNew: data.tagsNew || '[]'
+            };
+        }
+
+        function updateBomHeader(summary) {
+            const baseEl = document.getElementById('referenceModelLabel');
+            if (baseEl && summary.reference_model) {
+                baseEl.innerText = summary.reference_model;
+            }
+
+            const comparisonText = summary.new_model_name || summary.target_model || summary.reference_model || '';
+            const targetEl = document.getElementById('newModelLabel');
+            if (targetEl && comparisonText) {
+                targetEl.innerText = comparisonText;
+            }
+
+            const badgeEl = document.getElementById('summaryBadge');
+            if (badgeEl) {
+                const diff = summary.diff_count ?? 0;
+                const del = summary.delete_count ?? 0;
+                badgeEl.innerText = `变更 ${diff} · 删除 ${del}`;
+            }
+        }
+
+        function clearChat() {
+            const container = document.getElementById('chatContainer');
+            container.innerHTML = '';
+            const notice = document.createElement('div');
+            notice.className = 'text-center text-xs text-gray-600 italic mt-4';
+            notice.innerText = '对话记录已清空';
+            container.appendChild(notice);
+        }
+
+        // --- 表格操作逻辑 ---
+        function createTableRow(data) {
+            const name = data.name || '未命名';
+            const desc = data.desc || '';
+            const pn = data.pn || '--';
+            const newPn = data.newPn || '--';
+            const qty = Number(data.qty ?? 1) || 1;
+            const newQty = Number(data.newQty ?? 1) || 1;
+            const type = data.type || 'add'; // add, remove, modify, info
+            const tagsOld = Array.isArray(data.tagsOld) ? JSON.stringify(data.tagsOld) : (data.tagsOld || '[]');
+            const tagsNew = Array.isArray(data.tagsNew) ? JSON.stringify(data.tagsNew) : (data.tagsNew || '[]');
+
+            let badgeHtml = '<span class="text-gray-500 text-xs js-type">- 无变更 -</span>';
+            if (type === 'add') badgeHtml = '<span class="badge badge-add js-type">新增</span>';
+            else if (type === 'remove') badgeHtml = '<span class="badge badge-remove js-type">删除</span>';
+            else if (type === 'modify') badgeHtml = '<span class="badge badge-modify js-type">变更</span>';
+
+            const tr = document.createElement('tr');
+            tr.className = 'bom-row';
+            tr.setAttribute('draggable', currentMode === 'drag');
+            
+            tr.innerHTML = `
+                <td>
+                    <div class="font-medium text-white text-base js-inline-edit js-name">${name}</div>
+                    <div class="text-xs text-gray-500 mt-1 js-inline-edit js-desc" placeholder="添加备注...">${desc}</div>
+                </td>
+                <td class="tag-container-cell js-old-tags" data-tags='${tagsOld}'>
+                    <div class="flex items-center flex-wrap gap-2">
+                        <div class="font-medium text-white font-mono js-inline-edit js-pn">${pn}</div>
+                        ${type !== 'add' ? `<span class="qty-badge js-inline-edit my-1 js-qty">x${qty}</span>` : ''}
+                    </div>
+                    <div class="mt-2 flex flex-wrap gap-1 items-center tag-list-wrapper"></div>
+                </td>
+                <td class="tag-container-cell js-new-tags" data-tags='${tagsNew}'>
+                    <div class="flex items-center flex-wrap gap-2">
+                        <div class="font-medium text-white font-mono js-inline-edit js-new-pn">${newPn}</div>
+                        ${type !== 'remove' ? `<span class="qty-badge js-inline-edit my-1 js-new-qty">x${newQty}</span>` : ''}
+                    </div>
+                    <div class="mt-2 flex flex-wrap gap-1 items-center tag-list-wrapper"></div>
+                </td>
+                <td>${badgeHtml}</td>
+            `;
+            
+            document.querySelector('#bomTableBody tbody').appendChild(tr);
+            
+            // Init tags for the new row
+            refreshCellTags(tr.querySelector('.js-old-tags'));
+            refreshCellTags(tr.querySelector('.js-new-tags'));
+            
+            // Scroll to bottom
+            const tableContainer = document.querySelector('.flex-1.overflow-auto');
+            if(tableContainer) tableContainer.scrollTop = tableContainer.scrollHeight;
+        }
+
+        // --- 弹窗逻辑 ---
+        function openEditModal(row = null) {
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const modalTagsOrig = document.getElementById('modalTagsOriginal');
+            const modalTagsNew = document.getElementById('modalTagsNew');
+
+            if (row) {
+                isAddingMode = false;
+                editingRow = row;
+                
+                document.getElementById('modalName').value = row.querySelector('.js-name')?.innerText || '';
+                document.getElementById('modalDesc').value = row.querySelector('.js-desc')?.innerText || '';
+                
+                document.getElementById('modalPN').value = row.querySelector('.js-pn')?.innerText || '';
+                const qtyText = row.querySelector('.js-qty')?.innerText || '0';
+                document.getElementById('modalQty').value = parseInt(qtyText.replace('x', '')) || 0;
+                const oldTagsCell = row.querySelector('.js-old-tags');
+                modalTagsOrig.dataset.tags = oldTagsCell ? oldTagsCell.dataset.tags : '[]';
+
+                document.getElementById('modalNewPN').value = row.querySelector('.js-new-pn')?.innerText || '';
+                const newQtyText = row.querySelector('.js-new-qty')?.innerText || '0';
+                document.getElementById('modalNewQty').value = parseInt(newQtyText.replace('x', '')) || 0;
+                const newTagsCell = row.querySelector('.js-new-tags');
+                modalTagsNew.dataset.tags = newTagsCell ? newTagsCell.dataset.tags : '[]';
+
+                const typeText = row.querySelector('.js-type')?.innerText || '';
+                if(typeText.includes('新增')) switchTab('add');
+                else if(typeText.includes('删除')) switchTab('remove');
+                else switchTab('modify');
+            } else {
+                isAddingMode = true;
+                editingRow = null;
+                document.getElementById('modalName').value = '';
+                document.getElementById('modalDesc').value = '';
+                document.getElementById('modalPN').value = '';
+                document.getElementById('modalQty').value = '0';
+                document.getElementById('modalNewPN').value = '';
+                document.getElementById('modalNewQty').value = '1';
+                modalTagsOrig.dataset.tags = '[]';
+                modalTagsNew.dataset.tags = '[]';
+                switchTab('add');
+            }
+            refreshCellTags(modalTagsOrig);
+            refreshCellTags(modalTagsNew);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('editModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function switchTab(type) {
+            currentModalType = type;
+            document.querySelectorAll('.type-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.type === type) tab.classList.add('active');
+            });
+
+            const cardOriginal = document.getElementById('cardOriginal');
+            const cardNew = document.getElementById('cardNew');
+            const toggleCard = (card, disabled) => {
+                card.style.opacity = disabled ? '0.4' : '1';
+                card.querySelectorAll('input').forEach(i => i.disabled = disabled);
+                const addBtn = card.querySelector('.tag-add-btn');
+                if(addBtn) addBtn.style.pointerEvents = disabled ? 'none' : 'auto';
+            };
+
+            if (type === 'add') {
+                toggleCard(cardOriginal, true);
+                toggleCard(cardNew, false);
+                cardOriginal.querySelectorAll('input').forEach(i => i.value = '');
+                cardOriginal.querySelector('.tag-container-cell').dataset.tags = '[]';
+                refreshCellTags(cardOriginal.querySelector('.tag-container-cell'));
+            } else if (type === 'remove') {
+                toggleCard(cardOriginal, false);
+                toggleCard(cardNew, true);
+                cardNew.querySelectorAll('input').forEach(i => i.value = '');
+                cardNew.querySelector('.tag-container-cell').dataset.tags = '[]';
+                refreshCellTags(cardNew.querySelector('.tag-container-cell'));
+            } else {
+                toggleCard(cardOriginal, false);
+                toggleCard(cardNew, false);
+            }
+        }
+
+        function saveModal() {
+            const data = {
+                name: document.getElementById('modalName').value,
+                desc: document.getElementById('modalDesc').value,
+                pn: document.getElementById('modalPN').value,
+                qty: document.getElementById('modalQty').value,
+                tagsOld: document.getElementById('modalTagsOriginal').dataset.tags,
+                newPn: document.getElementById('modalNewPN').value,
+                newQty: document.getElementById('modalNewQty').value,
+                tagsNew: document.getElementById('modalTagsNew').dataset.tags,
+                type: currentModalType
+            };
+
+            if (isAddingMode) {
+                createTableRow(data);
+            } else if (editingRow) {
+                // Update existing row (simulate full replace)
+                // Note: In a real app, we'd update specific cells to preserve event listeners, 
+                // but here createTableRow appends new. We'll just remove the old one and add new one for simplicity in this demo
+                // A better way is to update innerHTML of specific cells.
+                
+                // Let's update cells manually to keep it robust
+                editingRow.querySelector('.js-name').innerText = data.name;
+                editingRow.querySelector('.js-desc').innerText = data.desc;
+                
+                const pnEl = editingRow.querySelector('.js-pn'); if(pnEl) pnEl.innerText = data.pn;
+                const qtyEl = editingRow.querySelector('.js-qty'); if(qtyEl) { 
+                    qtyEl.innerText = `x${data.qty}`; 
+                    qtyEl.style.display = data.type === 'add' ? 'none' : 'inline-flex';
+                }
+                
+                const newPnEl = editingRow.querySelector('.js-new-pn'); if(newPnEl) newPnEl.innerText = data.newPn;
+                const newQtyEl = editingRow.querySelector('.js-new-qty'); if(newQtyEl) {
+                    newQtyEl.innerText = `x${data.newQty}`;
+                    newQtyEl.style.display = data.type === 'remove' ? 'none' : 'inline-flex';
+                }
+
+                // Update tags
+                const oldTagsCell = editingRow.querySelector('.js-old-tags');
+                if(oldTagsCell) { oldTagsCell.dataset.tags = data.tagsOld; refreshCellTags(oldTagsCell); }
+                
+                const newTagsCell = editingRow.querySelector('.js-new-tags');
+                if(newTagsCell) { newTagsCell.dataset.tags = data.tagsNew; refreshCellTags(newTagsCell); }
+
+                // Update badge
+                let badgeHtml = '<span class="text-gray-500 text-xs js-type">- 无变更 -</span>';
+                if (data.type === 'add') badgeHtml = '<span class="badge badge-add js-type">新增</span>';
+                else if (data.type === 'remove') badgeHtml = '<span class="badge badge-remove js-type">删除</span>';
+                else if (data.type === 'modify') badgeHtml = '<span class="badge badge-modify js-type">变更</span>';
+                editingRow.cells[3].innerHTML = badgeHtml;
+            }
+
+            closeModal();
+            showModeToast(isAddingMode ? '已添加新记录' : '记录已更新');
+        }
+
+        // --- Tooltip ---
+        const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+        const tooltipEl = document.getElementById('globalTooltip');
+        tooltipTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', (e) => {
+                const rect = e.target.getBoundingClientRect();
+                tooltipEl.style.display = 'block';
+                tooltipEl.style.top = `${rect.top - tooltipEl.offsetHeight - 8}px`;
+                tooltipEl.style.left = `${rect.left + (rect.width/2) - (tooltipEl.offsetWidth/2)}px`;
+            });
+            trigger.addEventListener('mouseleave', () => tooltipEl.style.display = 'none');
+        });
+
+        // --- 标签系统逻辑 ---
+        function initCellTags() {
+            document.querySelectorAll('.tag-container-cell').forEach(cell => refreshCellTags(cell));
+        }
+
+        function refreshCellTags(cell) {
+            let wrapper = cell.querySelector('.tag-list-wrapper');
+            if (!wrapper) {
+                wrapper = document.createElement('div');
+                wrapper.className = 'mt-2 flex flex-wrap gap-1 items-center tag-list-wrapper';
+                cell.appendChild(wrapper);
+            }
+            wrapper.innerHTML = '';
+
+            let tags = [];
+            try { tags = JSON.parse(cell.dataset.tags || '[]'); } catch (e) { tags = []; }
+
+            tags.forEach((tag, index) => {
+                const cat = TAG_CATEGORIES[tag.type] || TAG_CATEGORIES['misc'];
+                const tagEl = document.createElement('div');
+                tagEl.className = `tag-pill ${cat.colorClass}`;
+                tagEl.innerHTML = `${tag.text} <span class="tag-remove" data-idx="${index}"></span>`;
+                
+                tagEl.querySelector('.tag-remove').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeTag(cell, index);
+                });
+                wrapper.appendChild(tagEl);
+            });
+
+            const addBtn = document.createElement('div');
+            addBtn.className = 'tag-add-btn';
+            addBtn.innerHTML = '+';
+            addBtn.onclick = (e) => showPopover(e, cell);
+            wrapper.appendChild(addBtn);
+        }
+
+        function removeTag(cell, index) {
+            let tags = JSON.parse(cell.dataset.tags || '[]');
+            tags.splice(index, 1);
+            cell.dataset.tags = JSON.stringify(tags);
+            refreshCellTags(cell);
+        }
+
+        function addTag(cell, text, type) {
+            let tags = [];
+            try { tags = JSON.parse(cell.dataset.tags || '[]'); } catch(e){}
+            if(!tags.some(t => t.text === text && t.type === type)) {
+                tags.push({ text, type });
+                cell.dataset.tags = JSON.stringify(tags);
+                refreshCellTags(cell);
+            }
+            hidePopover();
+        }
+
+        // --- Popover 交互 ---
+        const tagPopover = document.getElementById('tagPopover');
+        const tagInput = document.getElementById('tagInput');
+        const categoryTrigger = document.getElementById('categoryTrigger');
+        const categoryDropdown = document.getElementById('categoryDropdown');
+        const currentCategoryDot = document.getElementById('currentCategoryDot');
+        const popoverList = document.getElementById('popoverList');
+
+        function showPopover(e, cell) {
+            e.stopPropagation();
+            activeCell = cell;
+            tagInput.value = '';
+            currentSelectedType = 'parent'; 
+            updateCategoryTriggerUI();
+            renderPopoverList(); 
+
+            const rect = e.target.getBoundingClientRect();
+            tagPopover.style.display = 'flex';
+            tagPopover.style.left = `${rect.left}px`;
+            if (rect.bottom + tagPopover.offsetHeight > window.innerHeight) {
+                tagPopover.style.top = `${rect.top - tagPopover.offsetHeight - 5}px`;
+            } else {
+                tagPopover.style.top = `${rect.bottom + 5}px`;
+            }
+            tagInput.focus();
+        }
+
+        function hidePopover() {
+            tagPopover.style.display = 'none';
+            categoryDropdown.style.display = 'none';
+            activeCell = null;
+        }
+
+        function updateCategoryTriggerUI() {
+            const cat = TAG_CATEGORIES[currentSelectedType];
+            currentCategoryDot.className = `category-dot ${cat.bg}`;
+        }
+
+        categoryTrigger.onclick = (e) => {
+            e.stopPropagation();
+            if(categoryDropdown.style.display === 'block') {
+                categoryDropdown.style.display = 'none';
+            } else {
+                renderCategoryDropdownOptions();
+                categoryDropdown.style.display = 'block';
+            }
+        };
+
+        function renderCategoryDropdownOptions() {
+            categoryDropdown.innerHTML = '';
+            Object.entries(TAG_CATEGORIES).forEach(([key, val]) => {
+                const item = document.createElement('div');
+                item.className = 'category-option';
+                item.innerHTML = `<span class="category-dot ${val.bg}"></span> ${val.label}`;
+                item.onclick = (e) => {
+                    e.stopPropagation();
+                    currentSelectedType = key;
+                    updateCategoryTriggerUI();
+                    categoryDropdown.style.display = 'none';
+                    renderPopoverList();
+                    tagInput.focus();
+                };
+                categoryDropdown.appendChild(item);
+            });
+        }
+
+        function renderPopoverList() {
+            popoverList.innerHTML = '';
+            const searchText = tagInput.value.trim();
+            const currentCat = TAG_CATEGORIES[currentSelectedType];
+
+            if (searchText) {
+                const createItem = document.createElement('div');
+                createItem.className = 'popover-item';
+                createItem.innerHTML = `<div class="flex items-center gap-2 w-full"><span class="text-gray-400 text-xs mr-1">创建:</span><span class="tag-preview ${currentCat.colorClass}">${searchText}</span></div>`;
+                createItem.onclick = () => addTag(activeCell, searchText, currentSelectedType);
+                popoverList.appendChild(createItem);
+            }
+
+            const recommendations = [
+                { text: 'SP0013-00-23-5QP', type: 'parent' },
+                { text: 'default', type: 'ref' },
+                { text: '包装', type: 'station' }
+            ];
+
+            let existingTags = [];
+            try { existingTags = JSON.parse(activeCell.dataset.tags || '[]'); } catch(e){}
+            
+            recommendations.forEach(rec => {
+                if (searchText && !rec.text.toLowerCase().includes(searchText.toLowerCase())) return;
+                if (existingTags.some(t => t.text === rec.text && t.type === rec.type)) return;
+
+                const recCat = TAG_CATEGORIES[rec.type];
+                const item = document.createElement('div');
+                item.className = 'popover-item';
+                item.innerHTML = `<div class="flex items-center gap-2"><span class="tag-preview ${recCat.colorClass}">${rec.text}</span></div>`;
+                item.onclick = () => addTag(activeCell, rec.text, rec.type);
+                popoverList.appendChild(item);
+            });
+        }
+
+        tagInput.addEventListener('input', () => renderPopoverList());
+        tagInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const text = tagInput.value.trim();
+                if (text) addTag(activeCell, text, currentSelectedType);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!tagPopover.contains(e.target) && e.target.className !== 'tag-add-btn') {
+                hidePopover();
+            }
+        });
+
+        // --- 内联编辑 ---
+        function makeEditable(element) {
+            if (element.isContentEditable) return;
+            element.contentEditable = true;
+            element.focus();
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            
+            const saveHandler = () => {
+                element.contentEditable = false;
+                showModeToast("已保存");
+                element.removeEventListener('blur', saveHandler);
+                element.removeEventListener('keydown', keyHandler);
+            };
+            const keyHandler = (k) => {
+                if (k.key === 'Enter') { k.preventDefault(); element.blur(); }
+            };
+            element.addEventListener('blur', saveHandler);
+            element.addEventListener('keydown', keyHandler);
+        }
+
+        // --- 模式控制与事件 ---
+        let currentMode = 'edit';
+        const tableBody = document.querySelector('#bomTableBody tbody');
+        const thead = document.querySelector('.bom-table thead');
+        let draggedRow = null;
+        let draggedColIndex = null;
+
+        tableBody.addEventListener('click', (e) => {
+            if (currentMode === 'edit') {
+                if (e.target.classList.contains('js-inline-edit') || e.target.classList.contains('qty-badge')) {
+                    makeEditable(e.target);
+                    e.stopPropagation();
+                    return;
+                }
+                if (!e.target.closest('.tag-container-cell') && !e.target.closest('.tag-add-btn')) {
+                    const row = e.target.closest('tr');
+                    if(row) openEditModal(row);
+                }
+            } else if (currentMode === 'delete') {
+                const row = e.target.closest('tr');
+                if(row) {
+                    row.style.opacity = '0';
+                    setTimeout(() => row.remove(), 300);
+                }
+            }
+        });
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
+                btn.classList.add('text-gray-400');
+                if(btn.id === `btn-${mode}`) {
+                     btn.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
+                     btn.classList.remove('text-gray-400');
+                }
+            });
+            showModeToast(`当前模式：${mode}`);
+            document.querySelectorAll('.bom-row').forEach(r => r.setAttribute('draggable', mode === 'drag'));
+            document.querySelectorAll('thead th').forEach(th => th.setAttribute('draggable', mode === 'drag'));
+            document.querySelector('.bom-table').className = `bom-table mode-${mode}`;
+        }
+
+        // 行拖拽
+        tableBody.addEventListener('dragstart', (e) => {
+            if (currentMode !== 'drag') { e.preventDefault(); return; }
+            draggedRow = e.target.closest('tr');
+            if(draggedRow) { e.dataTransfer.effectAllowed = 'move'; draggedRow.style.opacity = '0.5'; }
+        });
+        tableBody.addEventListener('dragend', (e) => {
+            if(draggedRow) { draggedRow.style.opacity = '1'; draggedRow = null; document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over')); }
+        });
+        tableBody.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (currentMode !== 'drag') return;
+            const targetRow = e.target.closest('tr');
+            if (targetRow && targetRow !== draggedRow) { document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over')); targetRow.classList.add('drag-over'); }
+        });
+        tableBody.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (currentMode !== 'drag') return;
+            const targetRow = e.target.closest('tr');
+            if (targetRow && draggedRow && draggedRow !== targetRow) { tableBody.insertBefore(draggedRow, targetRow); targetRow.classList.remove('drag-over'); }
+        });
+
+        // 列拖拽
+        thead.addEventListener('dragstart', (e) => {
+            if (currentMode !== 'drag') { e.preventDefault(); return; }
+            const th = e.target.closest('th');
+            if (!th) return;
+            draggedColIndex = Array.from(th.parentNode.children).indexOf(th);
+            e.dataTransfer.effectAllowed = 'move';
+            th.style.opacity = '0.5';
+        });
+        thead.addEventListener('dragover', (e) => e.preventDefault());
+        thead.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (currentMode !== 'drag' || draggedColIndex === null) return;
+            const targetTh = e.target.closest('th');
+            if (!targetTh) return;
+            const targetIndex = Array.from(targetTh.parentNode.children).indexOf(targetTh);
+            if (draggedColIndex === targetIndex) return;
+            moveElement(thead.querySelector('tr'), draggedColIndex, targetIndex);
+            tableBody.querySelectorAll('tr').forEach(row => moveElement(row, draggedColIndex, targetIndex));
+            thead.querySelectorAll('th').forEach(th => th.style.opacity = '1');
+            draggedColIndex = null;
+        });
+        thead.addEventListener('dragend', () => { thead.querySelectorAll('th').forEach(th => th.style.opacity = '1'); draggedColIndex = null; });
+
+        function moveElement(parentElement, fromIndex, toIndex) {
+            const children = Array.from(parentElement.children);
+            const elementToMove = children[fromIndex];
+            const targetElement = children[toIndex];
+            if (fromIndex < toIndex) parentElement.insertBefore(elementToMove, targetElement.nextSibling);
+            else parentElement.insertBefore(elementToMove, targetElement);
+        }
+
+        function showModeToast(msg) {
+            const t = document.getElementById('modeToast');
+            t.innerText = msg;
+            t.classList.remove('opacity-0');
+            setTimeout(() => t.classList.add('opacity-0'), 2000);
+        }
+
+        // 启动
+        initCellTags();
+        setMode('edit');
+        setSendButtonState(true);
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+        toggleSidebarBtn.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+
+    </script>
+</body>
+</html>

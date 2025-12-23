@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://ai-uat.aiswei-tech.com/factory/sbom_diff.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBOM差异处理系统 - 新版API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: #007cba;
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .upload-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 40px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+        }
+
+        .upload-section.dragover {
+            border-color: #007cba;
+            background: #f0f8ff;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #007cba;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #005a87;
+        }
+
+        .process-btn {
+            display: none;
+            padding: 12px 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 15px;
+        }
+
+        .process-btn:hover {
+            background: #218838;
+        }
+
+        .process-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .upload-btn-style {
+            background: #17a2b8 !important;
+        }
+
+        .upload-btn-style:hover {
+            background: #138496 !important;
+        }
+
+        .auto-detect-btn {
+            background: #6f42c1 !important;
+        }
+
+        .auto-detect-btn:hover {
+            background: #5a32a3 !important;
+        }
+
+        .batch-upload-btn {
+            background: #fd7e14 !important;
+        }
+
+        .batch-upload-btn:hover {
+            background: #e8681a !important;
+        }
+
+        .checkbox-container {
+            display: inline-block;
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+
+        .checkbox-container label {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 6px;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .file-info {
+            margin: 15px 0;
+            color: #666;
+        }
+
+        .message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .results-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .model-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .model-info h3 {
+            color: #007cba;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .row-diff {
+            background: #ffe6e6;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007cba;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* API状态指示器 */
+        #apiStatus {
+            position: relative;
+        }
+
+        .api-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 10px;
+            background: #dc3545;
+        }
+
+        .api-indicator.connected {
+            background: #28a745;
+        }
+
+        /* 步骤状态样式 */
+        .step-success {
+            color: #28a745;
+        }
+
+        .step-warning {
+            color: #ffc107;
+        }
+
+        .step-error {
+            color: #dc3545;
+        }
+
+        /* 折叠面板样式 */
+        .collapsible-header {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .collapsible-header:hover {
+            background: #e9ecef;
+        }
+
+        .collapsible-header.active {
+            background: #e7f3ff;
+            border-color: #007cba;
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            background: #ffffff;
+        }
+
+        .collapsible-content.show {
+            display: block;
+        }
+
+        .collapse-icon {
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .collapse-icon.rotated {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SBOM差异处理系统 - 新版API</h1>
+            <p>基于模块化架构的新版API，支持文件验证和步骤跟踪</p>
+        </div>
+
+        <div class="content">
+            <!-- 上传区域 -->
+            <div class="upload-section" id="uploadSection">
+                <div id="modelInfo" class="model-info" style="display: none;"></div>
+                <div id="uploadContent">
+                    <h3>上传Excel差异表</h3>
+                    <p style="margin: 15px 0; color: #666;">支持 .xlsx 和 .xls 格式文件</p>
+                    <div id="apiStatus" style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 4px; font-size: 14px;">
+                        <span id="currentApi">新版API</span>
+                        <span id="apiIndicator" class="api-indicator connected"></span>
+                        <button id="testApiBtn" onclick="testApiConnection()" style="margin-left: 15px; padding: 5px 10px; background: #17a2b8; color: white; border: none; border-radius: 3px; cursor: pointer;">测试连接</button>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls">
+                <label for="fileInput" class="upload-btn">选择文件</label>
+                <button id="processBtn" class="process-btn" onclick="processFile()">开始处理</button>
+                <button id="autoDetectBtn" class="process-btn auto-detect-btn" onclick="processExcelAutoDetect()">新建处理</button>
+                <div class="checkbox-container" id="validateCheckboxContainer" style="display: none;">
+                    <label>
+                        <input type="checkbox" id="validateOnlyCheckbox">
+                        推送时包含子零件
+                    </label>
+                </div>
+                <div id="fileInfo" class="file-info"></div>
+            </div>
+
+            <!-- 消息显示 -->
+            <div id="messageArea"></div>
+
+            <!-- 加载状态 -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>正在处理文件，请稍候...</p>
+            </div>
+
+
+
+            <!-- 处理步骤展示 -->
+            <div id="stepsSection" class="results-section" style="display: none;">
+                <div class="collapsible-header" onclick="toggleStepsCollapse()">
+                    <h3 style="margin: 0;">处理步骤详情</h3>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div id="stepsContent" class="collapsible-content">
+                    <!-- 步骤内容将通过JavaScript动态填充 -->
+                </div>
+            </div>
+
+            <!-- 结果展示 -->
+            <div id="resultsSection" class="results-section">
+                <h3>物料差异对比结果</h3>
+                <table id="comparisonTable">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>物料编号</th>
+                            <th>物料名称</th>
+                            <th>基础版本数量</th>
+                            <th>目标版本数量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparisonBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://ai-uat.aiswei-tech.com/sbom';
+        let currentResult = null;
+        let autoDetectResult = null;
+
+        // 文件选择处理
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('fileInfo').innerHTML = `已选择文件: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`;
+
+                // 重置结果显示但不重置按钮状态
+                document.getElementById('resultsSection').style.display = 'none';
+                document.getElementById('stepsSection').style.display = 'none';
+                document.getElementById('modelInfo').style.display = 'none';
+                document.getElementById('uploadContent').style.display = 'block';
+                document.getElementById('fileInfo').style.display = 'block';
+                document.querySelector('label[for="fileInput"]').textContent = '选择文件';
+
+                // 重置折叠状态
+                const stepsContent = document.getElementById('stepsContent');
+                const header = document.querySelector('.collapsible-header');
+                const icon = document.querySelector('.collapse-icon');
+                if (stepsContent && header && icon) {
+                    stepsContent.classList.remove('show');
+                    header.classList.remove('active');
+                    icon.classList.remove('rotated');
+                }
+
+                // 重置按钮到初始状态但保持显示
+                const processBtn = document.getElementById('processBtn');
+                processBtn.textContent = '开始处理';
+                processBtn.onclick = processFile;
+                processBtn.className = 'process-btn';
+                processBtn.style.display = 'inline-block';
+
+                const autoDetectBtn = document.getElementById('autoDetectBtn');
+                autoDetectBtn.textContent = '新建处理';
+                autoDetectBtn.onclick = processExcelAutoDetect;
+                autoDetectBtn.className = 'process-btn auto-detect-btn';
+                autoDetectBtn.style.display = 'inline-block';
+
+                // 清空全局变量
+                currentResult = null;
+                autoDetectResult = null;
+            }
+        });
+
+        // 拖拽上传
+        const uploadSection = document.getElementById('uploadSection');
+        uploadSection.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            uploadSection.classList.add('dragover');
+        });
+
+        uploadSection.addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            uploadSection.classList.remove('dragover');
+        });
+
+        uploadSection.addEventListener('drop', function (e) {
+            e.preventDefault();
+            uploadSection.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('fileInput').files = files;
+                const file = files[0];
+                document.getElementById('fileInfo').innerHTML = `已选择文件: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`;
+                document.getElementById('processBtn').style.display = 'inline-block';
+                resetResults();
+            }
+        });
+
+        // 重置结果显示
+        function resetResults() {
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('stepsSection').style.display = 'none';
+            document.getElementById('modelInfo').style.display = 'none';
+            document.getElementById('uploadContent').style.display = 'block';
+            document.getElementById('fileInfo').style.display = 'block';
+            document.querySelector('label[for="fileInput"]').textContent = '选择文件';
+
+            // 重置折叠状态
+            const stepsContent = document.getElementById('stepsContent');
+            const header = document.querySelector('.collapsible-header');
+            const icon = document.querySelector('.collapse-icon');
+            if (stepsContent && header && icon) {
+                stepsContent.classList.remove('show');
+                header.classList.remove('active');
+                icon.classList.remove('rotated');
+            }
+
+            // 重置按钮状态
+            resetButtonStates();
+
+            currentResult = null;
+        }
+
+        // 重置到初始状态
+        function resetToInitialState() {
+            // 清空文件输入
+            document.getElementById('fileInput').value = '';
+
+            // 重置界面显示
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('stepsSection').style.display = 'none';
+            document.getElementById('modelInfo').style.display = 'none';
+            document.getElementById('uploadContent').style.display = 'block';
+            document.getElementById('fileInfo').style.display = 'block';
+
+            // 重置折叠状态
+            const stepsContent = document.getElementById('stepsContent');
+            const header = document.querySelector('.collapsible-header');
+            const icon = document.querySelector('.collapse-icon');
+            if (stepsContent && header && icon) {
+                stepsContent.classList.remove('show');
+                header.classList.remove('active');
+                icon.classList.remove('rotated');
+            }
+
+            // 重置按钮状态
+            resetButtonStates();
+
+            // 清空文件信息
+            document.getElementById('fileInfo').innerHTML = '';
+
+            // 清空消息区域
+            document.getElementById('messageArea').innerHTML = '';
+
+            // 清空对比表格
+            document.getElementById('comparisonBody').innerHTML = '';
+
+            // 重置全局变量
+            currentResult = null;
+
+            // 显示重置成功消息
+            showMessage('已重置到初始状态，请重新选择文件', 'info');
+        }
+
+        // 测试API连接
+        async function testApiConnection() {
+            const testBtn = document.getElementById('testApiBtn');
+            const indicator = document.getElementById('apiIndicator');
+
+            testBtn.disabled = true;
+            testBtn.textContent = '测试中...';
+            indicator.classList.remove('connected');
+
+            try {
+                const response = await fetch(`${API_BASE}/health_new`);
+                const result = await response.json();
+
+                if (response.ok) {
+                    indicator.classList.add('connected');
+                    showMessage(`API连接成功！版本: ${result.version}`, 'success');
+                } else {
+                    showMessage('API连接失败', 'error');
+                }
+            } catch (error) {
+                showMessage(`API连接失败: ${error.message}`, 'error');
+            } finally {
+                testBtn.disabled = false;
+                testBtn.textContent = '测试连接';
+            }
+        }
+
+        // 处理文件
+        async function processFile() {
+            const file = document.getElementById('fileInput').files[0];
+            if (!file) {
+                showMessage('请先选择文件', 'error');
+                return;
+            }
+
+            // 显示加载状态
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('stepsSection').style.display = 'none';
+            document.getElementById('processBtn').disabled = true;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch(`${API_BASE}/process_diff_and_generate_new`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    currentResult = result;  // 保存完整的结果对象，包含files
+                    showResults(result.data);
+
+                    // 显示处理步骤详情
+                    if (result.processing_steps) {
+                        showProcessingSteps(result.processing_steps);
+                    }
+
+                    // 修改按钮为上传系统
+                    const processBtn = document.getElementById('processBtn');
+                    processBtn.textContent = '上传系统';
+                    processBtn.onclick = uploadToSystem;
+                    processBtn.className = 'process-btn upload-btn-style';
+
+                    showMessage('处理完成！已生成新BOM并完成差异对比', 'success');
+                } else {
+                    showMessage(`处理失败 (${result.step || 'unknown'}): ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage('请求失败: ' + error.message, 'error');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('processBtn').disabled = false;
+            }
+        }
+
+        // 上传到PLM系统
+        async function uploadToSystem() {
+            if (!currentResult) {
+                showMessage('没有可上传的数据，请先处理文件', 'error');
+                return;
+            }
+
+            console.log('当前结果对象:', currentResult);
+            console.log('文件信息:', currentResult.files);
+
+            // 检查必要的文件路径
+            if (!currentResult.files?.target_bom_file) {
+                showMessage('缺少目标BOM文件路径，无法上传', 'error');
+                console.error('文件路径检查失败:', {
+                    hasFiles: !!currentResult.files,
+                    targetBomFile: currentResult.files?.target_bom_file,
+                    allFiles: currentResult.files
+                });
+                return;
+            }
+
+            // 显示加载状态
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('processBtn').disabled = true;
+
+            try {
+                // 调用PLM上传接口
+                const uploadData = {
+                    step: 'push_plm',
+                    bom_file_path: currentResult.files.target_bom_file,
+                    diff_file_path: currentResult.files.diff_file,
+                    owner: 'adm',
+                    creator: 'adm',
+                    source: 'PPPE',
+                    operator: 'sf',
+                    validate_only: false  // 默认仅验证格式
+                };
+
+                console.log('上传数据:', uploadData);
+
+                const response = await fetch(`${API_BASE}/process_single_step`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(uploadData)
+                });
+
+                const result = await response.json();
+                console.log('PLM上传结果:', result);
+
+                if (result.success) {
+                    // 更新处理步骤，添加PLM上传结果
+                    if (currentResult.processing_steps) {
+                        currentResult.processing_steps.plm_api_client = {
+                            status: result.status === 'business_error' ? 'warning' : 'success',
+                            file_path: result.file_path,
+                            stats: result.stats,
+                            message: result.message
+                        };
+
+                        // 重新显示处理步骤
+                        showProcessingSteps(currentResult.processing_steps);
+                    }
+
+                    if (result.status === 'business_error') {
+                        showMessage(`上传到PLM系统完成，但存在业务错误: ${result.plm_error || result.message}`, 'warning');
+
+                        // 显示缺失物料信息
+                        if (result.missing_parts && result.missing_parts.length > 0) {
+                            const missingInfo = `发现 ${result.missing_parts.length} 个物料在PLM中不存在: ${result.missing_parts.slice(0, 3).join(', ')}${result.missing_parts.length > 3 ? '...' : ''}`;
+                            showMessage(missingInfo, 'warning');
+                        }
+                    } else if (result.status === 'validation_success') {
+                        showMessage('PLM数据格式验证通过！', 'success');
+                    } else {
+                        showMessage('成功上传到PLM系统！', 'success');
+                    }
+                } else {
+                    showMessage(`上传到PLM系统失败: ${result.error || result.message}`, 'error');
+                    console.error('PLM上传错误:', result);
+                }
+            } catch (error) {
+                showMessage('上传请求失败: ' + error.message, 'error');
+                console.error('上传请求异常:', error);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('processBtn').disabled = false;
+            }
+        }
+
+        // 折叠/展开步骤详情
+        function toggleStepsCollapse() {
+            const content = document.getElementById('stepsContent');
+            const header = document.querySelector('.collapsible-header');
+            const icon = document.querySelector('.collapse-icon');
+
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                header.classList.remove('active');
+                icon.classList.remove('rotated');
+            } else {
+                content.classList.add('show');
+                header.classList.add('active');
+                icon.classList.add('rotated');
+            }
+        }
+
+        // 显示处理步骤详情
+        function showProcessingSteps(steps) {
+            const stepsContent = document.getElementById('stepsContent');
+
+            // 定义步骤顺序和名称
+            const stepOrder = [
+                'enhanced_diff_parser',
+                'simple_ai_generator',
+                'bom_transformer',
+                'plm_api_client'
+            ];
+
+            const stepNames = {
+                'enhanced_diff_parser': '1. 差异文件解析',
+                'simple_ai_generator': '2. AI分析数据生成',
+                'bom_transformer': '3. BOM转换',
+                'plm_api_client': '4. PLM系统推送'
+            };
+
+            let html = '';
+
+            // 按照预定义顺序显示步骤
+            stepOrder.forEach(stepKey => {
+                if (steps[stepKey]) {
+                    const stepData = steps[stepKey];
+                    const stepName = stepNames[stepKey] || stepKey;
+                    const status = stepData.status === 'success' ? '✓' : (stepData.status === 'warning' ? '⚠' : '✗');
+                    const statusColor = stepData.status === 'success' ? '#28a745' : (stepData.status === 'warning' ? '#ffc107' : '#dc3545');
+
+                    html += `
+                        <div style="margin: 10px 0; padding: 15px; border-left: 4px solid ${statusColor}; background: #f8f9fa; border-radius: 4px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <span style="font-size: 18px; margin-right: 8px; color: ${statusColor};">${status}</span>
+                                <strong style="color: #333;">${stepName}</strong>
+                            </div>
+                            ${stepData.file_path ? `<div style="margin: 5px 0;"><small style="color: #666;"><strong>输出文件:</strong> ${stepData.file_path}</small></div>` : ''}
+                            ${stepData.tmp_file_path ? `<div style="margin: 5px 0;"><small style="color: #666;"><strong>临时文件:</strong> ${stepData.tmp_file_path}</small></div>` : ''}
+                            ${stepData.message ? `<div style="margin: 5px 0;"><small style="color: #666;"><strong>消息:</strong> ${stepData.message}</small></div>` : ''}
+                            ${stepData.stats ? `<div style="margin: 5px 0;"><small style="color: #666;"><strong>统计信息:</strong> ${formatStats(stepData.stats)}</small></div>` : ''}
+                        </div>
+                    `;
+                }
+            });
+
+            stepsContent.innerHTML = html;
+            document.getElementById('stepsSection').style.display = 'block';
+
+            // 默认展开步骤详情
+            document.getElementById('stepsContent').classList.add('show');
+            document.querySelector('.collapsible-header').classList.add('active');
+            document.querySelector('.collapse-icon').classList.add('rotated');
+        }
+
+        // 格式化统计信息
+        function formatStats(stats) {
+            if (typeof stats === 'object') {
+                return Object.entries(stats).map(([key, value]) => `${key}: ${value}`).join(', ');
+            }
+            return JSON.stringify(stats);
+        }
+
+        // 显示结果
+        function showResults(data) {
+            // 隐藏上传描述信息和文件信息
+            document.getElementById('uploadContent').style.display = 'none';
+            document.getElementById('fileInfo').style.display = 'none';
+
+            // 显示模型信息
+            document.getElementById('modelInfo').innerHTML = `
+                <div class="model-info-content">
+                    <h3>BOM版本信息</h3>
+                    <p><strong>产品型号:</strong> ${data.modelType}</p>
+                    <p><strong>基础版本:</strong> ${data.baseModel}</p>
+                    <p><strong>目标版本:</strong> ${data.targetModel}</p>
+                </div>
+            `;
+            document.getElementById('modelInfo').style.display = 'block';
+
+            // 修改按钮为重新选择文件，并添加点击事件
+            const fileLabel = document.querySelector('label[for="fileInput"]');
+            fileLabel.textContent = '重新选择文件';
+            fileLabel.onclick = function (e) {
+                e.preventDefault();
+                resetToInitialState();
+            };
+
+            // 确保处理按钮显示为上传系统（如果还没有修改的话）
+            const processBtn = document.getElementById('processBtn');
+            if (processBtn.textContent === '开始处理') {
+                processBtn.textContent = '上传系统';
+                processBtn.onclick = uploadToSystem;
+                processBtn.className = 'process-btn upload-btn-style';
+            }
+
+            // 显示对比表格
+            const tbody = document.getElementById('comparisonBody');
+            tbody.innerHTML = data.comparison.map(item => {
+                let rowClass = '';
+
+                // 标红所有差异项：新增、删除、数量变化
+                if (item.baseQuantity === 0 || item.targetQuantity === 0 || item.baseQuantity !== item.targetQuantity) {
+                    rowClass = 'row-diff';
+                }
+
+                return `<tr class="${rowClass}">
+                    <td>${item.seq}</td>
+                    <td>${item.code}</td>
+                    <td>${item.name}</td>
+                    <td>${item.baseQuantity || '-'}</td>
+                    <td>${item.targetQuantity || '-'}</td>
+                </tr>`;
+            }).join('');
+
+            document.getElementById('resultsSection').style.display = 'block';
+        }
+
+
+
+        // 显示消息
+        function showMessage(message, type) {
+            const messageArea = document.getElementById('messageArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            messageArea.appendChild(messageDiv);
+
+            // 3秒后自动移除消息
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+
+        // 重置按钮状态
+        function resetButtonStates() {
+            const fileLabel = document.querySelector('label[for="fileInput"]');
+            fileLabel.textContent = '选择文件';
+            fileLabel.onclick = null; // 移除自定义点击事件，恢复默认文件选择功能
+
+            const processBtn = document.getElementById('processBtn');
+            processBtn.style.display = 'none';
+            processBtn.textContent = '开始处理';
+            processBtn.onclick = processFile;
+            processBtn.className = 'process-btn';
+
+            const autoDetectBtn = document.getElementById('autoDetectBtn');
+            autoDetectBtn.style.display = 'none';
+            autoDetectBtn.textContent = '新建处理';
+            autoDetectBtn.onclick = processExcelAutoDetect;
+            autoDetectBtn.className = 'process-btn auto-detect-btn';
+            
+            // 隐藏勾选框
+            document.getElementById('validateCheckboxContainer').style.display = 'none';
+            // 重置勾选框状态
+            const validateCheckbox = document.getElementById('validateOnlyCheckbox');
+            if (validateCheckbox) validateCheckbox.checked = false;
+        }
+
+        // Excel自动检测处理
+        async function processExcelAutoDetect() {
+            const file = document.getElementById('fileInput').files[0];
+            if (!file) {
+                showMessage('请先选择文件', 'error');
+                return;
+            }
+
+            // 显示加载状态
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('stepsSection').style.display = 'none';
+            document.getElementById('autoDetectBtn').disabled = true;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch(`${API_BASE}/process_excel_auto_detect`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    autoDetectResult = result;
+                    console.log('Auto-detect result:', result);
+                    console.log('Result data:', result.data);
+                    console.log('Files in result:', result.data?.files);
+
+                    showAutoDetectResults(result.data);
+
+                    // 修改按钮为批量上传
+                    const autoDetectBtn = document.getElementById('autoDetectBtn');
+                    autoDetectBtn.textContent = '批量上传';
+                    autoDetectBtn.onclick = batchUploadBomFiles;
+                    autoDetectBtn.className = 'process-btn batch-upload-btn';
+                    
+                    // 显示勾选框
+                    document.getElementById('validateCheckboxContainer').style.display = 'inline-block';
+
+                    showMessage('Excel自动检测处理完成！', 'success');
+                } else {
+                    showMessage(`Excel自动检测处理失败: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage('请求失败: ' + error.message, 'error');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('autoDetectBtn').disabled = false;
+            }
+        }
+
+        // 显示自动检测结果
+        function showAutoDetectResults(data) {
+            // 隐藏上传描述信息和文件信息
+            document.getElementById('uploadContent').style.display = 'none';
+            document.getElementById('fileInfo').style.display = 'none';
+
+            // 显示处理结果信息
+            let resultHtml = '<div class="model-info-content"><h3>Excel自动检测处理结果</h3>';
+
+            // 显示生成的JSON文件
+            if (data.json_files && data.json_files.length > 0) {
+                resultHtml += '<h4>生成的JSON文件:</h4><ul>';
+                data.json_files.forEach((filePath, index) => {
+                    // 从文件路径提取文件名
+                    const fileName = filePath.split(/[\\\/]/).pop();
+                    resultHtml += `<li><strong>文件 ${index + 1}</strong>: ${fileName}</li>`;
+                });
+                resultHtml += '</ul>';
+            }
+
+            // 显示详细结果
+            if (data.results && data.results.length > 0) {
+                resultHtml += '<h4>处理详情:</h4><ul>';
+                data.results.forEach(result => {
+                    const status = result.success ? '✓' : '✗';
+                    const statusColor = result.success ? '#28a745' : '#dc3545';
+                    resultHtml += `<li style="color: ${statusColor};">${status} <strong>${result.sheet_name}</strong> (${result.format}): ${result.success ? '成功' : result.error}</li>`;
+                });
+                resultHtml += '</ul>';
+            }
+
+            // 显示处理统计
+            resultHtml += '<h4>处理统计:</h4>';
+            resultHtml += `<p>总sheet数: ${data.total_sheets}</p>`;
+            resultHtml += `<p>成功处理: ${data.success_count}</p>`;
+            resultHtml += `<p>失败数量: ${data.failed_count}</p>`;
+            resultHtml += `<p>PLM格式: ${data.plm_count}</p>`;
+            resultHtml += `<p>GBOM格式: ${data.gbom_count}</p>`;
+            resultHtml += `<p>跳过数量: ${data.skip_count}</p>`;
+
+            resultHtml += '</div>';
+
+            document.getElementById('modelInfo').innerHTML = resultHtml;
+            document.getElementById('modelInfo').style.display = 'block';
+
+            // 修改按钮为重新选择文件
+            const fileLabel = document.querySelector('label[for="fileInput"]');
+            fileLabel.textContent = '重新选择文件';
+            fileLabel.onclick = function (e) {
+                e.preventDefault();
+                resetToInitialState();
+            };
+
+            // 隐藏原始处理按钮
+            document.getElementById('processBtn').style.display = 'none';
+        }
+
+        // 批量上传BOM文件
+        async function batchUploadBomFiles() {
+            console.log('Batch upload called');
+            console.log('autoDetectResult:', autoDetectResult);
+            console.log('autoDetectResult.data:', autoDetectResult?.data);
+            console.log('autoDetectResult.data.json_files:', autoDetectResult?.data?.json_files);
+
+            if (!autoDetectResult || !autoDetectResult.data.json_files) {
+                showMessage('没有可上传的文件，请先进行Excel自动检测处理', 'error');
+                return;
+            }
+
+            // 提取所有生成的JSON文件路径
+            const filePaths = autoDetectResult.data.json_files;
+
+            if (filePaths.length === 0) {
+                showMessage('没有找到可上传的JSON文件', 'error');
+                return;
+            }
+
+            // 显示加载状态
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('autoDetectBtn').disabled = true;
+
+            try {
+                // 获取勾选框状态
+                const validateCheckbox = document.getElementById('validateOnlyCheckbox');
+                const validateOnly = validateCheckbox ? validateCheckbox.checked : false;
+                
+                const uploadData = {
+                    file_paths: filePaths,
+                    owner: 'adm',
+                    creator: 'adm',
+                    source: 'PPPE',
+                    operator: 'sf',
+                    validate_only: validateOnly,  
+                    continue_on_error: true,
+                    max_retries: 1
+                };
+
+                console.log('批量上传数据:', uploadData);
+
+                const response = await fetch(`${API_BASE}/batch_upload_bom_files`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(uploadData)
+                });
+
+                const result = await response.json();
+                console.log('批量上传结果:', result);
+
+                if (result.success) {
+                    showBatchUploadResults(result.data);
+                    showMessage(`批量上传完成！成功: ${result.data.success_count}/${result.data.total}`, 'success');
+                } else {
+                    showMessage(`批量上传失败: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage('批量上传请求失败: ' + error.message, 'error');
+                console.error('批量上传请求异常:', error);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('autoDetectBtn').disabled = false;
+            }
+        }
+
+        // 显示批量上传结果
+        function showBatchUploadResults(data) {
+            let resultHtml = '<div class="model-info-content"><h3>批量上传结果</h3>';
+
+            resultHtml += '<h4>上传统计:</h4>';
+            resultHtml += `<p>总文件数: ${data.total}</p>`;
+            resultHtml += `<p>成功上传: ${data.success_count}</p>`;
+            resultHtml += `<p>失败数量: ${data.failed_count}</p>`;
+            resultHtml += `<p>跳过数量: ${data.skipped_count}</p>`;
+            resultHtml += `<p>总零件数: ${data.total_parts}</p>`;
+            resultHtml += `<p>处理耗时: ${data.processing_time?.toFixed(2)}秒</p>`;
+
+            if (data.results && data.results.length > 0) {
+                resultHtml += '<h4>详细结果:</h4><ul>';
+                data.results.forEach(result => {
+                    const status = result.success ? '✓' : '✗';
+                    const statusColor = result.success ? '#28a745' : '#dc3545';
+                    resultHtml += `<li style="color: ${statusColor};">${status} ${result.file_path}: ${result.message || result.error}</li>`;
+                });
+                resultHtml += '</ul>';
+            }
+
+            if (data.failed_files && data.failed_files.length > 0) {
+                resultHtml += '<h4>失败文件:</h4><ul>';
+                data.failed_files.forEach(file => {
+                    resultHtml += `<li style="color: #dc3545;">${file}</li>`;
+                });
+                resultHtml += '</ul>';
+            }
+
+            resultHtml += '</div>';
+
+            document.getElementById('modelInfo').innerHTML = resultHtml;
+        }
+
+        // 页面加载时测试API连接
+        window.addEventListener('load', function () {
+            testApiConnection();
+        });
+    </script>
+
+
+
+</body></html>

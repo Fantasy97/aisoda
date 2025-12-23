@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信群聊</title>
+    <link rel="stylesheet" href="wechat-chat.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div>
+                <div class="group-name">技术交流群</div>
+                <div class="member-count">(5)</div>
+            </div>
+            <div class="more-btn">⋯</div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="system-message">今天</div>
+
+            <div class="message message-left">
+                <div class="avatar" style="background-color: #07c160;">张</div>
+                <div class="message-content">
+                    <div class="username">张三</div>
+                    <div class="bubble">大家好,最近在研究前端框架</div>
+                </div>
+            </div>
+
+            <div class="message message-left">
+                <div class="avatar" style="background-color: #1989fa;">李</div>
+                <div class="message-content">
+                    <div class="username">李四</div>
+                    <div class="bubble">Vue和React你更推荐哪个?</div>
+                </div>
+            </div>
+
+            <div class="message message-right">
+                <div class="avatar" style="background-color: #ff976a;">我</div>
+                <div class="message-content">
+                    <div class="username">我</div>
+                    <div class="bubble">这个要看具体项目需求,两个都很好用</div>
+                </div>
+            </div>
+
+            <div class="message message-left">
+                <div class="avatar" style="background-color: #f56c6c;">王</div>
+                <div class="message-content">
+                    <div class="username">王五</div>
+                    <div class="bubble">我们公司用的是Vue,感觉上手比较快</div>
+                </div>
+            </div>
+
+            <div class="message message-left">
+                <div class="avatar" style="background-color: #e6a23c;">赵</div>
+                <div class="message-content">
+                    <div class="username">赵六</div>
+                    <div class="bubble">最近React Hooks用的很爽😄</div>
+                </div>
+            </div>
+
+            <div class="message message-right">
+                <div class="avatar" style="background-color: #ff976a;">我</div>
+                <div class="message-content">
+                    <div class="username">我</div>
+                    <div class="bubble">Vue 3的Composition API也很强大</div>
+                </div>
+            </div>
+
+            <div class="system-message">以下为新消息</div>
+
+            <div class="message message-left">
+                <div class="avatar" style="background-color: #07c160;">张</div>
+                <div class="message-content">
+                    <div class="username">张三</div>
+                    <div class="bubble">看来我要好好学习一下了👍</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" class="input-box" id="messageInput" placeholder="请输入消息...">
+            <button class="send-btn" id="sendBtn">发送</button>
+        </div>
+    </div>
+
+    <script src="wechat-chat.js"></script>
+</body>
+</html>

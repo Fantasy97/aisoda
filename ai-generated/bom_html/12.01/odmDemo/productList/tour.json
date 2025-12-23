@@ -1,0 +1,123 @@
+{
+  "EIOptions": [
+    {
+      "target": "#Add",
+      "title": "新增企业信息",
+      "description": "暂无企业信息，点击这里去新增",
+      "placement": "right"
+    }
+  ],
+  "EIOptions2": [
+    {
+      "target": "#enterpriseInfo",
+      "title": "新增企业信息",
+      "description": "填写企业信息",
+      "placement": "right"
+    },
+    {
+      "target": "#salesInfo",
+      "title": "新增企业信息",
+      "description": "选择联系人",
+      "placement": "right"
+    },
+
+    {
+      "target": "#submit",
+      "title": "新增企业信息",
+      "description": "提交",
+      "placement": "right"
+    }
+  ],
+  "productOptions": [
+    {
+      "target": "#Add",
+      "title": "新增产品信息",
+      "description": "暂无产品信息，点击这里去新增",
+      "placement": "right"
+    }
+  ],
+  "templateSelect": [
+    {
+      "target": "#query-wrap",
+      "title": "模板选择",
+      "description": "根据设备类型、功率筛选模板"
+    },
+    {
+      "target": "#target-two",
+      "title": "模板选择",
+      "description": "选择一个产品模板"
+    },
+    {
+      "target": "#target-three",
+      "title": "模板选择",
+      "description": "点击去下一页"
+    }
+  ],
+  "productParams": [
+    {
+      "target": "#target-one",
+      "title": "产品选配",
+      "description": "在这里选择产品型号"
+    },
+    {
+      "target": "#target-two",
+      "title": "产品选配",
+      "description": "在这里选择产品参数"
+    },
+    {
+      "target": "#target-three",
+      "title": "产品选配",
+      "description": "在这里修改产品系列或型号名称"
+    }
+  ],
+  "design": [
+    {
+      "target": "#canvas-container",
+      "title": "模型设计",
+      "description": "在这里设计模型并预览",
+      "placement": "right"
+    },
+    {
+      "target": "#target-two",
+      "title": "模型设计",
+      "description": "选择推荐色",
+      "placement": "left"
+    },
+    {
+      "target": "#target-three",
+      "title": "模型设计",
+      "description": "高级设置",
+      "placement": "left"
+    },
+    {
+      "target": "#target-four",
+      "title": "模型设计",
+      "description": "下载模型为图片"
+    },
+    {
+      "target": "#target-five",
+      "title": "模型设计",
+      "description": "点击下一步",
+      "placement": "right"
+    }
+  ],
+  "docManage": [
+    {
+      "target": "#target-one",
+      "title": "文档管理",
+      "description": "点击封面预览文档"
+    },
+    {
+      "target": "#target-two",
+      "title": "文档管理",
+      "description": "点击下一步"
+    }
+  ],
+  "docManageTwo": [
+    {
+      "target": "#target-one",
+      "title": "设计提交审核",
+      "description": "点击这里模拟PLM审核"
+    }
+  ]
+}

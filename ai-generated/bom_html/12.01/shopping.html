@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Style Store - AI Configurator</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 自定义动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* 隐藏滚动条但保留功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-white text-[#1d1d1f]">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- 内置图标组件 (替换 Lucide React CDN) ---
+        // 这样做是为了防止 CDN 加载失败或版本冲突导致的 "undefined" 错误
+        const Icon = ({ children, size = 24, className = "" }) => (
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width={size} 
+                height={size} 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className={className}
+            >
+                {children}
+            </svg>
+        );
+
+        const Icons = {
+            ChevronRight: (props) => <Icon {...props}><polyline points="9 18 15 12 9 6" /></Icon>,
+            ChevronLeft: (props) => <Icon {...props}><polyline points="15 18 9 12 15 6" /></Icon>,
+            ShoppingBag: (props) => <Icon {...props}><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></Icon>,
+            Search: (props) => <Icon {...props}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></Icon>,
+            Menu: (props) => <Icon {...props}><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></Icon>,
+            Star: (props) => <Icon {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></Icon>,
+            Cpu: (props) => <Icon {...props}><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></Icon>,
+            HardDrive: (props) => <Icon {...props}><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></Icon>,
+            Zap: (props) => <Icon {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></Icon>,
+            Check: (props) => <Icon {...props}><polyline points="20 6 9 17 4 12"/></Icon>,
+            MessageCircle: (props) => <Icon {...props}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></Icon>,
+            X: (props) => <Icon {...props}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Icon>,
+            Send: (props) => <Icon {...props}><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></Icon>,
+            Bot: (props) => <Icon {...props}><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></Icon>
+        };
+
+        const { ChevronRight, ChevronLeft, ShoppingBag, Search, Menu, Star, Cpu, HardDrive, Zap, Check, MessageCircle, X, Send, Bot } = Icons;
+
+        // --- 模拟数据 (Mock Data) ---
+        const PRODUCT_DATA = [
+            {
+                id: 'inverter',
+                name: '光伏逆变器',
+                keywords: ['光伏', '逆变器', '发电', '太阳能'],
+                tagline: '户用的理想首选。',
+                image: 'image_67e9eb.png', // 使用您上传的图片
+                series: [
+                    {
+                        id: 'asw-s-g2',
+                        name: 'ASW S-G2 系列',
+                        keywords: ['sg2', 's-g2', '家用', '单相', '小功率'],
+                        subName: '单相光伏逆变器 3-6kW',
+                        basePrice: 2888,
+                        image: 'image_67e6c2.png', // 使用您上传的图片
+                        features: ['安装便捷：PV反接报警', '安全可靠：IP66防护等级', '用户友好：ShadeSol阴影管理'],
+                        configOptions: [
+                            {
+                                id: 'model',
+                                title: '选择型号',
+                                options: [
+                                    { id: '3000', name: 'ASW3000-S-G2', price: 0, desc: '3kW 额定输出功率', keywords: ['3kw', '3000', '3千瓦'] },
+                                    { id: '4000', name: 'ASW4000-S-G2', price: 500, desc: '4kW 额定输出功率', keywords: ['4kw', '4000', '4千瓦'] },
+                                    { id: '5000', name: 'ASW5000-S-G2', price: 1000, desc: '5kW 额定输出功率', keywords: ['5kw', '5000', '5千瓦'] },
+                                    { id: '6000', name: 'ASW6000-S-G2', price: 1500, desc: '6kW 额定输出功率', keywords: ['6kw', '6000', '6千瓦'] },
+                                ]
+                            },
+                            {
+                                id: 'connectivity',
+                                title: '通讯监控模块',
+                                options: [
+                                    { id: 'wifi', name: 'Wi-Fi 棒', price: 0, keywords: ['wifi', '无线'] },
+                                    { id: '4g', name: '4G 模块', price: 200, keywords: ['4g', '流量'] },
+                                    { id: 'lan', name: 'LAN 模块', price: 150, keywords: ['lan', '网线'] },
+                                ]
+                            },
+                            {
+                                id: 'warranty',
+                                title: '质保服务',
+                                options: [
+                                    { id: '5year', name: '5年标准质保', price: 0, keywords: ['5年', '标准'] },
+                                    { id: '10year', name: '10年延长质保', price: 800, keywords: ['10年', '延保'] },
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'asw-lt-g2',
+                        name: 'ASW 8-20K-LT-G2',
+                        keywords: ['lt', '三相', '大功率'],
+                        subName: '三相光伏逆变器',
+                        basePrice: 5888,
+                        image: 'https://placehold.co/600x400/e0e0e0/1d1d1f?text=ASW+LT+Series',
+                        features: ['双路MPPT设计', '宽电压输入范围', '支持远程监控'],
+                        configOptions: [
+                             {
+                                id: 'model',
+                                title: '选择型号',
+                                options: [
+                                    { id: '8k', name: '8kW 模型', price: 0, desc: '8kW 输出', keywords: ['8kw'] },
+                                    { id: '10k', name: '10kW 模型', price: 1000, desc: '10kW 输出', keywords: ['10kw'] },
+                                ]
+                            },
+                            {
+                                id: 'connectivity',
+                                title: '通讯监控模块',
+                                options: [
+                                    { id: 'wifi', name: 'Wi-Fi 棒', price: 0, keywords: ['wifi'] },
+                                    { id: '4g', name: '4G 模块', price: 200, keywords: ['4g'] },
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'iphone',
+                name: 'iPhone',
+                keywords: ['iphone', '苹果手机', '手机'],
+                tagline: '爱不释手，理所当然。',
+                image: 'https://placehold.co/800x600/f5f5f7/1d1d1f?text=iPhone+Family',
+                series: [
+                    {
+                        id: 'iphone-15',
+                        name: 'iPhone 15',
+                        keywords: ['15', '普通版'],
+                        subName: '实用，且强大。',
+                        basePrice: 5999,
+                        image: 'https://placehold.co/600x400/ffecd1/1d1d1f?text=iPhone+15',
+                        features: ['A16 仿生芯片', '先进的双摄系统', '灵动岛功能'],
+                        configOptions: [
+                            {
+                                id: 'color',
+                                title: '外观',
+                                type: 'color', 
+                                options: [
+                                    { id: 'black', name: '黑色', price: 0, colorCode: '#35393b', keywords: ['黑'] },
+                                    { id: 'blue', name: '蓝色', price: 0, colorCode: '#dbe3e8', keywords: ['蓝'] },
+                                    { id: 'green', name: '绿色', price: 0, colorCode: '#e4f5e1', keywords: ['绿'] },
+                                    { id: 'pink', name: '粉色', price: 0, colorCode: '#fde8e9', keywords: ['粉'] },
+                                ]
+                            },
+                            {
+                                id: 'storage',
+                                title: '存储容量',
+                                options: [
+                                    { id: '128gb', name: '128GB', price: 0, keywords: ['128', '128g'] },
+                                    { id: '256gb', name: '256GB', price: 1000, keywords: ['256', '256g'] },
+                                    { id: '512gb', name: '512GB', price: 3000, keywords: ['512', '512g'] },
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // --- 工具函数：格式化货币 ---
+        const formatCurrency = (amount) => {
+            return new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 }).format(amount);
+        };
+
+        // --- 组件：导航栏 ---
+        const NavBar = ({ currentView, onBack }) => (
+            <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-200 h-12 flex items-center justify-between px-4 lg:px-12 transition-all">
+                <div className="flex items-center gap-4">
+                    {currentView !== 'categories' && (
+                        <button onClick={onBack} className="text-gray-600 hover:text-black transition-colors flex items-center text-sm">
+                            <ChevronLeft size={18} /> 返回
+                        </button>
+                    )}
+                    <div className="font-semibold text-lg tracking-tight flex items-center gap-2">
+                        <span className="text-xl"></span> Store
+                    </div>
+                </div>
+                
+                <div className="hidden md:flex gap-8 text-xs text-gray-600">
+                    <span className="cursor-pointer hover:text-black transition-colors">Mac</span>
+                    <span className="cursor-pointer hover:text-black transition-colors">iPad</span>
+                    <span className="cursor-pointer hover:text-black transition-colors">iPhone</span>
+                    <span className="cursor-pointer hover:text-black transition-colors">Watch</span>
+                    <span className="cursor-pointer hover:text-black transition-colors">AirPods</span>
+                </div>
+
+                <div className="flex gap-4 text-gray-600">
+                    <Search size={18} className="cursor-pointer hover:text-black" />
+                    <ShoppingBag size={18} className="cursor-pointer hover:text-black" />
+                    <Menu size={18} className="md:hidden cursor-pointer hover:text-black" />
+                </div>
+            </nav>
+        );
+
+        // --- 组件：AI 聊天助手 ---
+        const ChatWidget = ({ onSendMessage, messages }) => {
+            const [isOpen, setIsOpen] = useState(false);
+            const [inputValue, setInputValue] = useState('');
+            const messagesEndRef = useRef(null);
+
+            const scrollToBottom = () => {
+                messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+            };
+
+            useEffect(() => {
+                scrollToBottom();
+            }, [messages, isOpen]);
+
+            const handleSend = () => {
+                if (!inputValue.trim()) return;
+                onSendMessage(inputValue);
+                setInputValue('');
+            };
+
+            const handleKeyPress = (e) => {
+                if (e.key === 'Enter') handleSend();
+            };
+
+            return (
+                <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end font-sans">
+                    {/* 聊天窗口 */}
+                    <div className={`
+                        mb-4 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transition-all duration-300 origin-bottom-right
+                        ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-10 pointer-events-none h-0'}
+                    `}>
+                        {/* Header */}
+                        <div className="bg-gray-100 p-4 border-b border-gray-200 flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                                    <Bot size={18} />
+                                </div>
+                                <div>
+                                    <p className="font-semibold text-sm">AI 导购助手</p>
+                                    <p className="text-xs text-gray-500">在线为您推荐</p>
+                                </div>
+                            </div>
+                            <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-gray-600">
+                                <X size={18} />
+                            </button>
+                        </div>
+
+                        {/* Messages */}
+                        <div className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                            {messages.map((msg, idx) => (
+                                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                    <div className={`
+                                        max-w-[80%] p-3 rounded-2xl text-sm
+                                        ${msg.role === 'user' 
+                                        ? 'bg-blue-600 text-white rounded-tr-sm' 
+                                        : 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm shadow-sm'}
+                                    `}>
+                                        {msg.text}
+                                    </div>
+                                </div>
+                            ))}
+                            <div ref={messagesEndRef} />
+                        </div>
+
+                        {/* Input */}
+                        <div className="p-3 bg-white border-t border-gray-200 flex gap-2">
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                onKeyPress={handleKeyPress}
+                                placeholder="输入您的需求，如'想要5kW逆变器'..."
+                                className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            />
+                            <button 
+                                onClick={handleSend}
+                                className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors"
+                            >
+                                <Send size={16} />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* 悬浮按钮 */}
+                    <button 
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="w-14 h-14 rounded-full bg-black text-white shadow-lg hover:scale-110 transition-transform flex items-center justify-center"
+                    >
+                        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+                    </button>
+                </div>
+            );
+        };
+
+        // --- 视图 1：产品品类选择 (Category View) ---
+        const CategoryView = ({ onSelectCategory }) => {
+            return (
+                <div className="pt-24 pb-20 px-4 max-w-7xl mx-auto animate-fade-in">
+                    <h1 className="text-4xl md:text-6xl font-semibold mb-4 tracking-tight">
+                        商店。<br />
+                        选购你心仪产品的最佳去处。
+                    </h1>
+                    
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {PRODUCT_DATA.map((product) => (
+                            <div 
+                                key={product.id}
+                                onClick={() => onSelectCategory(product)}
+                                className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer h-[500px] border border-gray-100"
+                            >
+                                <div className="absolute top-10 left-10 z-10">
+                                    <h2 className="text-3xl font-semibold mb-2 text-black">{product.name}</h2>
+                                    <p className="text-xl text-gray-500">{product.tagline}</p>
+                                </div>
+                                <div className="absolute bottom-0 right-0 w-3/4 h-3/4 transition-transform duration-500 group-hover:scale-105">
+                                    <img 
+                                        src={product.image} 
+                                        alt={product.name} 
+                                        className="w-full h-full object-cover object-bottom"
+                                        onError={(e) => {e.target.src='https://placehold.co/800x600/f5f5f7/1d1d1f?text=' + product.name}}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 视图 2：系列选择 (Series View) ---
+        const SeriesView = ({ category, onSelectSeries }) => {
+            return (
+                <div className="pt-24 pb-20 px-4 max-w-7xl mx-auto animate-fade-in">
+                    <div className="mb-12">
+                        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                            {category.name} 家族
+                        </h2>
+                        <h1 className="text-4xl md:text-5xl font-semibold text-black">
+                            哪款 {category.name} 适合你？
+                        </h1>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {category.series.map((item) => (
+                            <div key={item.id} className="flex flex-col items-center text-center p-6 bg-white rounded-2xl hover:bg-gray-50 transition-colors">
+                                <div className="w-full h-64 mb-6 flex items-center justify-center">
+                                    <img 
+                                        src={item.image} 
+                                        alt={item.name} 
+                                        className="max-h-full max-w-full object-contain"
+                                        onError={(e) => {e.target.src='https://placehold.co/600x400/e0e0e0/1d1d1f?text=' + item.name}}
+                                    />
+                                </div>
+                                
+                                <div className="flex gap-2 mb-4">
+                                    <div className="w-3 h-3 rounded-full bg-gray-800"></div>
+                                    <div className="w-3 h-3 rounded-full bg-gray-400"></div>
+                                    <div className="w-3 h-3 rounded-full bg-gray-200"></div>
+                                </div>
+
+                                <h3 className="text-2xl font-semibold mb-1">{item.name}</h3>
+                                <p className="text-gray-500 mb-4">{item.subName}</p>
+                                <p className="text-lg font-medium mb-6">{formatCurrency(item.basePrice)} 起</p>
+                                
+                                <button 
+                                    onClick={() => onSelectSeries(item)}
+                                    className="bg-[#0071e3] text-white px-6 py-2 rounded-full text-sm hover:bg-[#0077ed] transition-colors mb-8"
+                                >
+                                    购买
+                                </button>
+
+                                <div className="w-full border-t border-gray-200 pt-6 space-y-4">
+                                    {item.features.map((feature, idx) => (
+                                        <div key={idx} className="text-xs font-medium text-gray-700">
+                                            {feature}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 视图 3：定制选配 (Configurator View) ---
+        const ConfiguratorView = ({ product, config, setConfig, onAddToCart }) => {
+            const [isAnimating, setIsAnimating] = useState(false);
+
+            // 计算总价
+            const totalPrice = product.basePrice + Object.values(config).reduce((acc, curr) => (curr ? acc + curr.price : acc), 0);
+
+            const handleOptionSelect = (optionId, value) => {
+                setConfig(prev => ({
+                    ...prev,
+                    [optionId]: value
+                }));
+                setIsAnimating(true);
+                setTimeout(() => setIsAnimating(false), 300);
+            };
+
+            return (
+                <div className="flex flex-col lg:flex-row h-screen pt-12 animate-fade-in">
+                    {/* 左侧：固定展示图 */}
+                    <div className="lg:w-2/3 h-[40vh] lg:h-full sticky top-12 bg-[#f5f5f7] flex flex-col items-center justify-center p-8 transition-colors duration-500">
+                        <div className={`transition-transform duration-500 ${isAnimating ? 'scale-95' : 'scale-100'}`}>
+                            <img 
+                                src={product.image} 
+                                alt={product.name} 
+                                className="max-w-full max-h-[60vh] object-contain drop-shadow-2xl"
+                                onError={(e) => {e.target.src='https://placehold.co/600x400/e0e0e0/1d1d1f?text=' + product.name}}
+                            />
+                        </div>
+                        <div className="mt-8 text-center lg:hidden">
+                            <h1 className="text-3xl font-semibold">{product.name}</h1>
+                            <p className="text-gray-500 mt-2">{formatCurrency(totalPrice)}</p>
+                        </div>
+                    </div>
+
+                    {/* 右侧：滚动配置项 */}
+                    <div className="lg:w-1/3 h-full overflow-y-auto bg-white px-6 py-12 lg:px-12 pb-32 no-scrollbar">
+                        <h1 className="text-4xl font-semibold mb-2 hidden lg:block">{product.name}</h1>
+                        <p className="text-gray-500 text-sm mb-8 hidden lg:block">定制你的专属设备。</p>
+
+                        {product.configOptions.map((group) => (
+                            <div key={group.id} className="mb-10">
+                                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                                    {group.id === 'chip' && <Cpu size={20} />}
+                                    {group.id === 'memory' && <Zap size={20} />}
+                                    {group.id === 'storage' && <HardDrive size={20} />}
+                                    {group.title}
+                                    {group.id === 'color' && config[group.id] && <span className="text-gray-400 text-sm font-normal ml-2">- {config[group.id].name}</span>}
+                                </h3>
+
+                                {/* 如果是颜色选择器 */}
+                                {group.type === 'color' ? (
+                                    <div className="flex gap-4">
+                                        {group.options.map((option) => (
+                                            <button
+                                                key={option.id}
+                                                onClick={() => handleOptionSelect(group.id, option)}
+                                                className={`w-12 h-12 rounded-full border-2 focus:outline-none transition-all ${
+                                                    config[group.id]?.id === option.id 
+                                                        ? 'border-[#0071e3] p-1' 
+                                                        : 'border-transparent hover:scale-110'
+                                                }`}
+                                            >
+                                                <div 
+                                                    className="w-full h-full rounded-full shadow-inner" 
+                                                    style={{ backgroundColor: option.colorCode }}
+                                                ></div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    /* 标准卡片选择器 */
+                                    <div className="space-y-3">
+                                        {group.options.map((option) => (
+                                            <div
+                                                key={option.id}
+                                                onClick={() => handleOptionSelect(group.id, option)}
+                                                className={`
+                                                    relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
+                                                    ${config[group.id]?.id === option.id 
+                                                        ? 'border-[#0071e3] bg-blue-50/10' 
+                                                        : 'border-gray-200 hover:border-gray-400'}
+                                                `}
+                                            >
+                                                <div className="flex justify-between items-center mb-1">
+                                                    <span className="font-semibold text-sm md:text-base">{option.name}</span>
+                                                    <span className="text-sm text-gray-600">
+                                                        {option.price > 0 ? `+ ${formatCurrency(option.price)}` : ''}
+                                                    </span>
+                                                </div>
+                                                {option.desc && (
+                                                    <p className="text-xs text-gray-500 max-w-[90%]">{option.desc}</p>
+                                                )}
+                                                {config[group.id]?.id === option.id && (
+                                                    <div className="absolute top-4 right-4 text-[#0071e3]">
+                                                        <Check size={16} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+
+                        {/* 底部购买栏 */}
+                        <div className="fixed bottom-0 left-0 lg:left-2/3 w-full lg:w-1/3 bg-[#f5f5f7]/90 backdrop-blur-md border-t border-gray-200 p-4 lg:p-6 z-10">
+                            <div className="flex justify-between items-start mb-4">
+                                <div>
+                                    <p className="text-xs text-gray-500">总计价格</p>
+                                    <p className="text-2xl font-semibold">{formatCurrency(totalPrice)}</p>
+                                </div>
+                            </div>
+                            <button 
+                                onClick={() => onAddToCart(product, config, totalPrice)}
+                                className="w-full bg-[#0071e3] text-white py-3 rounded-lg font-medium hover:bg-[#0077ed] transition-colors"
+                            >
+                                添加到购物袋
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 主应用组件 ---
+        const App = () => {
+            const [viewStack, setViewStack] = useState(['categories']); 
+            const [selectedCategory, setSelectedCategory] = useState(null);
+            const [selectedSeries, setSelectedSeries] = useState(null);
+            const [currentConfig, setCurrentConfig] = useState({}); 
+            const [chatMessages, setChatMessages] = useState([
+                { role: 'ai', text: '你好！我是您的智能选购助手。想了解光伏逆变器或者其他产品吗？' }
+            ]);
+
+            // 初始化配置
+            const initializeConfig = (series) => {
+                const initial = {};
+                if (series && series.configOptions) {
+                    series.configOptions.forEach(option => {
+                        initial[option.id] = option.options[0];
+                    });
+                }
+                setCurrentConfig(initial);
+            };
+
+            // 导航处理
+            const navigateTo = (view, data = null) => {
+                if (view === 'series') {
+                    setSelectedCategory(data);
+                }
+                if (view === 'configurator') {
+                    setSelectedSeries(data);
+                    initializeConfig(data);
+                }
+                setViewStack(prev => {
+                    if(prev[prev.length - 1] === view) return prev;
+                    return [...prev, view]
+                });
+                window.scrollTo(0, 0);
+            };
+
+            const goBack = () => {
+                setViewStack(prev => {
+                    const newStack = [...prev];
+                    newStack.pop();
+                    return newStack;
+                });
+            };
+
+            const handleAddToCart = (product, config, price) => {
+                console.log('Added to cart:', { product: product.name, config, price });
+                setChatMessages(prev => [...prev, { role: 'ai', text: `太棒了！${product.name} (￥${price}) 已加入您的购物袋。` }]);
+            };
+
+            // --- AI 逻辑核心 ---
+            const handleUserMessage = (text) => {
+                setChatMessages(prev => [...prev, { role: 'user', text }]);
+
+                const lowerText = text.toLowerCase();
+                let responseText = "抱歉，我不太理解您的需求。您可以试着说“看光伏逆变器”或“推荐一款家用型号”。";
+                let actionTaken = false;
+
+                // 逻辑 A: 匹配具体的配置项 (在选配页面生效)
+                if (viewStack[viewStack.length - 1] === 'configurator' && selectedSeries) {
+                    for (const group of selectedSeries.configOptions) {
+                        for (const option of group.options) {
+                            const keywords = option.keywords || [];
+                            if (keywords.some(k => lowerText.includes(k))) {
+                                setCurrentConfig(prev => ({ ...prev, [group.id]: option }));
+                                responseText = `没问题，已为您将配置调整为：${option.name}。`;
+                                actionTaken = true;
+                                break;
+                            }
+                        }
+                        if (actionTaken) break;
+                    }
+                }
+
+                // 逻辑 B: 匹配系列/产品 (跳转到选配页)
+                if (!actionTaken) {
+                    PRODUCT_DATA.forEach(cat => {
+                        cat.series.forEach(ser => {
+                            const keywords = ser.keywords || [];
+                            if (keywords.some(k => lowerText.includes(k))) {
+                                navigateTo('series', cat); 
+                                setTimeout(() => navigateTo('configurator', ser), 100); 
+                                responseText = `为您推荐 ${ser.name}，这是${ser.subName}。您可以定制具体参数。`;
+                                actionTaken = true;
+                            }
+                        });
+                    });
+                }
+
+                // 逻辑 C: 匹配大品类 (跳转到系列页)
+                if (!actionTaken) {
+                    PRODUCT_DATA.forEach(cat => {
+                        const keywords = cat.keywords || [];
+                        if (keywords.some(k => lowerText.includes(k))) {
+                            navigateTo('series', cat);
+                            responseText = `好的，带您进入 ${cat.name} 专区。请选择您感兴趣的系列。`;
+                            actionTaken = true;
+                        }
+                    });
+                }
+
+                setTimeout(() => {
+                    setChatMessages(prev => [...prev, { role: 'ai', text: responseText }]);
+                }, 600);
+            };
+
+            const currentView = viewStack[viewStack.length - 1];
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <NavBar currentView={currentView} onBack={goBack} />
+
+                    {currentView === 'categories' && (
+                        <CategoryView onSelectCategory={(cat) => navigateTo('series', cat)} />
+                    )}
+
+                    {currentView === 'series' && selectedCategory && (
+                        <SeriesView category={selectedCategory} onSelectSeries={(series) => navigateTo('configurator', series)} />
+                    )}
+
+                    {currentView === 'configurator' && selectedSeries && (
+                        <ConfiguratorView 
+                            product={selectedSeries} 
+                            config={currentConfig}
+                            setConfig={setCurrentConfig}
+                            onAddToCart={handleAddToCart} 
+                        />
+                    )}
+
+                    <ChatWidget onSendMessage={handleUserMessage} messages={chatMessages} />
+
+                    <footer className="bg-[#f5f5f7] py-8 px-4 lg:px-12 mt-auto border-t border-gray-200 text-xs text-gray-500">
+                        <div className="max-w-7xl mx-auto">
+                            <p className="mb-2">此网站为技术演示，非 Apple 官方网站。</p>
+                            <p>Copyright © 2024. All rights reserved.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

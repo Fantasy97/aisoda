@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标指针切换器</title>
+    <link rel="stylesheet" href="cursor-changer.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🖱️ 鼠标指针切换器</h1>
+        <p class="subtitle">点击下方按钮切换不同的鼠标指针样式</p>
+
+        <div class="demo-area" id="demoArea">
+            <p>在此区域移动鼠标查看效果</p>
+            <div class="demo-icon">👆</div>
+        </div>
+
+        <div class="current-cursor">
+            当前指针: <span id="cursorName">默认</span>
+        </div>
+
+        <div class="panel type-border">
+            <h2 class="panel-title">基础指针</h2>
+            <div class="cursor-grid">
+                <button class="cursor-btn" data-cursor="default" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M537.6 311.296v-34.304h-38.4v34.304c-101.888 9.216-183.296 89.6-194.048 190.976h-36.352v38.4h35.84c7.68 104.448 90.624 188.416 194.56 197.632v32.768h38.4v-32.768c103.936-9.216 186.88-92.672 194.56-197.632h35.84v-38.4h-36.352c-10.752-101.376-92.16-181.76-194.048-190.976zM15.872 466.944h31.744v103.936H15.872z"></path><path d="M971.264 468.992v33.792h-47.104c-11.264-208.384-180.224-373.76-386.56-383.488v-66.56h31.744V20.992H465.408v31.744h33.792v66.048C290.304 128.512 123.904 296.448 112.64 502.272H49.664v38.4H112.64c8.192 208.896 175.616 379.904 386.56 390.144v45.056h-33.792v31.744h103.936v-31.744H537.6v-45.056c208.384-9.728 378.368-178.176 386.56-390.144h46.592v31.744h31.744V468.992h-31.232z m-433.664 394.24v-61.952h-38.4v61.952c-173.568-9.728-310.784-150.016-317.952-322.56h55.808v-38.4H181.76c11.776-167.936 148.48-303.616 317.44-312.832v56.832h38.4V189.44c168.96 9.728 305.664 144.896 317.44 312.832h-55.296v38.4h55.808c-7.168 172.544-144.384 312.832-317.952 322.56z"></path></svg></span>
+                    <span class="label">默认</span>
+                </button>
+                <button class="cursor-btn" data-cursor="pointer" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M742 1024H487.2c-51.6 0-93.5-41.8-93.6-93.4v-19.9h-54.8c-16.5 0-29.8-13.3-29.9-29.8v-78.7h-30c-51.6 0.1-96.7-35-109.2-85.1l-68.2-271.3H63c-16.5 0-29.8-13.3-29.9-29.8V267.7c0-16.5 13.4-29.8 29.9-29.8h97.6V92.6c0-51.1 41.5-92.6 92.6-92.6 51.1 0 92.5 41.4 92.6 92.6v145.3h155.3V92.6c0-51.1 41.5-92.6 92.6-92.6 51.1 0 92.6 41.5 92.6 92.6v145.3h97.6c16.5 0 29.8 13.3 29.9 29.8V416c0 16.5-13.4 29.8-29.9 29.8h-38.5l-68.3 271.3c-12.6 50.1-57.6 85.1-109.2 85h-30v78.7c0 16.5-13.4 29.8-29.9 29.8h-54.8v19.9c0 18.7 15.2 33.8 33.9 33.8H742c18.7 0 33.8-15.1 33.9-33.8v-52.2c0-16.5 13.4-29.9 29.9-29.9s29.9 13.4 29.9 29.9v52.2c-0.2 51.7-42 93.5-93.7 93.5z"></path></svg></span>
+                    <span class="label">手指</span>
+                </button>
+                <button class="cursor-btn" data-cursor="text" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M640 424L480 624l16-120H384l160-200-16 120h112z"></path></svg></span>
+                    <span class="label">文本</span>
+                </button>
+                <button class="cursor-btn" data-cursor="move" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M760 768H264a48 48 0 0 1-48-48V424a296 296 0 0 1 592 0v296a48 48 0 0 1-48 48z m-32-336a216 216 0 0 0-432 0v256h432V432z m136 464H128l32-80h736z"></path></svg></span>
+                    <span class="label">移动</span>
+                </button>
+                <button class="cursor-btn" data-cursor="crosshair" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M537.6 311.296v-34.304h-38.4v34.304c-101.888 9.216-183.296 89.6-194.048 190.976h-36.352v38.4h35.84c7.68 104.448 90.624 188.416 194.56 197.632v32.768h38.4v-32.768c103.936-9.216 186.88-92.672 194.56-197.632h35.84v-38.4h-36.352c-10.752-101.376-92.16-181.76-194.048-190.976zM15.872 466.944h31.744v103.936H15.872z"></path></svg></span>
+                    <span class="label">十字</span>
+                </button>
+                <button class="cursor-btn" data-cursor="wait" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="#d4237a"><path d="M560.256 52.184h3.72c93.68 7.344 173.688 35.608 237.568 84.424 62.992 48.304 109.296 100 137.616 153.696 2.672 5.112 3.208 11.08 1.488 16.592a19.816 19.816 0 0 1-10.736 12.648l-319.12 163.464a79.52 79.52 0 0 1-14.576 95.208 79.496 79.496 0 1 1-55.664-136.68V74.128a21.312 21.312 0 0 1 6.832-16.088 20.632 20.632 0 0 1 16.6-5.856h-3.728z"></path></svg></span>
+                    <span class="label">等待</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="panel type-border">
+            <h2 class="panel-title">操作指针</h2>
+            <div class="cursor-grid">
+                <button class="cursor-btn" data-cursor="help" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <span class="icon"><svg viewBox="0 0 1034 1024" width="32" height="32" fill="white"><path d="M369.072068 424.840571l80.287453 7.288969-25.592985 25.647381a33.725082 33.725082 0 0 0-8.21369 21.948501 33.39871 33.39871 0 0 0 8.21369 21.948501l116.949881 116.949882a33.317117 33.317117 0 0 0 43.897002 0l25.592986-25.647381 3.644485 80.396244c3.644485 7.343365 3.644485 14.659532 10.879058 21.948501 69.408395 69.408395 138.707999 142.461274 208.197987 211.842471a33.208327 33.208327 0 0 0 43.897002 0l149.804639-153.394728z"></path></svg></span>
+                    <span class="label">帮助</span>
+                </button>
+                <button class="cursor-btn" data-cursor="not-allowed" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M640 424L480 624l16-120H384l160-200-16 120h112z"></path><path d="M760 768H264a48 48 0 0 1-48-48V424a296 296 0 0 1 592 0v296a48 48 0 0 1-48 48z"></path></svg></span>
+                    <span class="label">禁止</span>
+                </button>
+                <button class="cursor-btn" data-cursor="grab" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M704 0L480 624l16-120H384l160-200-16 120h112z"></path></svg></span>
+                    <span class="label">抓取</span>
+                </button>
+                <button class="cursor-btn" data-cursor="grabbing" style="background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M704 661.3c-58.9 0-106.7 47.8-106.7 106.7S645.1 874.7 704 874.7 810.7 826.9 810.7 768 762.9 661.3 704 661.3z"></path></svg></span>
+                    <span class="label">抓住</span>
+                </button>
+                <button class="cursor-btn" data-cursor="zoom-in" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="#d4237a"><path d="M298.976 375.664a278.416 278.416 0 0 0-31.664 213.72 280.824 280.824 0 0 0 128.312 173.688 278.992 278.992 0 0 0 144.912 40.496c22.92 0 45.84-2.928 68.808-8.28 151.232-37.56 243.424-191.264 205.864-342.496z"></path></svg></span>
+                    <span class="label">放大</span>
+                </button>
+                <button class="cursor-btn" data-cursor="zoom-out" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="#d4237a"><path d="M988.432 425.456a21.624 21.624 0 0 0-42.448 8.272c44.4 227.344-104.888 448.408-332.264 492.336-227.344 44.352-448.408-104.928-492.336-332.32z"></path></svg></span>
+                    <span class="label">缩小</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="panel type-border">
+            <h2 class="panel-title">调整大小指针</h2>
+            <div class="cursor-grid">
+                <button class="cursor-btn" data-cursor="n-resize" style="background: linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M512 128l-200 200h150v400h100V328h150z"></path></svg></span>
+                    <span class="label">上调整</span>
+                </button>
+                <button class="cursor-btn" data-cursor="s-resize" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M512 896l200-200H562V296h-100v400H312z"></path></svg></span>
+                    <span class="label">下调整</span>
+                </button>
+                <button class="cursor-btn" data-cursor="e-resize" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M896 512l-200-200v150H296v100h400v150z"></path></svg></span>
+                    <span class="label">右调整</span>
+                </button>
+                <button class="cursor-btn" data-cursor="w-resize" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M128 512l200 200V562h400v-100H328V312z"></path></svg></span>
+                    <span class="label">左调整</span>
+                </button>
+                <button class="cursor-btn" data-cursor="ne-resize" style="background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M768 256v320h-80V396L396 688l-56-56 292-292H452v-80z"></path></svg></span>
+                    <span class="label">右上</span>
+                </button>
+                <button class="cursor-btn" data-cursor="nw-resize" style="background: linear-gradient(135deg, #ffd3a5 0%, #fd6585 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M256 256v320h80V396l292 292 56-56L392 340h180v-80z"></path></svg></span>
+                    <span class="label">左上</span>
+                </button>
+                <button class="cursor-btn" data-cursor="se-resize" style="background: linear-gradient(135deg, #96fbc4 0%, #f9f586 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M768 768V448h-80v180L396 336l-56 56 292 292H452v80z"></path></svg></span>
+                    <span class="label">右下</span>
+                </button>
+                <button class="cursor-btn" data-cursor="sw-resize" style="background: linear-gradient(135deg, #fda085 0%, #f6d365 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M256 768V448h80v180l292-292 56 56L392 684h180v80z"></path></svg></span>
+                    <span class="label">左下</span>
+                </button>
+                <button class="cursor-btn" data-cursor="ew-resize" style="background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M128 512l200-200v150h368V312l200 200-200 200V562H328v150z"></path></svg></span>
+                    <span class="label">横向</span>
+                </button>
+                <button class="cursor-btn" data-cursor="ns-resize" style="background: linear-gradient(135deg, #868f96 0%, #596164 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M512 128l-200 200h150v368H312l200 200 200-200H562V328h150z"></path></svg></span>
+                    <span class="label">纵向</span>
+                </button>
+                <button class="cursor-btn" data-cursor="nesw-resize" style="background: linear-gradient(135deg, #7f7fd5 0%, #86a8e7 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M768 256v240h-80V356L356 688v140h-80V588h240v80H376l332-332h-140v-80z"></path></svg></span>
+                    <span class="label">对角1</span>
+                </button>
+                <button class="cursor-btn" data-cursor="nwse-resize" style="background: linear-gradient(135deg, #ee9ca7 0%, #ffdde1 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M256 256v240h80V356l332 332v140h80V588H508v80h140L316 336V196h-80z"></path></svg></span>
+                    <span class="label">对角2</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="panel type-border">
+            <h2 class="panel-title">其他指针</h2>
+            <div class="cursor-grid">
+                <button class="cursor-btn" data-cursor="progress" style="background: linear-gradient(135deg, #c471f5 0%, #fa71cd 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><circle cx="512" cy="512" r="100" opacity="0.4"></circle><path d="M512 200a312 312 0 0 1 0 624" stroke="white" stroke-width="60" fill="none"></path></svg></span>
+                    <span class="label">进度</span>
+                </button>
+                <button class="cursor-btn" data-cursor="cell" style="background: linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M512 256l-80 80h60v350h40V336h60z"></path><path d="M256 512l80-80v60h350v40H336v60z"></path></svg></span>
+                    <span class="label">单元格</span>
+                </button>
+                <button class="cursor-btn" data-cursor="context-menu" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><rect x="256" y="256" width="512" height="64" rx="8"></rect><rect x="256" y="400" width="512" height="64" rx="8"></rect><rect x="256" y="544" width="512" height="64" rx="8"></rect></svg></span>
+                    <span class="label">菜单</span>
+                </button>
+                <button class="cursor-btn" data-cursor="copy" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><rect x="256" y="256" width="400" height="512" rx="16" stroke="white" stroke-width="40" fill="none"></rect><rect x="368" y="144" width="400" height="512" rx="16" fill="white"></rect></svg></span>
+                    <span class="label">复制</span>
+                </button>
+                <button class="cursor-btn" data-cursor="alias" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><path d="M650 300a150 150 0 1 0-276 0M374 724a150 150 0 1 0 276 0M512 300v424"></path></svg></span>
+                    <span class="label">别名</span>
+                </button>
+                <button class="cursor-btn" data-cursor="none" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <span class="icon"><svg viewBox="0 0 1024 1024" width="32" height="32" fill="white"><circle cx="512" cy="512" r="200" stroke="white" stroke-width="40" fill="none"></circle><line x1="350" y1="350" x2="674" y2="674" stroke="white" stroke-width="40"></line></svg></span>
+                    <span class="label">隐藏</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cursor-changer.js"></script>
+</body>
+</html>

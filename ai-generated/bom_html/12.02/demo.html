@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASW S-G2 Sales IDE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* IDE 风格字体 */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f1115; /* Deep Editor Background */
+            color: #e2e8f0;
+            overflow: hidden; /* Prevent body scroll */
+        }
+
+        .mono-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* 极细边框风格 */
+        .ide-border {
+            border: 1px solid #2d313a;
+        }
+        .ide-border-r { border-right: 1px solid #2d313a; }
+        .ide-border-l { border-left: 1px solid #2d313a; }
+        .ide-border-b { border-bottom: 1px solid #2d313a; }
+        .ide-border-t { border-top: 1px solid #2d313a; }
+
+        /* 滚动条隐藏但保留功能 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track { background: #0f1115; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+
+        /* 拖拽视觉反馈 */
+        .dragging {
+            opacity: 0.5;
+            border: 1px dashed #3b82f6;
+        }
+        .sortable-ghost {
+            opacity: 0.4;
+            background-color: #2d313a;
+            border: 1px dashed #666;
+        }
+        .drag-over {
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 1px dashed #3b82f6;
+        }
+
+        /* Tab 样式 */
+        .sidebar-tab {
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .sidebar-tab.active {
+            border-bottom-color: #3b82f6;
+            color: #fff;
+            background-color: #1e222b;
+        }
+        .sidebar-tab:hover:not(.active) {
+            color: #e2e8f0;
+            background-color: #1e222b;
+        }
+        
+        /* 品牌色 */
+        .brand-blue { color: #3b82f6; }
+        .bg-brand-blue { background-color: #3b82f6; }
+
+        /* Grid Background */
+        .grid-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* 主工作区 Grid 布局 */
+        #main-canvas {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            background-color: #0f1115;
+            position: relative;
+        }
+
+        /* 拖拽手柄样式 */
+        .gutter {
+            background-color: #2d313a;
+            z-index: 20;
+            transition: background-color 0.2s;
+        }
+        .gutter:hover, .gutter.active {
+            background-color: #3b82f6;
+        }
+        .gutter-v {
+            width: 4px;
+            cursor: col-resize;
+            height: 100%;
+        }
+        .gutter-h {
+            height: 4px;
+            cursor: row-resize;
+            width: 100%;
+        }
+
+        /* AI Panel Animations */
+        #ai-history-panel {
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .expanded-input {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-color: transparent;
+        }
+        
+        /* Window Active/Drag States */
+        .window-drag-target {
+            box-shadow: inset 0 0 0 2px #3b82f6;
+            background-color: rgba(59, 130, 246, 0.05) !important;
+        }
+        .active-file-indicator {
+            border-left: 2px solid #3b82f6;
+            background-color: #1e222b;
+        }
+
+        /* A4 Paper Preview Style */
+        .a4-paper {
+            width: 595px; /* A4 aspect ratio scaled for screen */
+            height: 842px;
+            background: white;
+            color: #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            padding: 40px;
+            font-family: 'Inter', sans-serif;
+            transform-origin: top center;
+            transition: all 0.3s;
+        }
+        .preview-tab.active {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+
+    <!-- 主体区域 -->
+    <div class="flex-1 flex overflow-hidden">
+        
+        <!-- 2. 中间工作台 (Main Canvas) -->
+        <main class="flex-1 bg-[#1e1e1e] flex flex-col relative transition-all">
+            
+            <!-- AI Conversation / Command Bar -->
+            <div class="h-10 bg-[#16191f] flex items-center ide-border-b px-3 space-x-3 z-50 relative" id="conversation-bar">
+                <div class="text-xs font-bold tracking-wider brand-blue opacity-50 select-none whitespace-nowrap">
+                    SOLAR IDE
+                </div>
+                
+                <div class="flex-1 relative" id="ai-command-center">
+                    <div class="relative z-50 bg-[#0f1115] rounded-md border border-[#2d313a] transition-all duration-200" id="ai-input-wrapper">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-500 text-xs animate-pulse"></i>
+                        </div>
+                        <input type="text" id="ai-main-input" class="block w-full p-1.5 pl-9 text-xs text-gray-200 bg-transparent border-none focus:ring-0 focus:outline-none placeholder-gray-600 h-8" placeholder="Ask AI to layout modules..." autocomplete="off">
+                    </div>
+                    <!-- Dropdown Chat Panel -->
+                    <div id="ai-history-panel" class="hidden absolute top-full left-0 w-full bg-[#0f1115] border border-[#2d313a] border-t-0 rounded-b-md shadow-2xl z-40 flex flex-col h-[320px]">
+                        <div class="flex-1 overflow-y-auto p-3 space-y-3" id="dropdown-chat-history">
+                            <div class="flex items-start space-x-2">
+                                <div class="w-6 h-6 rounded-full bg-purple-900/50 flex items-center justify-center border border-purple-700 flex-shrink-0"><i class="fa-solid fa-robot text-purple-300 text-[10px]"></i></div>
+                                <div class="bg-[#1e222b] p-2 rounded-lg rounded-tl-none border border-[#2d313a] text-xs text-gray-300">我是 AI 助手。拖拽右侧组件以创建文档，或在此输入需求。</div>
+                            </div>
+                        </div>
+                        <div class="p-2 border-t border-[#2d313a] bg-[#16191f] rounded-b-md flex justify-between items-center text-[10px]">
+                            <button onclick="openFullAiAssistant(); closeAiPanel();" class="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors bg-[#1e222b] hover:bg-[#2d313a] px-3 py-1.5 rounded border border-[#2d313a]">
+                                <i class="fa-solid fa-up-right-from-square"></i><span>打开完整版</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Area (Grid System) -->
+            <div id="main-canvas" class="flex-1 overflow-hidden relative">
+                <!-- Empty State -->
+                <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-gray-600 z-0 pointer-events-none">
+                    <div class="flex space-x-4 mb-4 opacity-30">
+                        <i class="fa-solid fa-file-circle-plus text-5xl"></i>
+                    </div>
+                    <p class="text-sm">工作台为空</p>
+                    <p class="text-xs mt-2 opacity-50">从右侧目录点击或拖拽文件以打开</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 3. 统一右侧边栏 -->
+        <aside class="w-80 bg-[#16191f] ide-border-l flex flex-col flex-shrink-0 z-10 shadow-xl">
+            <div class="flex border-b border-[#2d313a] bg-[#16191f] select-none border-t-0">
+                <div class="flex-1 py-3 text-xs font-bold text-center sidebar-tab text-gray-500" onclick="switchSidebarTab('explorer')" id="tab-explorer"><i class="fa-solid fa-box-open mr-2"></i>组件库</div>
+                <div class="flex-1 py-3 text-xs font-bold text-center sidebar-tab text-gray-500 active" onclick="switchSidebarTab('builder')" id="tab-builder"><i class="fa-solid fa-folder-tree mr-2"></i>项目目录<span id="tab-badge" class="ml-1 px-1.5 rounded-full bg-blue-900 text-blue-200 text-[10px] hidden">0</span></div>
+            </div>
+
+            <!-- Panel: Explorer -->
+            <div id="panel-explorer" class="flex-1 flex flex-col overflow-y-auto hidden">
+                <div class="p-2 px-3 text-[10px] text-gray-500 uppercase tracking-wider font-bold bg-[#111318] border-b border-[#2d313a] flex justify-between items-center">Available Resources</div>
+                
+                <!-- Section 1: Inverters -->
+                <div class="mb-1 mt-2">
+                    <div class="px-3 py-1 text-xs text-gray-300 hover:bg-[#2d313a] cursor-pointer flex items-center group select-none transition-colors" onclick="toggleExplorerSection(this)">
+                        <i class="fa-solid fa-chevron-down text-[10px] w-4 transition-transform duration-200"></i>
+                        <span class="font-bold text-blue-400"><i class="fa-solid fa-bolt mr-2"></i>ASW S-G2 系列</span>
+                    </div>
+                    <div class="pl-4 mt-1 space-y-[1px] transition-all duration-200 origin-top">
+                        <div class="draggable-item px-4 py-3 hover:bg-[#2a2e37] cursor-grab active:cursor-grabbing border-l-2 border-transparent hover:border-blue-500 group" draggable="true" data-type="product" data-id="ASW-3000" data-title="ASW 3000 S-G2">
+                            <div class="flex justify-between items-center"><div class="text-sm text-gray-200">ASW 3000 S-G2</div></div><div class="text-[10px] text-gray-500">Residential Single Phase</div>
+                        </div>
+                        <div class="draggable-item px-4 py-3 hover:bg-[#2a2e37] cursor-grab active:cursor-grabbing border-l-2 border-transparent hover:border-blue-500 group" draggable="true" data-type="product" data-id="ASW-5000" data-title="ASW 5000 S-G2">
+                            <div class="flex justify-between items-center"><div class="text-sm text-gray-200">ASW 5000 S-G2</div></div><div class="text-[10px] text-gray-500 mono-font text-green-500">RECOMMENDED</div>
+                        </div>
+                        <div class="draggable-item px-4 py-3 hover:bg-[#2a2e37] cursor-grab active:cursor-grabbing border-l-2 border-transparent hover:border-blue-500 group" draggable="true" data-type="product" data-id="ASW-6000" data-title="ASW 6000 S-G2">
+                            <div class="flex justify-between items-center"><div class="text-sm text-gray-200">ASW 6000 S-G2</div></div><div class="text-[10px] text-gray-500">High Capacity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Tools -->
+                <div class="mt-2">
+                    <div class="px-3 py-1 text-xs text-gray-300 hover:bg-[#2d313a] cursor-pointer flex items-center group select-none transition-colors" onclick="toggleExplorerSection(this)">
+                        <i class="fa-solid fa-chevron-down text-[10px] w-4 transition-transform duration-200"></i>
+                        <span class="font-bold text-purple-400"><i class="fa-solid fa-calculator mr-2"></i>销售工具</span>
+                    </div>
+                    <div class="pl-4 mt-1 space-y-[1px] transition-all duration-200 origin-top">
+                         <div class="draggable-item px-4 py-3 hover:bg-[#2a2e37] cursor-grab active:cursor-grabbing group" draggable="true" data-type="calculator" data-id="roi-calc" data-title="ROI 计算器">
+                            <div class="flex justify-between items-center"><div class="text-sm text-gray-200">收益回报计算</div></div><div class="text-[10px] text-gray-500">Interactive Chart</div>
+                        </div>
+                        <div class="draggable-item px-4 py-3 hover:bg-[#2a2e37] cursor-grab active:cursor-grabbing group" draggable="true" data-type="ai-assistant" data-id="ai-guide" data-title="AI 智能导购">
+                            <div class="flex justify-between items-center"><div class="text-sm text-gray-200">AI 智能导购</div></div><div class="text-[10px] text-purple-400"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Smart Recommendation</div>
+                        </div>
+                        <div class="draggable-item px-4 py-3 hover:bg-[#2a2e37] cursor-grab active:cursor-grabbing group" draggable="true" data-type="3d-viewer" data-id="3d-model" data-title="3D 模型展示">
+                            <div class="flex justify-between items-center"><div class="text-sm text-gray-200">3D 模型展示</div></div><div class="text-[10px] text-orange-400"><i class="fa-solid fa-cube mr-1"></i>Interactive Viewer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: Builder (Renamed concept to Project Directory) -->
+            <div id="panel-builder" class="flex-1 flex flex-col h-full">
+                <!-- Drop Zone / List -->
+                <div id="brochure-stage" class="flex-1 overflow-y-auto p-2 space-y-1 bg-[#111318]">
+                    <div id="brochure-hint" class="border border-dashed border-gray-700 rounded p-6 text-center mt-10">
+                        <i class="fa-solid fa-folder-open text-gray-600 text-2xl mb-2"></i>
+                        <p class="text-xs text-gray-500">项目为空<br>从组件库添加内容</p>
+                        <button onclick="switchSidebarTab('explorer')" class="mt-4 text-xs text-blue-500 hover:text-blue-400 underline">打开组件库</button>
+                    </div>
+                    <!-- Items appended here -->
+                </div>
+                <!-- Footer Action -->
+                <div class="p-4 ide-border-t bg-[#16191f] flex-shrink-0">
+                    <button onclick="openPreviewModal()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 px-4 rounded transition flex items-center justify-center shadow-lg"><i class="fa-solid fa-eye mr-2"></i> 预览方案</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- PREVIEW MODAL -->
+    <div id="preview-modal" class="hidden fixed inset-0 z-[60] bg-black/80 flex items-center justify-center backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
+        <div class="bg-[#1e1e1e] w-[900px] h-[650px] rounded-lg border border-[#2d313a] flex flex-col shadow-2xl overflow-hidden">
+            <!-- Header -->
+            <div class="h-12 border-b border-[#2d313a] flex items-center justify-between px-4 bg-[#16191f]">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-print text-gray-400"></i>
+                    <span class="font-bold text-gray-200 text-sm">项目方案预览</span>
+                </div>
+                <button onclick="closePreviewModal()" class="text-gray-500 hover:text-white transition"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <!-- Body -->
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Sidebar / Tabs -->
+                <div class="w-56 bg-[#16191f] border-r border-[#2d313a] overflow-y-auto p-2 space-y-1" id="preview-tabs">
+                    <!-- Tabs generated via JS -->
+                </div>
+                
+                <!-- Preview Pane (Canvas for A4) -->
+                <div class="flex-1 bg-[#252830] p-8 flex items-start justify-center overflow-y-auto relative custom-scrollbar">
+                     <div id="preview-content" class="a4-paper transform scale-90 origin-top">
+                        <!-- Dynamic Page Content -->
+                        <div class="h-full flex flex-col items-center justify-center text-gray-400">
+                            <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
+                            <p>Loading preview...</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="h-14 border-t border-[#2d313a] bg-[#16191f] flex items-center justify-end px-4 space-x-3">
+                <div class="mr-auto text-[10px] text-gray-500">
+                    <i class="fa-solid fa-circle-info mr-1"></i> 导出将生成标准 A4 PDF 文档
+                </div>
+                <button onclick="closePreviewModal()" class="text-xs text-gray-400 hover:text-white px-3 py-2 rounded hover:bg-[#2d313a] transition">取消</button>
+                <button onclick="realExportPDF()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 px-4 rounded shadow-lg transition flex items-center">
+                    <i class="fa-solid fa-file-export mr-2"></i> 确认导出 PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates -->
+    <template id="tpl-product">
+        <div class="h-full flex flex-col">
+            <div class="flex items-start space-x-4 mb-4">
+                <div class="w-20 h-20 bg-gray-800 rounded flex items-center justify-center border border-gray-700 flex-shrink-0"><i class="fa-solid fa-server text-3xl text-gray-600"></i></div>
+                <div><h2 class="text-lg font-bold text-white mb-1 param-title truncate">TITLE</h2><p class="text-xs text-blue-400 mono-font mb-2">ASW S-G2 SERIES</p></div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mono-font text-xs flex-1 content-start">
+                <div class="bg-[#16191f] p-2 rounded border border-[#2d313a]"><span class="text-gray-500 block text-[10px] mb-0.5">Max. PV</span><span class="text-white">4500 Wp</span></div>
+                <div class="bg-[#16191f] p-2 rounded border border-[#2d313a]"><span class="text-gray-500 block text-[10px] mb-0.5">Voltage</span><span class="text-white">550V</span></div>
+                <div class="bg-[#16191f] p-2 rounded border border-[#2d313a]"><span class="text-gray-500 block text-[10px] mb-0.5">Current</span><span class="text-white">16 A</span></div>
+            </div>
+        </div>
+    </template>
+    <template id="tpl-calculator">
+        <div class="h-full flex flex-col">
+            <div class="text-sm font-bold text-gray-300 mb-2 border-b border-gray-700 pb-2">ROI 收益预估</div>
+            <div class="space-y-2 mb-4">
+                <div><label class="text-[10px] text-gray-500 block mb-1">屋顶可用面积 (m²)</label><input type="number" value="40" class="w-full bg-[#111318] border border-gray-700 rounded px-2 py-1 text-xs text-white focus:border-blue-500 outline-none"></div>
+            </div>
+            <div class="flex-1 bg-[#16191f] rounded border border-[#2d313a] relative p-2 flex items-end justify-around pb-0">
+                <div class="w-6 bg-blue-900 h-[20%] rounded-t"></div><div class="w-6 bg-blue-800 h-[35%] rounded-t"></div><div class="w-6 bg-blue-700 h-[50%] rounded-t"></div><div class="w-6 bg-blue-600 h-[65%] rounded-t"></div><div class="w-6 bg-blue-500 h-[80%] rounded-t"></div>
+            </div>
+            <div class="mt-2 text-center text-xs text-gray-400">回本: <span class="text-green-400 font-bold">3.2 年</span></div>
+        </div>
+    </template>
+    <template id="tpl-ai-assistant">
+        <div class="h-full flex flex-col bg-[#0f1115]">
+            <div class="text-sm font-bold text-gray-300 px-1 py-2 border-b border-[#2d313a] flex items-center justify-between">
+                <div class="flex items-center"><i class="fa-solid fa-wand-magic-sparkles mr-2 text-purple-500"></i> AI 智能导购 (Full)</div>
+            </div>
+            <div class="flex-1 flex overflow-hidden">
+                <div class="flex-1 flex flex-col border-r border-[#2d313a]">
+                    <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-purple-900/50 flex items-center justify-center border border-purple-700 flex-shrink-0"><i class="fa-solid fa-robot text-purple-300 text-xs"></i></div>
+                            <div class="bg-[#1e222b] p-3 rounded-lg rounded-tl-none border border-[#2d313a] text-xs text-gray-300 max-w-[80%]">我是选型助手，请告诉我您的需求。</div>
+                        </div>
+                    </div>
+                    <div class="p-3 border-t border-[#2d313a] bg-[#16191f]">
+                        <div class="relative"><textarea class="w-full bg-[#0f1115] border border-[#2d313a] rounded-lg p-3 pr-10 text-xs text-white focus:border-purple-500 outline-none resize-none h-12" placeholder="输入需求..."></textarea></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="tpl-3d-viewer">
+        <div class="h-full flex flex-col">
+            <div class="flex items-center justify-between text-sm font-bold text-gray-300 mb-2 border-b border-gray-700 pb-2"><span><i class="fa-solid fa-cube mr-2 text-orange-500"></i>3D 模型</span><span class="text-[10px] text-gray-500 bg-gray-800 px-1.5 rounded">WebGL</span></div>
+            <div class="flex-1 bg-[#0f1115] relative overflow-hidden rounded border border-gray-800 group grid-bg flex items-center justify-center">
+                <div class="w-32 h-40 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg shadow-2xl relative border border-gray-600 flex flex-col items-center justify-center"><div class="absolute top-4 text-[8px] font-bold text-gray-400">ASW</div><div class="w-20 h-8 bg-black/50 rounded mt-2 flex items-center justify-center border border-gray-600/50"><span class="text-[8px] text-green-400 font-mono">5.0 kW</span></div></div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        // --- State Management ---
+        let projectItems = []; // { id, type, title, instanceId }
+        let openWindowIds = []; // [instanceId1, instanceId2...]
+        let gridCols = [50, 50]; 
+        let gridRows = [50, 50]; 
+        const MAX_WINDOWS = 4;
+        let draggingWindowId = null; 
+        let draggedBuilderItem = null;
+        
+        // --- CACHE GLOBAL DOM ELEMENTS ---
+        const emptyStateComponent = document.getElementById('empty-state');
+        const brochureHintComponent = document.getElementById('brochure-hint');
+
+        // --- Core Logic: Create & Open ---
+        
+        // 1. Add Item to Project (The "File System" Logic)
+        function addProjectItem(data) {
+            const instanceId = 'inst-' + Date.now() + Math.random().toString(36).substr(2, 5);
+            const newItem = {
+                instanceId: instanceId,
+                type: data.type,
+                title: data.title,
+                originalId: data.id
+            };
+            
+            projectItems.push(newItem);
+            renderBuilderList();
+            
+            // Auto open in canvas if space permits
+            if (openWindowIds.length < MAX_WINDOWS) {
+                openWindow(instanceId);
+            }
+        }
+
+        // 2. Open Window in Canvas (The "Editor" Logic)
+        function openWindow(instanceId) {
+            if (openWindowIds.includes(instanceId)) {
+                return;
+            }
+            
+            if (openWindowIds.length >= MAX_WINDOWS) {
+                alert("工作台已满 (最多4个窗口)，请先关闭一个窗口");
+                return;
+            }
+
+            openWindowIds.push(instanceId);
+            updateLayout();
+            renderBuilderList();
+        }
+
+        // 3. Close Window (View only)
+        function closeWindow(instanceId) {
+            openWindowIds = openWindowIds.filter(id => id !== instanceId);
+            updateLayout();
+            renderBuilderList();
+        }
+
+        // 4. Delete Project Item (Destructive)
+        function deleteProjectItem(instanceId, e) {
+            e.stopPropagation();
+            projectItems = projectItems.filter(item => item.instanceId !== instanceId);
+            
+            // Also close window if open
+            if (openWindowIds.includes(instanceId)) {
+                openWindowIds = openWindowIds.filter(id => id !== instanceId);
+                updateLayout();
+            }
+            
+            renderBuilderList();
+        }
+
+        // --- PREVIEW MODAL LOGIC ---
+        function openPreviewModal() {
+            if(projectItems.length === 0) {
+                alert("请先添加项目内容");
+                return;
+            }
+            
+            const modal = document.getElementById('preview-modal');
+            const tabsContainer = document.getElementById('preview-tabs');
+            
+            // Populate Tabs
+            tabsContainer.innerHTML = '';
+            projectItems.forEach((item, index) => {
+                const tab = document.createElement('div');
+                tab.className = `preview-tab p-2 rounded cursor-pointer mb-1 text-xs text-gray-400 hover:text-white hover:bg-[#2d313a] flex items-center space-x-2 transition ${index === 0 ? 'active' : ''}`;
+                tab.innerHTML = `<span class="w-4 text-center text-[10px] opacity-50">${index+1}</span> <span class="truncate">${item.title}</span>`;
+                tab.onclick = () => switchPreviewTab(index);
+                tabsContainer.appendChild(tab);
+            });
+            
+            // Show Modal
+            modal.classList.remove('hidden');
+            
+            // Render first page
+            switchPreviewTab(0);
+        }
+        
+        function closePreviewModal() {
+            document.getElementById('preview-modal').classList.add('hidden');
+        }
+        
+        function switchPreviewTab(index) {
+            // Update Tab UI
+            const tabs = document.querySelectorAll('.preview-tab');
+            tabs.forEach((t, i) => {
+                if(i === index) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+            
+            // Update Preview Content
+            const item = projectItems[index];
+            const content = document.getElementById('preview-content');
+            
+            // Simulate A4 Content Rendering based on type
+            let htmlContent = '';
+            
+            if (item.type === 'product') {
+                htmlContent = `
+                    <h1 class="text-2xl font-bold mb-2 border-b-2 border-blue-600 pb-2">${item.title}</h1>
+                    <div class="text-sm text-gray-500 mb-8">Technical Specification Sheet</div>
+                    
+                    <div class="flex mb-8">
+                        <div class="w-1/2 pr-4">
+                            <div class="bg-gray-100 h-48 rounded flex items-center justify-center border border-gray-200">
+                                <i class="fa-solid fa-server text-6xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="w-1/2 pl-4">
+                            <h2 class="text-lg font-bold mb-4 text-gray-800">Key Features</h2>
+                            <ul class="list-disc list-inside space-y-2 text-sm text-gray-700">
+                                <li>Max. PV array power: 4500 Wp STC</li>
+                                <li>MPPT Voltage range: 80V - 550V</li>
+                                <li>Max. Input Current: 16 A</li>
+                                <li>Protection Class: IP66</li>
+                                <li>Integrated WiFi stick</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-lg font-bold mb-4 text-gray-800">Performance Data</h2>
+                    <table class="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 border-b border-gray-300">
+                                <th class="py-2 px-2">Parameter</th>
+                                <th class="py-2 px-2">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200"><td class="py-2 px-2">Nominal AC Power</td><td class="py-2 px-2 font-mono">5000 W</td></tr>
+                            <tr class="border-b border-gray-200"><td class="py-2 px-2">Max. Efficiency</td><td class="py-2 px-2 font-mono">98.4%</td></tr>
+                            <tr class="border-b border-gray-200"><td class="py-2 px-2">Grid Connection</td><td class="py-2 px-2">Single Phase</td></tr>
+                        </tbody>
+                    </table>
+                `;
+            } else if (item.type === 'calculator') {
+                htmlContent = `
+                    <h1 class="text-2xl font-bold mb-2 border-b-2 border-green-600 pb-2">ROI Analysis</h1>
+                    <div class="text-sm text-gray-500 mb-8">Generated Report for: Villa Project</div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-blue-50 p-4 rounded border border-blue-100">
+                            <div class="text-xs text-gray-500">Estimated Payback</div>
+                            <div class="text-3xl font-bold text-blue-600">3.2 Years</div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded border border-green-100">
+                            <div class="text-xs text-gray-500">25-Year Savings</div>
+                            <div class="text-3xl font-bold text-green-600">¥ 124,500</div>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-lg font-bold mb-4 text-gray-800">Financial Projection</h2>
+                    <div class="bg-gray-50 h-64 w-full border border-gray-200 rounded flex items-end justify-around px-8 pb-0 pt-8 mb-4">
+                        <div class="w-8 bg-blue-400 h-[20%]"></div>
+                        <div class="w-8 bg-blue-500 h-[40%]"></div>
+                        <div class="w-8 bg-blue-600 h-[60%]"></div>
+                        <div class="w-8 bg-blue-700 h-[80%]"></div>
+                        <div class="w-8 bg-blue-800 h-[90%]"></div>
+                    </div>
+                    <div class="text-center text-xs text-gray-500 italic">Simulated annual yield based on 40m² roof area.</div>
+                `;
+            } else {
+                htmlContent = `
+                    <h1 class="text-2xl font-bold mb-2 border-b-2 border-purple-600 pb-2">${item.title}</h1>
+                    <div class="text-sm text-gray-500 mb-8">Module Report</div>
+                    <div class="p-8 border border-dashed border-gray-300 rounded bg-gray-50 text-center text-gray-400">
+                        <i class="fa-solid fa-cube text-4xl mb-4"></i>
+                        <p>Visual content placeholder for ${item.type}</p>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = htmlContent;
+        }
+        
+        function realExportPDF() {
+            const btn = document.querySelector('button[onclick="realExportPDF()"]');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Generating...`;
+            btn.classList.add('opacity-75', 'cursor-wait');
+            
+            setTimeout(() => {
+                btn.innerHTML = `<i class="fa-solid fa-check mr-2"></i> Sent to Email`;
+                btn.classList.replace('bg-blue-600', 'bg-green-600');
+                
+                setTimeout(() => {
+                    alert(`PDF 导出成功！`);
+                    closePreviewModal();
+                    // Reset button state slightly delayed
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.replace('bg-green-600', 'bg-blue-600');
+                        btn.classList.remove('opacity-75', 'cursor-wait');
+                    }, 500);
+                }, 800);
+            }, 1500);
+        }
+
+        // --- Helper for Drag Sorting ---
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.draggable-builder-item:not(.dragging)')];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        // --- Rendering ---
+
+        function renderBuilderList() {
+            const stage = document.getElementById('brochure-stage');
+            const badge = document.getElementById('tab-badge');
+            
+            // Update badge
+            badge.innerText = projectItems.length;
+            badge.classList.remove('hidden');
+            
+            // Clear list
+            stage.innerHTML = '';
+            
+            if(projectItems.length === 0) {
+                badge.classList.add('hidden');
+                // Use cached hint element
+                brochureHintComponent.style.display = 'block';
+                stage.appendChild(brochureHintComponent);
+                return;
+            }
+
+            projectItems.forEach(item => {
+                const isOpen = openWindowIds.includes(item.instanceId);
+                const div = document.createElement('div');
+                div.className = `draggable-builder-item p-2 rounded cursor-pointer border border-transparent hover:border-gray-700 group flex items-center justify-between mb-1 select-none transition-all ${isOpen ? 'active-file-indicator' : 'bg-[#1e222b]'}`;
+                div.draggable = true;
+                div.dataset.instanceId = item.instanceId; // Store for logic finding
+                
+                let icon = 'fa-bolt';
+                if (item.type === 'calculator') icon = 'fa-chart-pie';
+                if (item.type === 'ai-assistant') icon = 'fa-robot';
+                if (item.type === '3d-viewer') icon = 'fa-cube';
+
+                div.innerHTML = `
+                    <div class="flex items-center space-x-3 overflow-hidden pointer-events-none">
+                        <div class="w-8 h-8 ${isOpen ? 'bg-blue-900/50 text-blue-400' : 'bg-[#0f1115] text-gray-500'} rounded flex items-center justify-center flex-shrink-0 transition-colors">
+                            <i class="fa-solid ${icon}"></i>
+                        </div>
+                        <div class="flex flex-col overflow-hidden">
+                            <div class="text-xs ${isOpen ? 'text-white font-bold' : 'text-gray-300'} truncate">${item.title}</div>
+                            <div class="text-[10px] text-gray-600 truncate">${isOpen ? 'Opened' : 'Saved'}</div>
+                        </div>
+                    </div>
+                    <button class="text-gray-600 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity" title="Delete File">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+
+                // Events
+                div.onclick = () => openWindow(item.instanceId);
+                div.querySelector('button').onclick = (e) => deleteProjectItem(item.instanceId, e);
+                
+                // Reorder drag logic (Sidebar internal)
+                div.addEventListener('dragstart', (e) => {
+                    draggedBuilderItem = div; // Set dragged item
+                    // Also allow dragging BACK to canvas to open (Dual purpose logic)
+                    window.draggedData = { 
+                        type: item.type, title: item.title, id: item.originalId, 
+                        instanceId: item.instanceId,
+                        source: 'builder' 
+                    };
+                    
+                    div.classList.add('dragging'); // Add visual class
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                
+                div.addEventListener('dragend', () => {
+                    draggedBuilderItem = null;
+                    window.draggedData = null;
+                    div.classList.remove('dragging');
+                });
+
+                stage.appendChild(div);
+            });
+        }
+
+        function updateLayout() {
+            const canvas = document.getElementById('main-canvas');
+            canvas.innerHTML = '';
+            
+            if (openWindowIds.length === 0) {
+                // Use the CACHED empty state
+                canvas.appendChild(emptyStateComponent);
+                canvas.style.display = 'flex';
+                return;
+            } else {
+                canvas.style.display = 'grid';
+            }
+
+            // Grid Template Logic (Same as before)
+            const colTemplate = `${gridCols[0]}% 4px ${gridCols[1]}%`;
+            const rowTemplate = `${gridRows[0]}% 4px ${gridRows[1]}%`;
+
+            if (openWindowIds.length === 1) {
+                canvas.style.gridTemplateColumns = "1fr";
+                canvas.style.gridTemplateRows = "1fr";
+            } else if (openWindowIds.length === 2) {
+                canvas.style.gridTemplateColumns = colTemplate;
+                canvas.style.gridTemplateRows = "1fr";
+            } else if (openWindowIds.length >= 3) {
+                canvas.style.gridTemplateColumns = colTemplate;
+                canvas.style.gridTemplateRows = rowTemplate;
+            }
+
+            // Render Windows
+            openWindowIds.forEach((instId, index) => {
+                const item = projectItems.find(p => p.instanceId === instId);
+                if (!item) return; // Should not happen
+
+                const winDiv = document.createElement('div');
+                winDiv.className = 'tile-window relative bg-[#1e1e1e] ide-border flex flex-col z-10 w-full h-full overflow-hidden transition-all duration-200';
+                winDiv.id = instId;
+
+                // --- Grid Positioning Logic (Master-Stack) ---
+                if (openWindowIds.length === 1) {
+                    winDiv.style.gridColumn = "1 / -1"; winDiv.style.gridRow = "1 / -1";
+                } else if (openWindowIds.length === 2) {
+                    winDiv.style.gridColumn = index === 0 ? "1 / 2" : "3 / 4"; winDiv.style.gridRow = "1 / -1";
+                } else if (openWindowIds.length === 3) {
+                    if (index === 0) { winDiv.style.gridColumn = "1 / 2"; winDiv.style.gridRow = "1 / -1"; }
+                    if (index === 1) { winDiv.style.gridColumn = "3 / 4"; winDiv.style.gridRow = "1 / 2"; }
+                    if (index === 2) { winDiv.style.gridColumn = "3 / 4"; winDiv.style.gridRow = "3 / 4"; }
+                } else if (openWindowIds.length === 4) {
+                    if (index === 0) { winDiv.style.gridColumn = "1 / 2"; winDiv.style.gridRow = "1 / 2"; }
+                    if (index === 1) { winDiv.style.gridColumn = "3 / 4"; winDiv.style.gridRow = "1 / 2"; }
+                    if (index === 2) { winDiv.style.gridColumn = "1 / 2"; winDiv.style.gridRow = "3 / 4"; }
+                    if (index === 3) { winDiv.style.gridColumn = "3 / 4"; winDiv.style.gridRow = "3 / 4"; }
+                }
+
+                // Icon logic -- Defined HERE to fix ReferenceError
+                let iconClass = 'fa-bolt';
+                if (item.type === 'calculator') iconClass = 'fa-calculator';
+                if (item.type === 'ai-assistant') iconClass = 'fa-robot text-purple-500';
+                if (item.type === '3d-viewer') iconClass = 'fa-cube text-orange-500';
+
+                // Render Content
+                winDiv.innerHTML = `
+                    <div class="window-header h-8 bg-[#252830] flex items-center justify-between px-3 ide-border-b group select-none cursor-move" draggable="true">
+                        <div class="flex items-center text-xs text-gray-300 truncate pointer-events-none">
+                            <i class="fa-solid ${iconClass} mr-2 text-blue-500"></i>
+                            ${item.title}
+                        </div>
+                        <button class="text-gray-500 hover:text-red-400" title="Close View" onclick="closeWindow('${instId}')">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="flex-1 p-4 overflow-y-auto window-content bg-[#1e1e1e] relative"></div>
+                `;
+
+                // Inject Template
+                let tId = 'tpl-product';
+                if (item.type === 'calculator') tId = 'tpl-calculator';
+                if (item.type === 'ai-assistant') tId = 'tpl-ai-assistant';
+                if (item.type === '3d-viewer') tId = 'tpl-3d-viewer';
+                const t = document.getElementById(tId);
+                const c = t.content.cloneNode(true);
+                if(item.type === 'product') {
+                    const titleEl = c.querySelector('.param-title');
+                    if(titleEl) titleEl.innerText = item.title;
+                }
+                winDiv.querySelector('.window-content').appendChild(c);
+
+                // --- Drag Logic ---
+                // Source: Header
+                const header = winDiv.querySelector('.window-header');
+                header.addEventListener('dragstart', (e) => {
+                    draggingWindowId = instId;
+                    e.dataTransfer.effectAllowed = 'move';
+                    // Optional: Set drag image to the whole window for better visual
+                    e.dataTransfer.setDragImage(winDiv, 0, 0); 
+                });
+                header.addEventListener('dragend', () => {
+                    draggingWindowId = null;
+                });
+
+                // Target: Whole Window
+                winDiv.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (draggingWindowId && draggingWindowId !== instId) {
+                        winDiv.classList.add('window-drag-target');
+                    }
+                });
+                winDiv.addEventListener('dragleave', () => {
+                    winDiv.classList.remove('window-drag-target');
+                });
+                winDiv.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); // Stop bubbling to mainCanvas
+                    winDiv.classList.remove('window-drag-target');
+                    
+                    if (draggingWindowId && draggingWindowId !== instId) {
+                        const srcIdx = openWindowIds.indexOf(draggingWindowId);
+                        const tgtIdx = openWindowIds.indexOf(instId);
+                        if (srcIdx > -1 && tgtIdx > -1) {
+                            // Swap positions in the array
+                            [openWindowIds[srcIdx], openWindowIds[tgtIdx]] = [openWindowIds[tgtIdx], openWindowIds[srcIdx]];
+                            updateLayout(); // Re-render
+                        }
+                    }
+                });
+
+                canvas.appendChild(winDiv);
+            });
+
+            // Add Gutters (Same as before)
+            if (openWindowIds.length >= 2) {
+                const gV = document.createElement('div'); gV.className = 'gutter gutter-v';
+                gV.style.gridColumn = "2 / 3"; gV.style.gridRow = "1 / -1";
+                gV.addEventListener('mousedown', (e) => initResize(e, 'col'));
+                canvas.appendChild(gV);
+            }
+            if (openWindowIds.length >= 3) {
+                const gH = document.createElement('div'); gH.className = 'gutter gutter-h';
+                gH.style.gridRow = "2 / 3";
+                gH.style.gridColumn = openWindowIds.length === 3 ? "3 / 4" : "1 / -1";
+                gH.addEventListener('mousedown', (e) => initResize(e, 'row'));
+                canvas.appendChild(gH);
+            }
+        }
+
+        // --- Drag From Sidebar Logic ---
+        const mainCanvas = document.getElementById('main-canvas');
+        const brochureStage = document.getElementById('brochure-stage');
+        let draggedData = null; // Global drag data
+
+        // Explorer Items
+        document.querySelectorAll('.draggable-item').forEach(el => {
+            el.addEventListener('dragstart', () => {
+                draggedData = {
+                    type: el.dataset.type, title: el.dataset.title, id: el.dataset.id
+                };
+            });
+        });
+
+        // Drop on Canvas
+        mainCanvas.addEventListener('dragover', e => e.preventDefault());
+        mainCanvas.addEventListener('drop', e => {
+            e.preventDefault();
+            if (!draggedData) return;
+            
+            // Check if dragging internal window
+            if (draggingWindowId) return; // Handled by window swap logic
+
+            // Check if dragging existing project item (from builder)
+            if (draggedData.source === 'builder') {
+                openWindow(draggedData.instanceId);
+            } else {
+                // Dragging new from Explorer
+                addProjectItem(draggedData);
+            }
+            draggedData = null;
+        });
+
+        // Builder Logic: Reordering & Drop New
+        brochureStage.addEventListener('dragover', e => {
+            e.preventDefault();
+            
+            // If dragging items internally for sort
+            if (draggedBuilderItem) {
+                const afterElement = getDragAfterElement(brochureStage, e.clientY);
+                if (afterElement == null) {
+                    brochureStage.appendChild(draggedBuilderItem);
+                } else {
+                    brochureStage.insertBefore(draggedBuilderItem, afterElement);
+                }
+            } else {
+                // Dragging NEW item from Explorer to list
+                brochureStage.classList.add('bg-gray-800');
+            }
+        });
+        
+        brochureStage.addEventListener('dragleave', e => {
+            if(!draggedBuilderItem) brochureStage.classList.remove('bg-gray-800');
+        });
+
+        brochureStage.addEventListener('drop', e => {
+            e.preventDefault();
+            brochureStage.classList.remove('bg-gray-800');
+            
+            // 1. Internal Sort Drop
+            if (draggedBuilderItem) {
+                // Sync data array to match new DOM order
+                const newOrderIds = [...brochureStage.querySelectorAll('.draggable-builder-item')].map(el => el.dataset.instanceId);
+                const newProjectItems = [];
+                newOrderIds.forEach(id => {
+                    const item = projectItems.find(p => p.instanceId === id);
+                    if(item) newProjectItems.push(item);
+                });
+                projectItems = newProjectItems;
+                
+                draggedBuilderItem = null;
+                return;
+            }
+            
+            // 2. New Item Drop from Explorer
+            if (draggedData) {
+                if (draggedData.source !== 'builder') {
+                    addProjectItem(draggedData);
+                }
+                draggedData = null;
+            }
+        });
+
+
+        // --- Resize Logic (Keep existing) ---
+        function initResize(e, type) {
+            e.preventDefault();
+            const canvas = document.getElementById('main-canvas');
+            const startX = e.clientX; const startY = e.clientY;
+            const rect = canvas.getBoundingClientRect();
+            const startColPct = gridCols[0]; const startRowPct = gridRows[0];
+
+            function onMouseMove(e) {
+                if (type === 'col') {
+                    const deltaX = e.clientX - startX;
+                    const deltaPct = (deltaX / rect.width) * 100;
+                    let newPct = Math.max(10, Math.min(90, startColPct + deltaPct));
+                    gridCols = [newPct, 100 - newPct];
+                } else {
+                    const deltaY = e.clientY - startY;
+                    const deltaPct = (deltaY / rect.height) * 100;
+                    let newPct = Math.max(10, Math.min(90, startRowPct + deltaPct));
+                    gridRows = [newPct, 100 - newPct];
+                }
+                const colTemplate = `${gridCols[0]}% 4px ${gridCols[1]}%`;
+                const rowTemplate = `${gridRows[0]}% 4px ${gridRows[1]}%`;
+                if (openWindowIds.length >= 2) canvas.style.gridTemplateColumns = colTemplate;
+                if (openWindowIds.length >= 3) canvas.style.gridTemplateRows = rowTemplate;
+            }
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+
+        // --- AI & Tab Utils (Keep existing) ---
+        // ... (AI Panel logic remains same) ...
+        const aiInput = document.getElementById('ai-main-input');
+        const aiInputWrapper = document.getElementById('ai-input-wrapper');
+        const aiHistoryPanel = document.getElementById('ai-history-panel');
+        const aiCommandCenter = document.getElementById('ai-command-center');
+        function openAiPanel() {
+            aiHistoryPanel.classList.remove('hidden');
+            aiInputWrapper.classList.add('expanded-input', 'border-[#3b82f6]', 'ring-1', 'ring-[#3b82f6]');
+            aiHistoryPanel.classList.add('border-[#3b82f6]', 'ring-1', 'ring-[#3b82f6]', 'ring-t-0');
+        }
+        function closeAiPanel() {
+            aiHistoryPanel.classList.add('hidden');
+            aiInputWrapper.classList.remove('expanded-input', 'border-[#3b82f6]', 'ring-1', 'ring-[#3b82f6]');
+            aiHistoryPanel.classList.remove('border-[#3b82f6]', 'ring-1', 'ring-[#3b82f6]', 'ring-t-0');
+        }
+        function toggleAiHistory() {
+            if(aiHistoryPanel.classList.contains('hidden')) { openAiPanel(); aiInput.focus(); } else { closeAiPanel(); }
+        }
+        function openFullAiAssistant() {
+            addProjectItem({ type: 'ai-assistant', title: 'AI 智能导购', id: 'ai-full-mode' });
+        }
+        aiInput.addEventListener('focus', openAiPanel);
+        document.addEventListener('click', (e) => {
+            if (!aiCommandCenter.contains(e.target)) { closeAiPanel(); }
+        });
+
+        function switchSidebarTab(tabName) {
+            document.querySelectorAll('.sidebar-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            if(tabName === 'explorer') {
+                document.getElementById('panel-explorer').classList.remove('hidden');
+                document.getElementById('panel-builder').classList.add('hidden');
+            } else {
+                document.getElementById('panel-explorer').classList.add('hidden');
+                document.getElementById('panel-builder').classList.remove('hidden');
+                document.getElementById('panel-builder').classList.add('flex');
+            }
+        }
+
+        // --- NEW: Toggle Explorer Section Function ---
+        function toggleExplorerSection(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.fa-chevron-down');
+            
+            if (content.classList.contains('hidden')) {
+                // Show
+                content.classList.remove('hidden');
+                // Remove rotation to point down
+                arrow.classList.remove('-rotate-90');
+            } else {
+                // Hide
+                content.classList.add('hidden');
+                // Rotate to point right
+                arrow.classList.add('-rotate-90');
+            }
+        }
+    </script>
+</body>
+</html>

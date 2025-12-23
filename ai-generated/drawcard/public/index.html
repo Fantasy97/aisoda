@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽牌游戏测试Demo</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 抽牌游戏测试Demo</h1>
+            <p>基于零和博弈的多人卡牌游戏</p>
+        </div>
+
+        <div class="game-info">
+            <div class="info-card">
+                <h3>游戏状态</h3>
+                <p id="gameState">等待开始</p>
+            </div>
+            <div class="info-card">
+                <h3>奖池总额</h3>
+                <p id="totalPool">0</p>
+            </div>
+            <div class="info-card">
+                <h3>当前出价</h3>
+                <p id="currentBid">0</p>
+            </div>
+        </div>
+
+        <!-- 游戏回合信息 -->
+        <div class="game-info" id="roundInfo" style="display: none;">
+            <div class="info-card">
+                <h3>当前回合</h3>
+                <p id="gameRound">0</p>
+            </div>
+            <div class="info-card">
+                <h3>回合阶段</h3>
+                <p id="roundPhase">-</p>
+            </div>
+            <div class="info-card">
+                <h3>剩余价值牌</h3>
+                <p><span id="remainingValueCards">0</span> 张</p>
+            </div>
+            <div class="info-card">
+                <h3>剩余价值总额</h3>
+                <p id="remainingValueTotal">0</p>
+            </div>
+        </div>
+
+        <div class="game-info">
+            <div class="info-card">
+                <h3>🃏 牌库信息</h3>
+                <div>总牌数: <span id="totalCards">0</span></div>
+                <div>剩余价值: <span id="remainingValue">0</span></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-success" onclick="initGame()">🎮 开始新游戏</button>
+            <button class="btn btn-warning" onclick="resetGame()">🔄 重置游戏</button>
+            <button class="btn btn-primary" onclick="toggleDebug()">🔧 调试面板</button>
+        </div>
+
+        <div id="biddingSection" class="bidding-section" style="display: none;">
+            <div class="bidding-info">
+                <h3>🏠 地主竞拍阶段</h3>
+                <div>当前最高价: <span id="biddingCurrentBid">0</span> 积分</div>
+                <div>当前出价者: <span id="currentBidder">无</span></div>
+            </div>
+            <div class="bid-input">
+                <input type="number" id="bidAmount" placeholder="出价金额" min="10" step="10">
+                <button class="btn btn-primary" onclick="placeBid()">出价</button>
+                <button class="btn btn-warning" onclick="passBid()">放弃</button>
+            </div>
+        </div>
+
+        <div id="cardsSection" style="display: none;">
+            <h3>🎴 玩家抽牌区域</h3>
+            <div id="playersCardsContainer" class="players-cards-container"></div>
+        </div>
+
+        <div class="players-section">
+            <h2>👥 玩家状态</h2>
+            <div class="players-grid" id="playersGrid"></div>
+        </div>
+
+        <div id="debugSection" class="debug-panel" style="display: none;">
+            <div class="debug-panel-header">
+                <h3>🛠️ 开发者调试面板</h3>
+                <button class="btn btn-secondary btn-sm" onclick="copyGameStateToClipboard()">📋 复制状态</button>
+            </div>
+            <div class="debug-panel-content">
+                <div class="debug-column">
+                    <h4>实时游戏状态 (gameState)</h4>
+                    <pre id="gameStateDebug" class="game-state-view"></pre>
+                </div>
+                <div class="debug-column">
+                    <h4>Socket.IO 事件流</h4>
+                    <div id="socketEventsLog" class="socket-log"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-section">
+            <h3>📝 游戏日志</h3>
+            <div id="debugGuide" class="debug-guide"></div>
+            <div id="gameLog"></div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

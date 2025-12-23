@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌宠Demo - 功能展示</title>
+    <link rel="stylesheet" href="desktop-pet-demo.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 画布区域 -->
+        <div class="canvas-container" id="canvasContainer">
+            <!-- 悬浮窗口将在这里生成 -->
+        </div>
+        
+        <!-- 桌宠图标区域 -->
+        <div class="pet-container" id="petContainer">
+            <div class="pet-wrapper">
+                <img src="桌宠图标1.png" alt="桌宠" class="pet-icon" id="petIcon">
+                <div class="pet-hint" id="petHint">点击我查看功能</div>
+            </div>
+        </div>
+
+        <!-- 功能按钮区域（初始隐藏） -->
+        <div class="features-container" id="featuresContainer">
+            <!-- 功能1: 帮我联系 -->
+            <div class="feature-btn" data-feature="contact" style="--angle: 0deg;">
+                <div class="btn-icon">💬</div>
+                <div class="btn-label">帮我联系</div>
+                <div class="btn-tooltip">新建群组</div>
+            </div>
+
+            <!-- 功能2: 给我总结 -->
+            <div class="feature-btn" data-feature="summary" style="--angle: 90deg;">
+                <div class="btn-icon">📋</div>
+                <div class="btn-label">给我总结</div>
+                <div class="btn-tooltip">拖拽交互</div>
+            </div>
+
+            <!-- 功能3: 教我做事 -->
+            <div class="feature-btn" data-feature="guide" style="--angle: 180deg;">
+                <div class="btn-icon">🎓</div>
+                <div class="btn-label">教我做事</div>
+                <div class="btn-tooltip">语音交互</div>
+            </div>
+
+            <!-- 功能4: 替我干活 -->
+            <div class="feature-btn" data-feature="work" style="--angle: 270deg;">
+                <div class="btn-icon">⚡</div>
+                <div class="btn-label">替我干活</div>
+                <div class="btn-tooltip">自动执行</div>
+            </div>
+        </div>
+
+        <!-- 关闭按钮（展开后显示） -->
+        <button class="close-btn" id="closeBtn" style="display: none;">
+            <span>×</span>
+        </button>
+    </div>
+
+    <!-- 悬浮窗口容器 -->
+    <div id="floatingWindowsContainer"></div>
+
+    <script src="desktop-pet-demo.js"></script>
+</body>
+</html>
+
