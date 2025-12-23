@@ -1,0 +1,38 @@
+{
+  "data_source": {
+    "sample_data_path": "../../data/processed/example_data.json",
+    "output_suffix": "_filled"
+  },
+  "matching": {
+    "synonyms": {
+      "单位名称": ["企业名称", "公司名称", "机构名称"],
+      "法人代表": ["法定代表人", "法人"],
+      "联系电话": ["电话", "手机", "联系方式"],
+      "统一社会信用代码": ["企业组织机构代码或统一社会信用代码", "组织机构代码"],
+      "注册地址": ["企业注册地", "注册地（区）", "税务登记地（区）"],
+      "注册资本": ["注册资本（万元）", "金额（万元）"],
+      "员工数量": ["数量", "人数"],
+      "年份": ["*2023年末", "*2024年末", "2023年", "2024年"]
+    },
+    "similarity_threshold": 0.7,
+    "enable_api": true,
+    "enable_fuzzy": true
+  },
+  "processing": {
+    "multi_value_separator": "@@@",
+    "multi_value_strategy": "first"
+  },
+  "api": {
+    "url": "http://192.168.61.29/v1/workflows/run",
+    "authorization": "Bearer app-KC0OMjV4xGLdmAfgUnn7w6yx",
+    "timeout": 45,
+    "user": "system",
+    "circuit_breaker": {
+      "failure_threshold": 10,
+      "recovery_timeout": 300
+    }
+  },
+  "logging": {
+    "level": "DEBUG"
+  }
+}

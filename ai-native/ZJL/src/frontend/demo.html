@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工单智能质检系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Apple Design System Utilities */
+        :root {
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+            --apple-bg: #f5f5f7;
+            --apple-card: #ffffff;
+            --apple-text-primary: #1d1d1f;
+            --apple-text-secondary: #86868b;
+            --apple-success: #34c759;
+            --apple-warning: #ff9f0a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--apple-bg);
+            color: var(--apple-text-primary);
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .apple-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .apple-input {
+            background: #fbfbfd;
+            border: 1px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 17px;
+            transition: all 0.2s ease;
+        }
+
+        .apple-input:focus {
+            outline: none;
+            border-color: var(--apple-blue);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        }
+
+        .apple-btn {
+            background: var(--apple-blue);
+            color: white;
+            border-radius: 980px; /* Capsule */
+            font-weight: 500;
+            transition: transform 0.1s ease, background 0.2s ease;
+        }
+
+        .apple-btn:hover {
+            background: var(--apple-blue-hover);
+        }
+
+        .apple-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes scorePop {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-pop {
+            animation: scorePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Processing Animation specific */
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--apple-blue), transparent);
+            animation: scan 2s infinite linear;
+            opacity: 0.5;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
+        .progress-bar-fill {
+            transition: width 0.4s ease-out;
+        }
+
+        /* Custom Scrollbar for results if needed */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        .hidden-section {
+            display: none;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <!-- Main Container -->
+    <div id="app-container" class="apple-card w-full max-w-md min-h-[600px] relative flex flex-col">
+        
+        <!-- Header (Fixed) -->
+        <div class="p-6 pb-2 text-center z-10">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 mb-4 text-blue-600">
+                <i class="fa-solid fa-clipboard-check text-xl"></i>
+            </div>
+            <h1 class="text-2xl font-semibold tracking-tight text-gray-900">智能质检中心</h1>
+            <p class="text-sm text-gray-500 mt-1">Quality Control AI</p>
+        </div>
+
+        <!-- VIEW 1: Input State -->
+        <div id="input-view" class="flex-1 flex flex-col justify-center p-8 animate-fade-in">
+            <div class="space-y-6">
+                <div class="text-center">
+                    <p class="text-gray-600 mb-6 text-sm leading-relaxed">
+                        请输入工单编号以开始自动化合规检测。系统将从流程、信息、问题记录及发货四个维度进行评估。
+                    </p>
+                </div>
+                
+                <div>
+                    <label for="orderId" class="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 ml-1">工单编号</label>
+                    <input type="text" id="orderId" placeholder="例如: WO-20231120-8892" 
+                        class="apple-input w-full px-4 py-3 text-gray-900 placeholder-gray-400 focus:ring-0" autocomplete="off">
+                    <p id="error-msg" class="text-red-500 text-xs mt-2 ml-1 hidden opacity-0 transition-opacity duration-300">请输入有效的工单号</p>
+                </div>
+
+                <button onclick="startAnalysis()" class="apple-btn w-full py-3.5 text-sm mt-4 shadow-lg shadow-blue-500/30">
+                    开始诊断
+                </button>
+                
+                <div class="mt-8 flex justify-center space-x-4 text-gray-400">
+                    <i class="fa-brands fa-apple text-xl opacity-50"></i>
+                    <span class="text-xs self-center opacity-50">Authorized Service Provider</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: Processing State -->
+        <div id="processing-view" class="hidden-section flex-1 flex flex-col items-center justify-center p-8 relative overflow-hidden">
+            <!-- Scanning effect overlay -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="scanner-line"></div>
+            </div>
+
+            <div class="w-full max-w-xs space-y-8 z-10">
+                <!-- Spinner -->
+                <div class="flex justify-center">
+                    <svg class="animate-spin h-10 w-10 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="space-y-2">
+                    <div class="flex justify-between text-xs font-medium text-gray-500">
+                        <span id="process-text">正在连接数据库...</span>
+                        <span id="process-percent">0%</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-blue-600 rounded-full progress-bar-fill w-0"></div>
+                    </div>
+                </div>
+
+                <!-- Step Checklist -->
+                <div class="space-y-3 mt-4">
+                    <div id="step-1" class="flex items-center text-sm text-gray-400 transition-colors duration-300">
+                        <i class="far fa-circle w-6 text-center text-xs mr-2"></i> 验证工单流程节点
+                    </div>
+                    <div id="step-2" class="flex items-center text-sm text-gray-400 transition-colors duration-300">
+                        <i class="far fa-circle w-6 text-center text-xs mr-2"></i> 检查基础信息完整性
+                    </div>
+                    <div id="step-3" class="flex items-center text-sm text-gray-400 transition-colors duration-300">
+                        <i class="far fa-circle w-6 text-center text-xs mr-2"></i> 分析故障描述与客诉
+                    </div>
+                    <div id="step-4" class="flex items-center text-sm text-gray-400 transition-colors duration-300">
+                        <i class="far fa-circle w-6 text-center text-xs mr-2"></i> 核对发货明细
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: Result State -->
+        <div id="result-view" class="hidden-section flex-1 flex flex-col p-0 h-full overflow-y-auto">
+            <!-- Score Header -->
+            <div class="bg-white/50 backdrop-blur-md border-b border-gray-100 p-6 text-center sticky top-0 z-20">
+                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">工单总评分</p>
+                <div class="flex items-center justify-center space-x-2 animate-pop">
+                    <span id="final-score" class="text-6xl font-bold text-gray-900 tracking-tighter">92</span>
+                    <span class="text-2xl text-gray-400 font-light">/100</span>
+                </div>
+                <div id="score-badge" class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 mt-2">
+                    合格 - 优秀
+                </div>
+                <p class="text-xs text-gray-400 mt-2" id="result-order-id">WO-0000</p>
+            </div>
+
+            <!-- Details List -->
+            <div class="p-6 space-y-6 pb-20">
+                
+                <!-- 维度 1 -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 animate-fade-in" style="animation-delay: 0.1s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-semibold text-gray-900">1. 工单-流程</h3>
+                        <span id="score-d1" class="text-sm font-bold text-blue-600">28/30</span>
+                    </div>
+                    <div class="space-y-3">
+                        <!-- Sub Item -->
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-500 mb-1">
+                                <span>状态及流程节点完整合规</span>
+                                <span id="score-d1-1">14/15</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                                <div id="bar-d1-1" class="h-full bg-blue-500 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <!-- Sub Item -->
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-500 mb-1">
+                                <span>无重复记录/不当反审核</span>
+                                <span id="score-d1-2">14/15</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                                <div id="bar-d1-2" class="h-full bg-blue-500 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 维度 2 -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 animate-fade-in" style="animation-delay: 0.2s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-semibold text-gray-900">2. 工单-基本信息</h3>
+                        <span id="score-d2" class="text-sm font-bold text-blue-600">20/20</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-50 p-2 rounded-lg">
+                            <div class="text-[10px] text-gray-400">基础信息</div>
+                            <div class="text-xs font-semibold" id="score-d2-1">5/5</div>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded-lg">
+                            <div class="text-[10px] text-gray-400">提报人信息</div>
+                            <div class="text-xs font-semibold" id="score-d2-2">5/5</div>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded-lg">
+                            <div class="text-[10px] text-gray-400">收件人信息</div>
+                            <div class="text-xs font-semibold" id="score-d2-3">5/5</div>
+                        </div>
+                        <div class="bg-gray-50 p-2 rounded-lg">
+                            <div class="text-[10px] text-gray-400">收货地址</div>
+                            <div class="text-xs font-semibold" id="score-d2-4">5/5</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 维度 3 -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 animate-fade-in" style="animation-delay: 0.3s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-semibold text-gray-900">3. 工单-问题记录</h3>
+                        <span id="score-d3" class="text-sm font-bold text-blue-600">32/35</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-500 mb-1">
+                                <span>故障设备信息 (品牌/型号/序列号)</span>
+                                <span id="score-d3-1">18/20</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                                <div id="bar-d3-1" class="h-full bg-indigo-500 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-500 mb-1">
+                                <span>客诉内容记录</span>
+                                <span id="score-d3-2">14/15</span>
+                            </div>
+                            <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                                <div id="bar-d3-2" class="h-full bg-indigo-500 rounded-full" style="width: 93%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 维度 4 -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 animate-fade-in" style="animation-delay: 0.4s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-semibold text-gray-900">4. 工单-发货明细</h3>
+                        <span id="score-d4" class="text-sm font-bold text-blue-600">15/15</span>
+                    </div>
+                    <div class="flex items-center bg-green-50 p-3 rounded-lg border border-green-100">
+                        <i class="fa-solid fa-check-circle text-green-500 mr-3"></i>
+                        <div>
+                            <p class="text-xs text-green-800 font-medium">匹配一致</p>
+                            <p class="text-[10px] text-green-600">物品、数量、规格与故障描述相符</p>
+                        </div>
+                        <div class="ml-auto text-sm font-bold text-green-700">15/15</div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <button onclick="resetApp()" class="w-full py-3 rounded-xl text-blue-600 bg-blue-50 font-medium text-sm hover:bg-blue-100 transition-colors">
+                    诊断下一单
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==================== 配置项 ====================
+        const API_BASE_URL = 'http://localhost:5000';  // 后端API地址
+
+        // Utility: Format score display
+        function formatFraction(score, total) {
+            return `${score}/${total}`;
+        }
+
+        // Utility: Update Width
+        function setWidth(id, percent) {
+            document.getElementById(id).style.width = `${percent}%`;
+        }
+
+        // DOM Elements
+        const views = {
+            input: document.getElementById('input-view'),
+            processing: document.getElementById('processing-view'),
+            result: document.getElementById('result-view')
+        };
+
+        function switchView(viewName) {
+            Object.values(views).forEach(el => {
+                el.classList.add('hidden-section');
+                el.classList.remove('flex');
+            });
+
+            const active = views[viewName];
+            active.classList.remove('hidden-section');
+            active.classList.add('flex');
+        }
+
+        async function startAnalysis() {
+            const input = document.getElementById('orderId');
+            const errorMsg = document.getElementById('error-msg');
+            const orderId = input.value.trim();
+
+            // Validation
+            if (!orderId) {
+                input.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                errorMsg.innerText = '请输入有效的工单号';
+                errorMsg.classList.remove('hidden', 'opacity-0');
+                setTimeout(() => {
+                    input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                    errorMsg.classList.add('opacity-0');
+                }, 2000);
+                return;
+            }
+
+            // Reset Processing UI
+            document.getElementById('result-order-id').innerText = orderId;
+            resetSteps();
+            
+            // Switch to Processing
+            switchView('processing');
+            
+            // 调用真实API
+            await callEvaluateAPI(orderId);
+        }
+
+        function resetSteps() {
+            for(let i=1; i<=4; i++) {
+                const el = document.getElementById(`step-${i}`);
+                el.className = "flex items-center text-sm text-gray-400 transition-colors duration-300";
+                el.querySelector('i').className = "far fa-circle w-6 text-center text-xs mr-2";
+            }
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('process-percent').innerText = '0%';
+        }
+
+        function markStepDone(stepNum) {
+            const el = document.getElementById(`step-${stepNum}`);
+            el.className = "flex items-center text-sm text-gray-900 font-medium transition-colors duration-300";
+            const icon = el.querySelector('i');
+            icon.className = "fa-solid fa-circle-check w-6 text-center text-xs mr-2 text-blue-600";
+        }
+
+        // ==================== API调用函数 ====================
+        async function callEvaluateAPI(caseName) {
+            const progressBar = document.getElementById('progress-bar');
+            const percentText = document.getElementById('process-percent');
+            const statusText = document.getElementById('process-text');
+            
+            try {
+                // 开始进度动画
+                updateProgress(10, '正在连接服务器...');
+                
+                // 调用后端评估接口
+                const response = await fetch(`${API_BASE_URL}/api/evaluate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        case_name: caseName
+                    })
+                });
+
+                updateProgress(30, '正在查询案例数据...');
+                markStepDone(1);
+
+                const result = await response.json();
+                
+                updateProgress(60, '正在分析数据...');
+                markStepDone(2);
+                markStepDone(3);
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.error || '评估失败');
+                }
+
+                updateProgress(90, '正在生成报告...');
+                markStepDone(4);
+
+                // 渲染结果
+                updateProgress(100, '完成!');
+                setTimeout(() => {
+                    renderReport(result.data, caseName);
+                }, 500);
+
+            } catch (error) {
+                console.error('API调用失败:', error);
+                showError(error.message || '服务器连接失败，请检查后端服务是否启动');
+            }
+        }
+
+        function updateProgress(percent, text) {
+            const progressBar = document.getElementById('progress-bar');
+            const percentText = document.getElementById('process-percent');
+            const statusText = document.getElementById('process-text');
+            
+            progressBar.style.width = `${percent}%`;
+            percentText.innerText = `${percent}%`;
+            statusText.innerText = text;
+        }
+
+        function showError(message) {
+            const statusText = document.getElementById('process-text');
+            statusText.innerText = `错误: ${message}`;
+            statusText.classList.add('text-red-500');
+            
+            // 3秒后返回输入界面
+            setTimeout(() => {
+                const errorMsg = document.getElementById('error-msg');
+                errorMsg.innerText = message;
+                errorMsg.classList.remove('hidden', 'opacity-0');
+                resetApp();
+                setTimeout(() => {
+                    errorMsg.classList.add('opacity-0');
+                }, 3000);
+            }, 2000);
+        }
+
+        // ==================== 渲染评估结果 ====================
+        function renderReport(data, caseName) {
+            // 从API返回的数据中提取评分
+            const d1 = data['工单-流程'] || {};
+            const d2 = data['工单-基本信息'] || {};
+            const d3 = data['工单-问题记录'] || {};
+            const d4 = data['工单-发货明细'] || {};
+            
+            // 维度1: 工单-流程
+            const d1_1 = d1['关单与流程节点'] || 0;
+            const d1_2 = d1['重复记录与反审核'] || 0;
+            const d1_total = d1['小计'] || (d1_1 + d1_2);
+
+            // 维度2: 工单-基本信息
+            const d2_1 = d2['工单信息'] || 0;
+            const d2_2 = d2['提报人信息'] || 0;
+            const d2_3 = d2['收件人信息'] || 0;
+            const d2_4 = d2['收货地址'] || 0;
+            const d2_total = d2['小计'] || (d2_1 + d2_2 + d2_3 + d2_4);
+
+            // 维度3: 工单-问题记录
+            const d3_1 = d3['故障设备信息'] || 0;
+            const d3_2 = d3['客诉记录'] || 0;
+            const d3_total = d3['小计'] || (d3_1 + d3_2);
+
+            // 维度4: 工单-发货明细
+            const d4_total = d4['发货明细合理性'] || d4['小计'] || 0;
+
+            // 总分
+            const grandTotal = data['总分'] || (d1_total + d2_total + d3_total + d4_total);
+
+            // 更新DOM
+            const scoreEl = document.getElementById('final-score');
+            scoreEl.innerText = grandTotal;
+            
+            // 徽章逻辑
+            const badge = document.getElementById('score-badge');
+            if (grandTotal >= 90) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 mt-2";
+                badge.innerText = "合格 - 优秀";
+                scoreEl.className = "text-6xl font-bold text-green-600 tracking-tighter";
+            } else if (grandTotal >= 80) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 mt-2";
+                badge.innerText = "合格 - 良好";
+                scoreEl.className = "text-6xl font-bold text-blue-600 tracking-tighter";
+            } else if (grandTotal >= 60) {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-700 mt-2";
+                badge.innerText = "需人工复核";
+                scoreEl.className = "text-6xl font-bold text-orange-500 tracking-tighter";
+            } else {
+                badge.className = "inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700 mt-2";
+                badge.innerText = "不合格";
+                scoreEl.className = "text-6xl font-bold text-red-500 tracking-tighter";
+            }
+
+            // 维度1 DOM
+            document.getElementById('score-d1').innerText = formatFraction(d1_total, 30);
+            document.getElementById('score-d1-1').innerText = formatFraction(d1_1, 15);
+            setWidth('bar-d1-1', (d1_1/15)*100);
+            document.getElementById('score-d1-2').innerText = formatFraction(d1_2, 15);
+            setWidth('bar-d1-2', (d1_2/15)*100);
+
+            // 维度2 DOM
+            document.getElementById('score-d2').innerText = formatFraction(d2_total, 20);
+            document.getElementById('score-d2-1').innerText = formatFraction(d2_1, 5);
+            document.getElementById('score-d2-2').innerText = formatFraction(d2_2, 5);
+            document.getElementById('score-d2-3').innerText = formatFraction(d2_3, 5);
+            document.getElementById('score-d2-4').innerText = formatFraction(d2_4, 5);
+
+            // 维度3 DOM
+            document.getElementById('score-d3').innerText = formatFraction(d3_total, 35);
+            document.getElementById('score-d3-1').innerText = formatFraction(d3_1, 20);
+            setWidth('bar-d3-1', (d3_1/20)*100);
+            document.getElementById('score-d3-2').innerText = formatFraction(d3_2, 15);
+            setWidth('bar-d3-2', (d3_2/15)*100);
+
+            // 维度4 DOM
+            document.getElementById('score-d4').innerText = formatFraction(d4_total, 15);
+
+            // 切换到结果视图
+            switchView('result');
+        }
+
+        function resetApp() {
+            document.getElementById('orderId').value = '';
+            switchView('input');
+        }
+
+        // Initialize
+        switchView('input');
+
+    </script>
+</body>
+</html>

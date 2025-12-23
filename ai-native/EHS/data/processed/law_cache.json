@@ -1,0 +1,38 @@
+{
+  "510b5a60c27977f05322b6464cc2323a": {
+    "data": {
+      "title": "安全生产法律",
+      "effect_date": "2025-01-01",
+      "status": 3,
+      "status_desc": "有效(SearXNG)",
+      "publish_date": null,
+      "search_source": "searxng",
+      "source_website": "mp.weixin.qq.com网站"
+    },
+    "cached_at": "2025-10-28T11:57:36.517911"
+  },
+  "1a220f051d6d855131d4877d6365de92": {
+    "data": {
+      "title": "中华人民共和国宪法（1982年）",
+      "effect_date": "1982-12-04",
+      "status": 3,
+      "status_desc": "有效",
+      "publish_date": "1982-12-04",
+      "search_source": "official",
+      "source_website": null
+    },
+    "cached_at": "2025-10-28T11:57:38.077481"
+  },
+  "98eeafd80d550215d558a5672d66fbca": {
+    "data": {
+      "title": "中华人民共和国安全生产法",
+      "effect_date": "2021-09-01",
+      "status": 3,
+      "status_desc": "有效",
+      "publish_date": "2021-06-10",
+      "search_source": "official",
+      "source_website": null
+    },
+    "cached_at": "2025-10-28T11:57:39.970333"
+  }
+}

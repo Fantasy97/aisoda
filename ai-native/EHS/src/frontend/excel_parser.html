@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHS智能巡检工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+            display: block;
+        }
+
+        .form-input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .upload-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #dee2e6;
+        }
+
+        .paste-area {
+            margin-bottom: 20px;
+        }
+
+        .paste-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .textarea-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .line-count {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .resize-hint {
+            font-style: italic;
+        }
+
+        .excel-textarea {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+            width: 100%;
+            min-height: 200px;
+            max-height: 60vh;
+            height: auto;
+            resize: vertical;
+            line-height: 1.4;
+            font-size: 13px;
+            border: 2px dashed #007bff;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .excel-textarea:focus {
+            border-color: #0056b3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .excel-textarea:not(:placeholder-shown) {
+            border-style: solid;
+            background: white;
+        }
+
+        .excel-textarea::placeholder {
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .excel-textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .excel-textarea::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .excel-textarea::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .excel-textarea::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .content-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        .preview-table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .preview-table th,
+        .preview-table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+            white-space: nowrap;
+        }
+
+        .preview-table th {
+            background: #007bff;
+            color: white;
+            font-weight: 600;
+        }
+
+        .preview-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .validation-results {
+            margin-top: 15px;
+        }
+
+        .validation-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            border: 1px solid #f5c6cb;
+        }
+
+        .validation-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            border: 1px solid #c3e6cb;
+        }
+
+        .upload-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .progress-stats {
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        .current-validation {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+
+        .current-law-info .law-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .current-law-info .law-details {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .validation-results-scroll {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            max-height: 300px;
+            overflow: hidden;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .results-header h5 {
+            margin: 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+
+        .results-list {
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background-color 0.2s ease;
+        }
+
+        .result-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-index {
+            width: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .result-status {
+            width: 20px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .result-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .result-law-name {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .result-details {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .status-success {
+            color: #28a745;
+        }
+
+        .status-warning {
+            color: #ffc107;
+        }
+
+        .status-error {
+            color: #dc3545;
+        }
+
+        .status-info {
+            color: #17a2b8;
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .log-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 8px;
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #333;
+        }
+
+        .log-entry {
+            margin-bottom: 2px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .log-entry.success {
+            color: #4ade80;
+        }
+
+        .log-entry.error {
+            color: #f87171;
+        }
+
+        .log-entry.warning {
+            color: #fbbf24;
+        }
+
+        .log-entry.info {
+            color: #60a5fa;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background: #218838;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .upload-actions {
+                flex-direction: column;
+            }
+
+            .progress-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .current-validation {
+                padding: 10px;
+            }
+
+            .current-law-info .law-name {
+                font-size: 13px;
+            }
+
+            .current-law-info .law-details {
+                font-size: 11px;
+            }
+
+            .validation-results-scroll {
+                max-height: 200px;
+            }
+
+            .results-list {
+                max-height: 150px;
+            }
+
+            .result-item {
+                padding: 8px 10px;
+            }
+
+            .result-law-name {
+                font-size: 12px;
+            }
+
+            .result-details {
+                font-size: 10px;
+            }
+
+            .excel-textarea {
+                font-size: 12px;
+                min-height: 150px;
+                max-height: 50vh;
+            }
+
+            .preview-table {
+                font-size: 10px;
+            }
+
+            .preview-table th,
+            .preview-table td {
+                padding: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .excel-textarea {
+                font-size: 11px;
+                min-height: 120px;
+                max-height: 40vh;
+            }
+        }
+
+        /* 拖拽区域样式 */
+        .drop-zone {
+            border: 3px dashed #007bff;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .drop-zone:hover {
+            border-color: #0056b3;
+            background: #e7f3ff;
+        }
+
+        .drop-zone.drag-over {
+            border-color: #28a745;
+            background: #d4edda;
+            transform: scale(1.02);
+        }
+
+        .drop-zone-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .drop-zone-text {
+            font-size: 16px;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone-hint {
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .file-input-hidden {
+            display: none;
+        }
+
+        .file-info {
+            background: #e7f3ff;
+            border: 1px solid #007bff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .file-info-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-icon {
+            font-size: 24px;
+        }
+
+        .file-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #007bff;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .file-remove {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .file-remove:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>EHS智能巡检工具</h1>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="main-content">
+            <!-- Excel数据导入 -->
+            <div class="upload-section">
+                <h3>EHS适用法律法规及其他要求解析</h3>
+
+                <div class="upload-actions">
+                    <button class="btn btn-primary" onclick="parseExcelData()">1.解析数据</button>
+                    <button class="btn btn-primary" onclick="validateParsedData()" id="validate-btn"
+                        disabled>2.验证信息</button>
+                    <button class="btn btn-success" onclick="downloadHTMLReport()" id="download-html-btn" disabled>3.
+                        下载报告</button>
+                    <button class="btn btn-secondary" onclick="clearData()">重置状态</button>
+                </div>
+
+                <!-- 合并的内容区域 -->
+                <div class="content-section" id="content-section">
+                    <!-- 数据输入模式 -->
+                    <div class="input-mode" id="input-mode">
+                        <!-- Excel文件拖拽上传区域 -->
+                        <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                            <div class="drop-zone-icon">📁</div>
+                            <div class="drop-zone-text">拖拽Excel文件到此处，或点击选择文件</div>
+                            <div class="drop-zone-hint">支持 .xlsx 和 .xls 格式，仅解析第一个工作表</div>
+                        </div>
+                        <input type="file" id="file-input" class="file-input-hidden" accept=".xlsx,.xls" onchange="handleFileSelect(event)">
+                        
+                        <!-- 文件信息显示 -->
+                        <div class="file-info" id="file-info" style="display: none;">
+                            <div class="file-info-left">
+                                <span class="file-icon">📊</span>
+                                <div class="file-details">
+                                    <span class="file-name" id="file-name">文件名.xlsx</span>
+                                    <span class="file-size" id="file-size">0 KB</span>
+                                </div>
+                            </div>
+                            <button class="file-remove" onclick="removeFile()">移除</button>
+                        </div>
+
+                        <div class="paste-area">
+                            <div class="paste-header">
+                                <label class="form-label">或从Excel复制数据并粘贴到下方文本框：</label>
+                                <div class="textarea-info" id="textarea-info">
+                                    <span class="line-count" id="line-count">0 行</span>
+                                    <span class="resize-hint">📏 自动调整高度</span>
+                                </div>
+                            </div>
+                            <textarea id="excel-data" class="form-input excel-textarea" rows="10"
+                                placeholder="请从Excel复制数据并粘贴到这里...&#10;格式示例：&#10;62	女职工劳动保护特别规定	2012/4/28	国务院	国务院令第619号	全文	百度百科	#N/A&#10;63	禁止使用童工规定	2002/12/1	国务院	国务院令第364号	全文：第二、四、七条	百度百科	#N/A"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- 数据预览模式 -->
+                    <div class="preview-mode" id="preview-mode" style="display: none;">
+                        <h4>数据预览</h4>
+                        <div class="preview-table-container">
+                            <table class="preview-table" id="preview-table">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>法律名称</th>
+                                        <th>施行日期</th>
+                                        <th>颁布部门</th>
+                                        <th>标准编号</th>
+                                        <th>适用条款</th>
+                                        <th>获取途径</th>
+                                        <th>网址</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="preview-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="validation-results" id="validation-results">
+                        </div>
+                    </div>
+
+                    <!-- 验证进度模式 -->
+                    <div class="validation-mode" id="validation-mode" style="display: none;">
+                        <h4>验证进度</h4>
+
+                        <!-- 进度条 -->
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <div class="progress-info">
+                                <span class="progress-text" id="progress-text">准备验证...</span>
+                                <span class="progress-stats" id="progress-stats">0/0</span>
+                            </div>
+                        </div>
+
+                        <!-- 当前验证信息 -->
+                        <div class="current-validation" id="current-validation" style="display: none;">
+                            <div class="current-law-info">
+                                <div class="law-name" id="current-law-name">正在验证...</div>
+                                <div class="law-details" id="current-law-details">准备中...</div>
+                            </div>
+                        </div>
+
+                        <!-- 验证结果滚动区域 -->
+                        <div class="validation-results-scroll" id="validation-results-scroll">
+                            <div class="results-header">
+                                <h5>验证结果</h5>
+                                <button class="btn btn-secondary btn-small"
+                                    onclick="clearValidationResults()">清空结果</button>
+                            </div>
+                            <div class="results-list" id="results-list">
+                                <!-- 验证结果将在这里动态添加 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let parsedData = [];
+        let validationErrors = [];
+
+        // 解析Excel数据
+        function parseExcelData() {
+            const excelData = document.getElementById('excel-data').value.trim();
+
+            if (!excelData) {
+                alert('请先粘贴Excel数据');
+                return;
+            }
+
+            try {
+                parsedData = [];
+                validationErrors = [];
+
+                const lines = excelData.split('\n').filter(line => line.trim());
+
+                lines.forEach((line, index) => {
+                    const columns = line.split('\t');
+
+                    if (columns.length >= 8) {
+                        const lawData = {
+                            '序号': columns[0]?.trim() || '',
+                            '法律、法规、标准及其他要求': columns[1]?.trim() || '',
+                            '施行（修改）日期': normalizeDate(columns[2]?.trim() || ''),
+                            '颁布部门': columns[3]?.trim() || '',
+                            '标准编号': columns[4]?.trim() || '',
+                            '适用条款': columns[5]?.trim() || '',
+                            '获取途径': columns[6]?.trim() || '',
+                            '网址': columns[7]?.trim() === '#N/A' ? '' : columns[7]?.trim() || ''
+                        };
+
+                        // 验证必填字段
+                        if (!lawData['序号'] || !lawData['法律、法规、标准及其他要求']) {
+                            validationErrors.push(`第${index + 1}行：序号和法律名称不能为空`);
+                        } else {
+                            parsedData.push(lawData);
+                        }
+                    } else {
+                        validationErrors.push(`第${index + 1}行：数据列数不足（需要至少8列）`);
+                    }
+                });
+
+                displayPreview();
+
+            } catch (error) {
+                alert('解析数据时发生错误：' + error.message);
+            }
+        }
+
+        // 显示数据预览
+        function displayPreview() {
+            const tbody = document.getElementById('preview-tbody');
+            const validationDiv = document.getElementById('validation-results');
+
+            // 清空之前的内容
+            tbody.innerHTML = '';
+            validationDiv.innerHTML = '';
+
+            // 显示解析的数据
+            parsedData.forEach((law, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${law['序号']}</td>
+                    <td>${law['法律、法规、标准及其他要求']}</td>
+                    <td>${law['施行（修改）日期']}</td>
+                    <td>${law['颁布部门']}</td>
+                    <td>${law['标准编号']}</td>
+                    <td>${law['适用条款']}</td>
+                    <td>${law['获取途径']}</td>
+                    <td>${law['网址']}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // 显示验证结果
+            if (validationErrors.length > 0) {
+                validationErrors.forEach(error => {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'validation-error';
+                    errorDiv.textContent = error;
+                    validationDiv.appendChild(errorDiv);
+                });
+            }
+
+            if (parsedData.length > 0) {
+                const successDiv = document.createElement('div');
+                successDiv.className = 'validation-success';
+                successDiv.textContent = `成功解析 ${parsedData.length} 条法律法规数据`;
+                validationDiv.appendChild(successDiv);
+            }
+
+            // 显示预览模式
+            showPreviewMode();
+        }
+
+        // 显示输入模式
+        function showInputMode() {
+            const inputMode = document.getElementById('input-mode');
+            const previewMode = document.getElementById('preview-mode');
+            const validationMode = document.getElementById('validation-mode');
+
+            // 显示输入模式，隐藏其他模式
+            inputMode.style.display = 'block';
+            previewMode.style.display = 'none';
+            validationMode.style.display = 'none';
+        }
+
+        // 显示预览模式
+        function showPreviewMode() {
+            const inputMode = document.getElementById('input-mode');
+            const previewMode = document.getElementById('preview-mode');
+            const validationMode = document.getElementById('validation-mode');
+
+            // 显示预览模式，隐藏其他模式
+            inputMode.style.display = 'none';
+            previewMode.style.display = 'block';
+            validationMode.style.display = 'none';
+        }
+
+        // 显示验证模式
+        function showValidationMode() {
+            const inputMode = document.getElementById('input-mode');
+            const previewMode = document.getElementById('preview-mode');
+            const validationMode = document.getElementById('validation-mode');
+
+            // 显示验证模式，隐藏其他模式
+            inputMode.style.display = 'none';
+            previewMode.style.display = 'none';
+            validationMode.style.display = 'block';
+        }
+
+        // 清空数据
+        function clearData() {
+            document.getElementById('excel-data').value = '';
+
+            // 显示输入模式
+            showInputMode();
+
+            parsedData = [];
+            validationErrors = [];
+            validationResults = null;
+
+            // 重置按钮状态
+            document.getElementById('validate-btn').disabled = true;
+            document.getElementById('download-html-btn').disabled = true;
+
+            updateLineCount();
+            clearValidationLog();
+        }
+
+        // 更新行数统计
+        function updateLineCount() {
+            const textarea = document.getElementById('excel-data');
+            const lineCount = document.getElementById('line-count');
+            const lines = textarea.value.split('\n').filter(line => line.trim()).length;
+            lineCount.textContent = `${lines} 行`;
+        }
+
+        // Excel文件拖拽和上传处理
+        let currentFile = null;
+
+        // 处理文件选择
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                processExcelFile(file);
+            }
+        }
+
+        // 移除文件
+        function removeFile() {
+            currentFile = null;
+            document.getElementById('file-info').style.display = 'none';
+            document.getElementById('file-input').value = '';
+        }
+
+        // 处理Excel文件 - 使用后端API
+        async function processExcelFile(file) {
+            // 验证文件类型
+            const validTypes = [
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-excel' // .xls
+            ];
+            
+            if (!validTypes.includes(file.type) && !file.name.match(/\.(xlsx|xls)$/i)) {
+                alert('请上传有效的Excel文件（.xlsx 或 .xls）');
+                return;
+            }
+
+            currentFile = file;
+            document.getElementById('file-name').textContent = file.name;
+            document.getElementById('file-size').textContent = formatFileSize(file.size);
+            document.getElementById('file-info').style.display = 'flex';
+
+            // 显示上传进度
+            const dropZone = document.getElementById('drop-zone');
+            const originalText = dropZone.querySelector('.drop-zone-text').textContent;
+            dropZone.querySelector('.drop-zone-text').textContent = '正在上传并解析...';
+            dropZone.style.pointerEvents = 'none';
+
+            try {
+                // 创建FormData对象
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // 上传到后端
+                const response = await fetch(`${API_BASE}/api/upload/excel`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // 解析成功，将数据存储到parsedData
+                    parsedData = result.data;
+                    validationErrors = result.errors || [];
+                    
+                    // 初始显示输入模式
+                    showInputMode();
+
+                    // 显示预览
+                    displayPreview();
+                    
+                    // 提示用户
+                    let message = `✓ 成功解析文件：${file.name}\n`;
+                    message += `工作表：${result.sheet_name}\n`;
+                    message += `数据行数：${result.total_count}\n`;
+                    if (result.error_count > 0) {
+                        message += `错误数：${result.error_count}`;
+                    }
+                    alert(message);
+                    
+                } else {
+                    alert('解析Excel文件失败：' + result.error);
+                    removeFile();
+                }
+                
+            } catch (error) {
+                alert('上传文件失败：' + error.message);
+                console.error('上传错误:', error);
+                removeFile();
+            } finally {
+                // 恢复拖拽区域
+                dropZone.querySelector('.drop-zone-text').textContent = originalText;
+                dropZone.style.pointerEvents = 'auto';
+            }
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            const textarea = document.getElementById('excel-data');
+            const dropZone = document.getElementById('drop-zone');
+
+            // 监听文本框内容变化
+            textarea.addEventListener('input', updateLineCount);
+            textarea.addEventListener('paste', function () {
+                setTimeout(updateLineCount, 10);
+            });
+
+            // 初始化行数统计
+            updateLineCount();
+
+            // 初始显示输入模式
+            showInputMode();
+
+            // 拖拽事件处理
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.add('drag-over');
+            });
+
+            dropZone.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('drag-over');
+            });
+
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                dropZone.classList.remove('drag-over');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    processExcelFile(files[0]);
+                }
+            });
+        });
+
+        // API基础URL - 动态获取当前主机地址
+        const API_BASE = `http://127.0.0.1:5005`;
+
+        // 标准化日期格式
+        function normalizeDate(dateStr) {
+            if (!dateStr) return '';
+
+            // 移除时间部分
+            dateStr = dateStr.replace(' 00:00:00', '').trim();
+
+            // 处理 YYYY/M/D 格式
+            if (dateStr.includes('/')) {
+                const parts = dateStr.split('/');
+                if (parts.length === 3) {
+                    const year = parts[0];
+                    const month = parts[1].padStart(2, '0');
+                    const day = parts[2].padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                }
+            }
+
+            // 处理 YYYY-M-D 格式
+            if (dateStr.includes('-')) {
+                const parts = dateStr.split('-');
+                if (parts.length === 3) {
+                    const year = parts[0];
+                    const month = parts[1].padStart(2, '0');
+                    const day = parts[2].padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                }
+            }
+
+            return dateStr;
+        }
+
+        // 验证解析后的数据
+        async function validateParsedData() {
+            if (parsedData.length === 0) {
+                alert('没有可验证的数据，请先解析Excel数据');
+                return;
+            }
+
+            if (!confirm(`确定要验证 ${parsedData.length} 条法律法规数据吗？这可能需要较长时间。`)) {
+                return;
+            }
+
+            const validateBtn = document.getElementById('validate-btn');
+
+            validateBtn.disabled = true;
+            validateBtn.textContent = '验证中...';
+
+            // 显示验证模式
+            showValidationMode();
+
+            clearValidationLog();
+            updateValidationProgress(0, parsedData.length, '准备开始验证...');
+
+            try {
+                addValidationLog('正在连接后端服务...', 'info');
+
+                const response = await fetch(`${API_BASE}/api/validate/parsed`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/event-stream'
+                    },
+                    body: JSON.stringify({
+                        data: parsedData
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                addValidationLog('已连接到后端服务，开始接收验证数据...', 'success');
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                try {
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+
+                        const chunk = decoder.decode(value, { stream: true });
+                        const lines = chunk.split('\n');
+
+                        for (const line of lines) {
+                            if (line.startsWith('data: ')) {
+                                try {
+                                    const data = JSON.parse(line.slice(6));
+                                    handleValidationStreamData(data);
+                                } catch (e) {
+                                    console.warn('解析流数据失败:', e, line);
+                                }
+                            }
+                        }
+                    }
+                } finally {
+                    reader.releaseLock();
+                }
+
+            } catch (error) {
+                console.error('验证过程中发生错误:', error);
+                addValidationLog(`验证过程中发生错误: ${error.message}`, 'error');
+            } finally {
+                validateBtn.disabled = false;
+                validateBtn.textContent = '验证数据';
+            }
+        }
+
+        // 处理验证流数据
+        function handleValidationStreamData(data) {
+            switch (data.type) {
+                case 'start':
+                    addValidationLog(data.message, 'info');
+                    break;
+
+                case 'progress':
+                    updateValidationProgress(data.current, data.total, data.message);
+                    break;
+
+                case 'log':
+                    addValidationLog(data.message, data.log_type || 'info');
+                    break;
+
+                case 'complete':
+                    addValidationLog(data.message, 'success');
+                    const total = data.results ? data.results.total : 0;
+                    updateValidationProgress(total, total, '验证完成');
+
+                    // 显示验证结果
+                    showValidationResults(data.results);
+                    break;
+
+                case 'error':
+                    addValidationLog(data.message, 'error');
+                    break;
+
+                default:
+                    console.log('未知的流数据类型:', data);
+            }
+        }
+
+        // 更新验证进度
+        function updateValidationProgress(current, total, message = '') {
+            const percentage = total > 0 ? Math.round((current / total) * 100) : 0;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = message || '验证中...';
+            document.getElementById('progress-stats').textContent = `${current}/${total}`;
+        }
+
+        // 显示当前验证的法律信息
+        function showCurrentValidation(lawName, details) {
+            const currentValidation = document.getElementById('current-validation');
+            const lawNameEl = document.getElementById('current-law-name');
+            const lawDetailsEl = document.getElementById('current-law-details');
+
+            lawNameEl.textContent = lawName;
+            lawDetailsEl.textContent = details;
+            currentValidation.style.display = 'block';
+        }
+
+        // 隐藏当前验证信息
+        function hideCurrentValidation() {
+            document.getElementById('current-validation').style.display = 'none';
+        }
+
+        // 添加验证结果项
+        function addValidationResult(index, status, lawName, details, statusIcon) {
+            const resultsList = document.getElementById('results-list');
+            const resultItem = document.createElement('div');
+            resultItem.className = 'result-item';
+
+            let statusClass = 'status-info';
+            if (status === 'success') statusClass = 'status-success';
+            else if (status === 'warning') statusClass = 'status-warning';
+            else if (status === 'error') statusClass = 'status-error';
+
+            resultItem.innerHTML = `
+                <div class="result-index">[${index.toString().padStart(3, ' ')}]</div>
+                <div class="result-status ${statusClass}">${statusIcon}</div>
+                <div class="result-content">
+                    <div class="result-law-name" title="${lawName}">${lawName}</div>
+                    <div class="result-details">${details}</div>
+                </div>
+            `;
+
+            resultsList.appendChild(resultItem);
+
+            // 自动滚动到底部
+            resultsList.scrollTop = resultsList.scrollHeight;
+        }
+
+        // 添加验证日志条目（兼容旧接口）
+        function addValidationLog(message, type = 'info') {
+            // 解析消息格式，提取验证信息
+            if (message.includes('验证法律:')) {
+                // 显示当前验证信息
+                const lawName = message.match(/验证法律: ([^|]+)/)?.[1]?.trim() || '未知法律';
+                showCurrentValidation(lawName, message);
+            } else if (message.match(/^\[\s*\d+\]/)) {
+                // 解析验证结果
+                const indexMatch = message.match(/^\[\s*(\d+)\]/);
+                const index = indexMatch ? parseInt(indexMatch[1]) : 0;
+
+                let status = 'info';
+                let statusIcon = '•';
+
+                if (message.includes('✓')) {
+                    status = 'success';
+                    statusIcon = '✓';
+                } else if (message.includes('⚠')) {
+                    status = 'warning';
+                    statusIcon = '⚠';
+                } else if (message.includes('✗')) {
+                    status = 'error';
+                    statusIcon = '✗';
+                }
+
+                // 提取法律名称和详情
+                const parts = message.split(' - ');
+                const lawPart = parts[0].replace(/^\[\s*\d+\]\s*[✓⚠✗•]\s*/, '').trim();
+                const details = parts[1] || '';
+
+                addValidationResult(index, status, lawPart, details, statusIcon);
+            }
+        }
+
+        // 清空验证结果
+        function clearValidationResults() {
+            document.getElementById('results-list').innerHTML = '';
+            hideCurrentValidation();
+        }
+
+        // 清空验证日志（兼容旧接口）
+        function clearValidationLog() {
+            clearValidationResults();
+        }
+
+        // 修改displayPreview函数，启用验证按钮
+        const originalDisplayPreview = displayPreview;
+        displayPreview = function () {
+            originalDisplayPreview();
+
+            // 启用验证按钮
+            const validateBtn = document.getElementById('validate-btn');
+            if (parsedData.length > 0) {
+                validateBtn.disabled = false;
+            } else {
+                validateBtn.disabled = true;
+            }
+        };
+
+        // 全局变量存储验证结果
+        let validationResults = null;
+
+        // 处理验证完成
+        function showValidationResults(results) {
+            console.log('验证完成，启用下载按钮'); // 调试信息
+            validationResults = results;
+
+            // 隐藏当前验证信息
+            hideCurrentValidation();
+
+            // 更新进度文本
+            document.getElementById('progress-text').textContent = '验证完成';
+
+            // 启用下载按钮
+            const htmlBtn = document.getElementById('download-html-btn');
+
+            if (htmlBtn) {
+                htmlBtn.disabled = false;
+                console.log('HTML下载按钮已启用');
+            } else {
+                console.error('找不到HTML下载按钮');
+            }
+        }
+
+        // 下载HTML报告
+        function downloadHTMLReport() {
+            if (!validationResults) {
+                alert('没有可下载的报告');
+                return;
+            }
+
+            const downloadUrl = `${API_BASE}/api/download/html`;
+
+            // 创建隐藏的下载链接
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `validation_report_${new Date().toISOString().slice(0, 10)}.html`;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+
+    </script>
+</body>
+
+</html>

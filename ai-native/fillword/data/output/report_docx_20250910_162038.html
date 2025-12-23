@@ -1,0 +1,1693 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word表单填充结果报告</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin: 30px 0 15px 0;
+            font-size: 1.8em;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        
+        .timestamp {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card.success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .stat-card.error {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        }
+        
+        .stat-card.rate {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .source-chart, .confidence-chart {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .chart-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .chart-label {
+            min-width: 120px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .chart-bar {
+            flex: 1;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        
+        .chart-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .chart-value {
+            min-width: 80px;
+            text-align: right;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .results-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .results-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .results-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .results-table tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .status-success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .status-error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .confidence-high {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .confidence-medium {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .confidence-low {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .error-section {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .error-item {
+            background: white;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #7f8c8d;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-table {
+                font-size: 0.9em;
+            }
+            
+            .results-table th,
+            .results-table td {
+                padding: 8px 5px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Word表单填充结果报告</h1>
+            <p class="timestamp">报告生成时间: 2025-09-10 16:20:47</p>
+        </header>
+        
+        <section class="summary">
+            <h2>📊 统计摘要</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">114</div>
+                    <div class="stat-label">总处理数量</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-number">114</div>
+                    <div class="stat-label">成功填充</div>
+                </div>
+                <div class="stat-card error">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">失败数量</div>
+                </div>
+                <div class="stat-card rate">
+                    <div class="stat-number">100.0%</div>
+                    <div class="stat-label">成功率</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="source-stats">
+            <h2>📈 按填充源统计</h2>
+            <div class="source-chart">
+            <div class="chart-item">
+                <div class="chart-label">exact</div>
+                <div class="chart-bar">
+                    <div class="chart-fill" style="width: 100.0%"></div>
+                </div>
+                <div class="chart-value">24/24 (100.0%)</div>
+            </div>
+            
+            <div class="chart-item">
+                <div class="chart-label">fuzzy</div>
+                <div class="chart-bar">
+                    <div class="chart-fill" style="width: 100.0%"></div>
+                </div>
+                <div class="chart-value">89/89 (100.0%)</div>
+            </div>
+            
+            <div class="chart-item">
+                <div class="chart-label">api</div>
+                <div class="chart-bar">
+                    <div class="chart-fill" style="width: 100.0%"></div>
+                </div>
+                <div class="chart-value">1/1 (100.0%)</div>
+            </div>
+            </div>
+        </section>
+        
+        <section class="confidence-stats">
+            <h2>🎯 置信度分布</h2>
+            <div class="confidence-chart">
+            <div class="chart-item">
+                <div class="chart-label">高 (>0.9)</div>
+                <div class="chart-bar">
+                    <div class="chart-fill" style="width: 21.052631578947366%; background: #27ae60"></div>
+                </div>
+                <div class="chart-value">24 (21.1%)</div>
+            </div>
+            
+            <div class="chart-item">
+                <div class="chart-label">中 (0.7-0.9)</div>
+                <div class="chart-bar">
+                    <div class="chart-fill" style="width: 11.403508771929824%; background: #f39c12"></div>
+                </div>
+                <div class="chart-value">13 (11.4%)</div>
+            </div>
+            
+            <div class="chart-item">
+                <div class="chart-label">低 (<0.7)</div>
+                <div class="chart-bar">
+                    <div class="chart-fill" style="width: 67.54385964912281%; background: #e74c3c"></div>
+                </div>
+                <div class="chart-value">77 (67.5%)</div>
+            </div>
+            </div>
+        </section>
+        
+        <section class="detailed-results">
+            <h2>📋 详细结果</h2>
+            
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>行</th>
+                    <th>列</th>
+                    <th>原内容</th>
+                    <th>新内容</th>
+                    <th>关系字段</th>
+                    <th>填充源</th>
+                    <th>置信度</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+            <tr>
+                <td>1</td>
+                <td>5</td>
+                <td></td>
+                <td>爱士惟科技股份有限公司</td>
+                <td>企业名称</td>
+                <td>exact:企业名称</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>2</td>
+                <td>5</td>
+                <td></td>
+                <td>上海市 省 市辖区 市（区） 黄浦区 县</td>
+                <td>企业注册地</td>
+                <td>exact:企业注册地</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>3</td>
+                <td>5</td>
+                <td></td>
+                <td>上海市黄埔区蒙自路757号905B室</td>
+                <td>通讯地址</td>
+                <td>exact:通讯地址</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>3</td>
+                <td>18</td>
+                <td></td>
+                <td>200001</td>
+                <td>邮    编</td>
+                <td>exact:邮    编</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td></td>
+                <td>张勇</td>
+                <td>法定代表人</td>
+                <td>exact:法定代表人</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>4</td>
+                <td>12</td>
+                <td></td>
+                <td>021-80401351</td>
+                <td>电话</td>
+                <td>exact:电话</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>4</td>
+                <td>18</td>
+                <td></td>
+                <td>13917752020</td>
+                <td>手机</td>
+                <td>exact:手机</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>5</td>
+                <td>5</td>
+                <td></td>
+                <td>上海卓由企业管理咨询合伙企业（有限合伙）</td>
+                <td>控股股东</td>
+                <td>exact:控股股东</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>5</td>
+                <td>12</td>
+                <td></td>
+                <td>张勇</td>
+                <td>实际控制人</td>
+                <td>exact:实际控制人</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>5</td>
+                <td>18</td>
+                <td></td>
+                <td>中国</td>
+                <td>实际控制人国籍</td>
+                <td>exact:实际控制人国籍</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>6</td>
+                <td>5</td>
+                <td></td>
+                <td>黄志鹏</td>
+                <td>联系人</td>
+                <td>exact:联系人</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>6</td>
+                <td>12</td>
+                <td></td>
+                <td>021-80401351</td>
+                <td>电话</td>
+                <td>exact:电话</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>6</td>
+                <td>18</td>
+                <td></td>
+                <td>13917752020</td>
+                <td>手机</td>
+                <td>exact:手机</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>7</td>
+                <td>5</td>
+                <td></td>
+                <td>02180401351</td>
+                <td>传真</td>
+                <td>exact:传真</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>7</td>
+                <td>12</td>
+                <td></td>
+                <td>zhipeng.huang@aiswei-tech.com</td>
+                <td>E-mail</td>
+                <td>exact:E-mail</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>8</td>
+                <td>5</td>
+                <td></td>
+                <td>2009-05-27</td>
+                <td>注册时间</td>
+                <td>exact:注册时间</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>8</td>
+                <td>15</td>
+                <td></td>
+                <td>13917752020</td>
+                <td>注册资本（万元）, 手机</td>
+                <td>exact:手机</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>9</td>
+                <td>5</td>
+                <td></td>
+                <td>9132050569025789XP</td>
+                <td>统一社会信用代码</td>
+                <td>exact:统一社会信用代码</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>10</td>
+                <td>12</td>
+                <td></td>
+                <td>□大型 ☑中型 □小型 □微型</td>
+                <td>根据《中小企业划型标准规定》（工信部联企业〔2011〕300号），企业规模属于, 注册资本（万元）</td>
+                <td>fuzzy:根据《中小企业划型标准规定》（工信部联企业〔2011〕300号），企业规模属于->根据《中小企业划型标准规定》（工信部联企业〔2011〕300号），企业规模属于注册资本（万元）</td>
+                <td><span class="confidence-medium">0.73</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>11</td>
+                <td>5</td>
+                <td></td>
+                <td>2位数代码及名称： 38 电气机械和器材制造业</td>
+                <td>所属行业</td>
+                <td>exact:所属行业</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>12</td>
+                <td>5</td>
+                <td></td>
+                <td>4位数代码及名称： 3825 光伏设备及元器件制造</td>
+                <td>具体细分领域</td>
+                <td>exact:具体细分领域</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>13</td>
+                <td>5</td>
+                <td></td>
+                <td>□国有 □合资 ☑民营 □外资</td>
+                <td>企业类型</td>
+                <td>exact:企业类型</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>19</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>全职员工数量, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>19</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>全职员工数量, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>19</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>全职员工数量, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>20</td>
+                <td>7</td>
+                <td></td>
+                <td>88人</td>
+                <td>其中：研发人员数量, 2021年</td>
+                <td>fuzzy:其中：研发人员数量->其中：研发人员数量2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>20</td>
+                <td>13</td>
+                <td></td>
+                <td>88人</td>
+                <td>其中：研发人员数量, 2022年</td>
+                <td>fuzzy:其中：研发人员数量->其中：研发人员数量2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>20</td>
+                <td>16</td>
+                <td></td>
+                <td>88人</td>
+                <td>其中：研发人员数量, 2023年</td>
+                <td>fuzzy:其中：研发人员数量->其中：研发人员数量2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>21</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>营业收入, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>21</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>营业收入, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>21</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>营业收入, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>22</td>
+                <td>7</td>
+                <td></td>
+                <td>488万元</td>
+                <td>其中：主营业务收入, 2021年</td>
+                <td>fuzzy:其中：主营业务收入->其中：主营业务收入2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>22</td>
+                <td>13</td>
+                <td></td>
+                <td>488万元</td>
+                <td>其中：主营业务收入, 2022年</td>
+                <td>fuzzy:其中：主营业务收入->其中：主营业务收入2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>22</td>
+                <td>16</td>
+                <td></td>
+                <td>488万元</td>
+                <td>其中：主营业务收入, 2023年</td>
+                <td>fuzzy:其中：主营业务收入->其中：主营业务收入2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>23</td>
+                <td>7</td>
+                <td></td>
+                <td>109.5 %</td>
+                <td>主营业务收入增长率, 2021年</td>
+                <td>fuzzy:主营业务收入增长率->主营业务收入增长率2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>23</td>
+                <td>13</td>
+                <td></td>
+                <td>109.5 %</td>
+                <td>主营业务收入增长率, 2022年</td>
+                <td>fuzzy:主营业务收入增长率->主营业务收入增长率2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>23</td>
+                <td>16</td>
+                <td></td>
+                <td>109.5 %</td>
+                <td>主营业务收入增长率, 2023年</td>
+                <td>fuzzy:主营业务收入增长率->主营业务收入增长率2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>24</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>净利润总额, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>24</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>净利润总额, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>24</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>净利润总额, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>25</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>净利润增长率, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>25</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>净利润增长率, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>25</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>净利润增长率, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>26</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>销售费用, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>26</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>销售费用, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>26</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>销售费用, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>27</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>管理费用, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>27</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>管理费用, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>27</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>管理费用, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>28</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>营业成本, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>28</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>营业成本, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>28</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>营业成本, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>29</td>
+                <td>7</td>
+                <td></td>
+                <td>461万元</td>
+                <td>其中：主营业务成本, 2021年</td>
+                <td>fuzzy:其中：主营业务成本->其中：主营业务成本2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>29</td>
+                <td>13</td>
+                <td></td>
+                <td>461万元</td>
+                <td>其中：主营业务成本, 2022年</td>
+                <td>fuzzy:其中：主营业务成本->其中：主营业务成本2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>29</td>
+                <td>16</td>
+                <td></td>
+                <td>461万元</td>
+                <td>其中：主营业务成本, 2023年</td>
+                <td>fuzzy:其中：主营业务成本->其中：主营业务成本2021年</td>
+                <td><span class="confidence-low">0.63</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>30</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>资产总额, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>30</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>资产总额, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>30</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>资产总额, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>31</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>负债总额, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>31</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>负债总额, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>31</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>负债总额, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>32</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>资产负债率, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>32</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>资产负债率, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>32</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>资产负债率, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>33</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>上缴税金, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>33</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>上缴税金, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>33</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>上缴税金, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>34</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>股权融资总额, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>34</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>股权融资总额, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>34</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>股权融资总额, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>35</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>对应估值, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>35</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>对应估值, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>35</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>对应估值, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>36</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>银行贷款, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>36</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>银行贷款, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>36</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>银行贷款, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>37</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>境内债券, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>37</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>境内债券, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>37</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>境内债券, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>38</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>境外债券, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>38</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>境外债券, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>38</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>境外债券, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>39</td>
+                <td>7</td>
+                <td></td>
+                <td>764万元</td>
+                <td>审计报告编码, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>39</td>
+                <td>13</td>
+                <td></td>
+                <td>203万元</td>
+                <td>审计报告编码, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>39</td>
+                <td>16</td>
+                <td></td>
+                <td>256万元</td>
+                <td>审计报告编码, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>43</td>
+                <td>9</td>
+                <td></td>
+                <td>15 年</td>
+                <td>企业从事特定细分市场时间</td>
+                <td>exact:企业从事特定细分市场时间</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>44</td>
+                <td>9</td>
+                <td></td>
+                <td>86.53 %</td>
+                <td>主营业务收入占营业收入比重</td>
+                <td>exact:主营业务收入占营业收入比重</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>45</td>
+                <td>9</td>
+                <td></td>
+                <td>145.78 %</td>
+                <td>近2年主营业务收入平均增长率</td>
+                <td>exact:近2年主营业务收入平均增长率</td>
+                <td><span class="confidence-high">1.00</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>58</td>
+                <td>0</td>
+                <td></td>
+                <td>nan</td>
+                <td>五、特色化</td>
+                <td>api:workflow:d78f64dd</td>
+                <td><span class="confidence-medium">0.80</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>59</td>
+                <td>7</td>
+                <td>    </td>
+                <td>国际市场占有率:3%</td>
+                <td>主导产品国际细分市场占有率, 2022年</td>
+                <td>fuzzy:主导产品国际细分市场占有率->主导产品国际细分市场占有率2022年</td>
+                <td><span class="confidence-low">0.67</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>59</td>
+                <td>14</td>
+                <td>         </td>
+                <td>国际市场占有率:3%</td>
+                <td>主导产品国际细分市场占有率, 2023年</td>
+                <td>fuzzy:主导产品国际细分市场占有率->主导产品国际细分市场占有率2022年</td>
+                <td><span class="confidence-low">0.67</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>60</td>
+                <td>7</td>
+                <td></td>
+                <td>国内市场占有率:24.6%</td>
+                <td>主导产品全国细分市场占有率（提供1000字以内的企业说明，不再接收第三方出具的证明材料）, 2022年</td>
+                <td>fuzzy:主导产品全国细分市场占有率（提供1000字以内的企业说明，不再接收第三方出具的证明材料）->主导产品全国细分市场占有率（提供1000字以内的企业说明，不再接收第三方出具的证明材料）2022年</td>
+                <td><span class="confidence-medium">0.76</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>60</td>
+                <td>14</td>
+                <td>  </td>
+                <td>国内市场占有率:24.6%</td>
+                <td>主导产品全国细分市场占有率（提供1000字以内的企业说明，不再接收第三方出具的证明材料）, 2023年</td>
+                <td>fuzzy:主导产品全国细分市场占有率（提供1000字以内的企业说明，不再接收第三方出具的证明材料）->主导产品全国细分市场占有率（提供1000字以内的企业说明，不再接收第三方出具的证明材料）2022年</td>
+                <td><span class="confidence-medium">0.76</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>62</td>
+                <td>7</td>
+                <td></td>
+                <td>0万元</td>
+                <td>主导产品出口额, 主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。</td>
+                <td>fuzzy:主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。->主导产品出口额主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。</td>
+                <td><span class="confidence-medium">0.76</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>62</td>
+                <td>14</td>
+                <td></td>
+                <td>0万元</td>
+                <td>主导产品出口额, 2023年</td>
+                <td>fuzzy:主导产品出口额->主导产品出口额2023年</td>
+                <td><span class="confidence-low">0.59</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>63</td>
+                <td>7</td>
+                <td></td>
+                <td>0万元</td>
+                <td>企业自有品牌个数, 主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。</td>
+                <td>fuzzy:主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。->主导产品出口额主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。</td>
+                <td><span class="confidence-medium">0.76</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>63</td>
+                <td>14</td>
+                <td></td>
+                <td>12个</td>
+                <td>企业自有品牌个数, 2023年</td>
+                <td>fuzzy:企业自有品牌个数->企业自有品牌个数2023年</td>
+                <td><span class="confidence-low">0.61</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>64</td>
+                <td>7</td>
+                <td></td>
+                <td>0万元</td>
+                <td>企业自有品牌销售收入, 主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。</td>
+                <td>fuzzy:主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。->主导产品出口额主导产品全国细分市场占有率情况介绍：1.界定细分市场范围。2.介绍细分市场规模。相关数据有出处，市场规模推导符合逻辑即可。3.介绍本企业细分占有率情况。</td>
+                <td><span class="confidence-medium">0.76</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>64</td>
+                <td>14</td>
+                <td></td>
+                <td>222357.22万元</td>
+                <td>企业自有品牌销售收入, 2023年</td>
+                <td>fuzzy:企业自有品牌销售收入->企业自有品牌销售收入2023年</td>
+                <td><span class="confidence-low">0.64</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>75</td>
+                <td>3</td>
+                <td></td>
+                <td>764万元</td>
+                <td>研发费用总额, 2021年</td>
+                <td>fuzzy:2021年->营业收入2021年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>75</td>
+                <td>11</td>
+                <td></td>
+                <td>203万元</td>
+                <td>研发费用总额, 2022年</td>
+                <td>fuzzy:2022年->营业收入2022年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>75</td>
+                <td>17</td>
+                <td></td>
+                <td>256万元</td>
+                <td>研发费用总额, 2023年</td>
+                <td>fuzzy:2023年->营业收入2023年</td>
+                <td><span class="confidence-low">0.57</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>76</td>
+                <td>3</td>
+                <td></td>
+                <td>3.09 %</td>
+                <td>研发费用总额占营业收入总额比重, 2021年</td>
+                <td>fuzzy:研发费用总额占营业收入总额比重->研发费用总额占营业收入总额比重2021年</td>
+                <td><span class="confidence-low">0.69</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>76</td>
+                <td>11</td>
+                <td></td>
+                <td>3.09 %</td>
+                <td>研发费用总额占营业收入总额比重, 2022年</td>
+                <td>fuzzy:研发费用总额占营业收入总额比重->研发费用总额占营业收入总额比重2021年</td>
+                <td><span class="confidence-low">0.69</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>76</td>
+                <td>17</td>
+                <td></td>
+                <td>3.09 %</td>
+                <td>研发费用总额占营业收入总额比重, 2023年</td>
+                <td>fuzzy:研发费用总额占营业收入总额比重->研发费用总额占营业收入总额比重2021年</td>
+                <td><span class="confidence-low">0.69</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>77</td>
+                <td>3</td>
+                <td></td>
+                <td>58.28 %</td>
+                <td>研发人员占全部职工比重, 2021年</td>
+                <td>fuzzy:研发人员占全部职工比重->研发人员占全部职工比重2021年</td>
+                <td><span class="confidence-low">0.65</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>77</td>
+                <td>11</td>
+                <td></td>
+                <td>58.28 %</td>
+                <td>研发人员占全部职工比重, 2022年</td>
+                <td>fuzzy:研发人员占全部职工比重->研发人员占全部职工比重2021年</td>
+                <td><span class="confidence-low">0.65</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>77</td>
+                <td>17</td>
+                <td></td>
+                <td>58.28 %</td>
+                <td>研发人员占全部职工比重, 2023年</td>
+                <td>fuzzy:研发人员占全部职工比重->研发人员占全部职工比重2021年</td>
+                <td><span class="confidence-low">0.65</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>78</td>
+                <td>3</td>
+                <td></td>
+                <td>I类知识产权总数35项。 其中发明专利 35 项； 植物新品种0项； 国家级农作物品种0项； 国家新...</td>
+                <td>拥有与主导产品有关的I类知识产权情况
+（授权有效期内，不含转让未满一年的I类知识产权）, 2021年</td>
+                <td>fuzzy:拥有与主导产品有关的I类知识产权情况
+（授权有效期内，不含转让未满一年的I类知识产权）->拥有与主导产品有关的I类知识产权情况
+（授权有效期内，不含转让未满一年的I类知识产权）2021年</td>
+                <td><span class="confidence-medium">0.76</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>82</td>
+                <td>3</td>
+                <td></td>
+                <td>太阳能->太阳能发电及运营维护->太阳能发电系统->逆变器</td>
+                <td>所属产业链, □否    □是   如是，请填写：
+年份       年，排名</td>
+                <td>fuzzy:□否    □是   如是，请填写：
+年份       年，排名->所属产业链□否    □是   如是，请填写：
+年份       年，排名</td>
+                <td><span class="confidence-medium">0.74</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>87</td>
+                <td>3</td>
+                <td></td>
+                <td>3904 变压器、整流器和电感器</td>
+                <td>主导产品名称（中文）, 1.                          2.
+3.</td>
+                <td>fuzzy:1.                          2.
+3.->主导产品类别1.                          2.
+3.</td>
+                <td><span class="confidence-medium">0.73</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>88</td>
+                <td>3</td>
+                <td></td>
+                <td>3904 变压器、整流器和电感器</td>
+                <td>主导产品类别, 1.                          2.
+3.</td>
+                <td>fuzzy:1.                          2.
+3.->主导产品类别1.                          2.
+3.</td>
+                <td><span class="confidence-medium">0.73</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>89</td>
+                <td>3</td>
+                <td> </td>
+                <td>3904 变压器、整流器和电感器</td>
+                <td>是否属于工业“六基”领域, 1.                          2.
+3.</td>
+                <td>fuzzy:1.                          2.
+3.->主导产品类别1.                          2.
+3.</td>
+                <td><span class="confidence-medium">0.73</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            <tr>
+                <td>91</td>
+                <td>3</td>
+                <td></td>
+                <td>3904 变压器、整流器和电感器</td>
+                <td>作为主要起草单位制修订的已批准发布标准数量和名称, 1.                          2.
+3.</td>
+                <td>fuzzy:1.                          2.
+3.->主导产品类别1.                          2.
+3.</td>
+                <td><span class="confidence-medium">0.73</span></td>
+                <td><span class="status-success">✓ 成功</span></td>
+            </tr>
+            
+            </tbody>
+        </table>
+        
+        </section>
+        
+        
+        
+        <footer>
+            <p>报告由 Word表单填充工具 自动生成</p>
+        </footer>
+    </div>
+    
+    <!-- 导航按钮 -->
+    <div class="navigation-buttons" style="position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 10px;">
+        <a href="/" class="btn btn-secondary" style="background: #6c757d; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; font-size: 14px;">
+            🏠 返回主页
+        </a>
+        <a href="/api/download/filled_docx_20250910_162038" class="btn btn-primary" style="background: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; font-size: 14px;">📥 下载文档</a>
+    </div>
+    
+    <script>
+        // 报告页面增强脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加下载按钮样式
+            const style = document.createElement('style');
+            style.textContent = `
+                .btn {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    margin: 5px;
+                    text-decoration: none;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    border: none;
+                    transition: all 0.3s ease;
+                }
+                .btn-primary {
+                    background-color: #007bff;
+                    color: white;
+                }
+                .btn-secondary {
+                    background-color: #6c757d;
+                    color: white;
+                }
+                .btn:hover {
+                    opacity: 0.8;
+                    transform: translateY(-1px);
+                }
+                @media (max-width: 768px) {
+                    .navigation-buttons {
+                        position: static !important;
+                        justify-content: center;
+                        margin: 20px 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

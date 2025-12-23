@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能Word表单填充服务</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🚀 智能Word表单填充服务</h1>
+        <p>上传Word文档，自动解析空白单元格并智能填充内容</p>
+
+        <!-- 功能选择标签页 -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('upload')">文档处理</button>
+            <button class="tab-button" onclick="switchTab('update')">数据更新</button>
+        </div>
+
+        <!-- 文档处理功能 -->
+        <div id="upload-tab" class="tab-content active">
+            <div class="upload-area">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" id="fileInput" name="file" accept=".docx,.doc" required>
+                    <br><br>
+                    <button type="submit" class="btn">上传并处理</button>
+                </form>
+            </div>
+            <div id="result" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- 数据更新功能 -->
+        <div id="update-tab" class="tab-content">
+            <div class="update-section">
+                <h3>📊 更新训练数据</h3>
+                <p>上传两个Word文档来更新系统的训练数据：</p>
+                <ul>
+                    <li><strong>空单元格文档：</strong>包含需要填充的空白表格</li>
+                    <li><strong>完整数据文档：</strong>包含对应的完整填充数据</li>
+                </ul>
+
+                <form id="updateForm" enctype="multipart/form-data">
+                    <div class="file-input-group">
+                        <label for="emptyCellsInput">空单元格文档：</label>
+                        <input type="file" id="emptyCellsInput" name="empty_cells_doc" accept=".docx,.doc" required>
+                    </div>
+
+                    <div class="file-input-group">
+                        <label for="fullCellsInput">完整数据文档：</label>
+                        <input type="file" id="fullCellsInput" name="full_cells_doc" accept=".docx,.doc" required>
+                    </div>
+
+                    <button type="submit" class="btn">更新数据</button>
+                </form>
+
+                <div id="updateResult" class="result" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/upload.js"></script>
+</body>
+
+</html>
